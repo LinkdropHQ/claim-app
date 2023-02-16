@@ -80,6 +80,7 @@ const ChooseWallet: FC<ReduxType> = () => {
 
       authClient.on("auth_response", (result) => {
         console.log({ result })
+        clearTimeout('connected')
       })
     }}>
       Use Zerion
