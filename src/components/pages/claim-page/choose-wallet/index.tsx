@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
 import ZerionLogo from 'images/zerion.png'
 import AuthClient, { generateNonce } from "@walletconnect/auth-client"
 import { useWeb3Modal } from "@web3modal/react"
+import { Web3Button } from "@web3modal/react";
 
 const { REACT_APP_WC_PROJECT_ID } = process.env
 
@@ -70,11 +71,12 @@ const ChooseWallet: FC<ReduxType> = () => {
     }}>
       Use Zerion
     </ScreenButton>
-    <AdditionalAction onClick={() => {
+    {/* <AdditionalAction onClick={() => {
       open()
     }}>
       Choose another wallet
-    </AdditionalAction>
+    </AdditionalAction> */}
+    <Web3Button />
   </Container>
 }
 
