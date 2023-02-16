@@ -39,3 +39,8 @@ export const AdditionalAction = styled.div`
   text-align: center;
   cursor: pointer;
 `
+
+export const Link = styled.a`
+  color: ${props => props.theme.linkColor};
+  text-decoration: none;
+`

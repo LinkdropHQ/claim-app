@@ -5,13 +5,15 @@ import {
   Container,
   TextComponent,
   WalletIcon,
-  AdditionalAction
+  AdditionalAction,
+  Link
 } from './styled-components'
 import { RootState } from 'data/store'
 import { connect } from 'react-redux'
 import ZerionLogo from 'images/zerion.png'
 import AuthClient, { generateNonce } from "@walletconnect/auth-client"
 import { useWeb3Modal } from "@web3modal/react"
+import { defineSystem } from 'helpers'
 
 const { REACT_APP_WC_PROJECT_ID } = process.env
 
@@ -23,6 +25,18 @@ const mapStateToProps = ({
 })
 
 type ReduxType = ReturnType<typeof mapStateToProps>
+
+const defineUrlHref = () => {
+  const system = defineSystem()
+  switch (system) {
+    case 'android':
+      return 'https://play.google.com/store/apps/details?id=io.zerion.android&_branch_match_id=1131934258497997120&utm_source=zerion_homepage&utm_campaign=wallet_launch&utm_medium=homepage&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXz8nMy9arSi3KzM/Ty8zXTzE0zDfz9DPIKkwCAJ6OLGAiAAAA&pli=1'
+    case 'ios':
+      return 'https://apps.apple.com/ru/app/zerion-crypto-wallet-defi/id1456732565?l=en'
+    default:
+      return 'https://zerion.io/'
+  }
+}
 
 const ChooseWallet: FC<ReduxType> = () => {
   const [ client, setClient ] = useState<AuthClient | null>();
@@ -43,11 +57,13 @@ const ChooseWallet: FC<ReduxType> = () => {
 
   const { isOpen, open } = useWeb3Modal();
 
+  
+
   return <Container> 
     <WalletIcon src={ZerionLogo} /> 
     <TitleComponent>Connect your wallet</TitleComponent>
     <TextComponent>
-      Claim NFT using your Zerion Wallet. Download the app or use another wallet.
+      Claim NFT using your Zerion Wallet. <Link target="_blank" href={defineUrlHref()}>Download the app</Link> or use another wallet.
     </TextComponent>
     <ScreenButton onClick={async () => {
       const authClient = await AuthClient.init({
