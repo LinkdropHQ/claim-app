@@ -37,7 +37,7 @@ const ChooseWallet: FC<ReduxType> = () => {
         statement: "Sign in with wallet.",
       })
       .then(({ uri }) => {
-        window.open(`zerion://wc?uri=${uri}`, '_blank')
+        window.location.href = `zerion://wc?uri=${uri}`
       })
   }, [client])
   
