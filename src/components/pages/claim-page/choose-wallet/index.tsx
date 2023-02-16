@@ -71,12 +71,11 @@ const ChooseWallet: FC<ReduxType> = () => {
     }}>
       Use Zerion
     </ScreenButton>
-    {/* <AdditionalAction onClick={() => {
+    <AdditionalAction onClick={() => {
       open()
     }}>
       Choose another wallet
-    </AdditionalAction> */}
-    <Web3Button />
+    </AdditionalAction>
   </Container>
 }
 

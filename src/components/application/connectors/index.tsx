@@ -18,7 +18,7 @@ const wagmiClient = createClient({
   autoConnect: true,
   connectors: modalConnectors({
     projectId: REACT_APP_WC_PROJECT_ID as string,
-    version: "2",
+    version: "1",
     appName: "web3Modal",
     chains
   }),
