@@ -12,7 +12,6 @@ import { connect } from 'react-redux'
 import ZerionLogo from 'images/zerion.png'
 import AuthClient, { generateNonce } from "@walletconnect/auth-client"
 import { useWeb3Modal } from "@web3modal/react"
-import { Web3Button } from "@web3modal/react";
 
 const { REACT_APP_WC_PROJECT_ID } = process.env
 
@@ -34,9 +33,7 @@ const ChooseWallet: FC<ReduxType> = () => {
         aud: window.location.href,
         domain: window.location.hostname.split(".").slice(-2).join("."),
         chainId: "eip155:1",
-        type: "eip4361",
         nonce: generateNonce(),
-        statement: "Sign in with wallet.",
       })
       .then(({ uri }) => {
         alert(uri)
@@ -44,7 +41,7 @@ const ChooseWallet: FC<ReduxType> = () => {
       })
   }, [client])
 
-  const { isOpen, open, close, setDefaultChain } = useWeb3Modal();
+  const { isOpen, open } = useWeb3Modal();
 
   return <Container> 
     <WalletIcon src={ZerionLogo} /> 
