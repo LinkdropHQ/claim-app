@@ -36,8 +36,8 @@ const ChooseWallet: FC<ReduxType> = () => {
         nonce: generateNonce(),
         statement: "Sign in with wallet.",
       })
-      .then((res) => {
-        console.log({ res })
+      .then(({ uri }) => {
+        window.open(`zerion://wc?uri=${uri}`, '_blank')
       })
   }, [client])
   
@@ -49,7 +49,7 @@ const ChooseWallet: FC<ReduxType> = () => {
     </TextComponent>
     <ScreenButton onClick={async () => {
       const authClient = await AuthClient.init({
-        projectId: 'ecc4036f814562b41a5268adc86270fba1365471402006302e70169465b7ac18',
+        projectId: REACT_APP_WC_PROJECT_ID as string,
         metadata: {
           name: "Linkdrop-Test",
           description: "A dapp using WalletConnect AuthClient",
@@ -57,10 +57,11 @@ const ChooseWallet: FC<ReduxType> = () => {
           icons: ["https://jazzy-donut-086baa.netlify.app/zerion.png"],
         },
       })
-      
 
-      authClient.on("auth_response", (authClientRes) => {
-        console.log({ authClientRes })
+      setClient(authClient)
+
+      authClient.on("auth_response", (result) => {
+        console.log({ result })
       });
 
       
