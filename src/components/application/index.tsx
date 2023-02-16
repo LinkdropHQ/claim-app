@@ -3,26 +3,24 @@ import { Provider } from 'react-redux'
 import RouterProvider from './router-provider'
 import store from 'data/store'
 import { Container } from './styled-components'
-import { hooks as metamaskHooks, metamask } from './connectors/metamask-connect'
-import { WalletConnect } from '@web3-react/walletconnect'
-import { MetaMask } from '@web3-react/metamask'
-import { hooks as walletConnectHooks, walletConnect } from './connectors/wallet-connect'
-import { Web3ReactHooks, Web3ReactProvider } from '@web3-react/core'
-
-const connectors: [ MetaMask | WalletConnect, Web3ReactHooks ][] = [
-  [ metamask, metamaskHooks ],
-  [ walletConnect, walletConnectHooks ]
-]
+import { Web3Modal } from "@web3modal/react"
+import { ethereumClient, wagmiClient } from './connectors'
+import { WagmiConfig } from "wagmi"
+const { REACT_APP_WC_PROJECT_ID } = process.env
 
 class Application extends React.Component {
   render () {
-    return <Web3ReactProvider connectors={connectors}>
-      <Container>
+    return <Container>
+      <WagmiConfig client={wagmiClient}>
         <Provider store={store}>
           <RouterProvider />
         </Provider>
-      </Container>
-    </Web3ReactProvider>
+      </WagmiConfig>
+      <Web3Modal
+        projectId={REACT_APP_WC_PROJECT_ID as string}
+        ethereumClient={ethereumClient}
+      />
+    </Container>
   }
 }
 export default Application

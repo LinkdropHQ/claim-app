@@ -9,11 +9,12 @@ import {
 } from './styled-components'
 import { RootState } from 'data/store'
 import { connect } from 'react-redux'
-import { hooks as walletConnectHooks, walletConnect } from 'components/application/connectors/wallet-connect'
 import ZerionLogo from 'images/zerion.png'
 import AuthClient, { generateNonce } from "@walletconnect/auth-client"
+import { useWeb3Modal } from "@web3modal/react"
+
 const { REACT_APP_WC_PROJECT_ID } = process.env
- console.log({ REACT_APP_WC_PROJECT_ID })
+
 const mapStateToProps = ({
   token: { name, image },
   drop: { tokenId, type }
@@ -37,10 +38,13 @@ const ChooseWallet: FC<ReduxType> = () => {
         statement: "Sign in with wallet.",
       })
       .then(({ uri }) => {
+        alert(uri)
         window.location.href = `zerion://wc?uri=${uri}`
       })
   }, [client])
-  
+
+  const { isOpen, open, close, setDefaultChain } = useWeb3Modal();
+
   return <Container> 
     <WalletIcon src={ZerionLogo} /> 
     <TitleComponent>Connect your wallet</TitleComponent>
@@ -55,24 +59,22 @@ const ChooseWallet: FC<ReduxType> = () => {
           description: "A dapp using WalletConnect AuthClient",
           url: "https://jazzy-donut-086baa.netlify.app/",
           icons: ["https://jazzy-donut-086baa.netlify.app/zerion.png"],
-        },
+        }
       })
 
       setClient(authClient)
 
       authClient.on("auth_response", (result) => {
         console.log({ result })
-      });
-
-      
+      })
     }}>
       Use Zerion
     </ScreenButton>
-    <AdditionalAction
-      onClick={() => {
-        walletConnect.activate()
-      }}
-    >Choose another wallet</AdditionalAction>
+    <AdditionalAction onClick={() => {
+      open()
+    }}>
+      Choose another wallet
+    </AdditionalAction>
   </Container>
 }
 

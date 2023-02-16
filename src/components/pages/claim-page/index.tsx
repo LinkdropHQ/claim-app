@@ -1,6 +1,4 @@
 import { FC, ReactElement, useEffect } from 'react'
-import { useWeb3React, Web3ReactHooks, Web3ReactProvider } from '@web3-react/core'
-
 import InitialScreen from './initial-screen'
 import ChangeNetwork from './change-network'
 import ClaimingFinished from './claiming-finished'
@@ -16,7 +14,7 @@ import ErrorServerFail from './error-server-fail'
 import ErrorLinkExpired from './error-link-expired'
 import ErrorAlreadyClaimed from './error-already-claimed'
 import ChooseWallet from './choose-wallet'
-
+import { useAccount, useConnect, useEnsName, useChainId } from 'wagmi'
 import { Loader } from 'components/common'
 import Page from '../page'
 import { TDropStep } from 'types'
@@ -99,13 +97,23 @@ const ClaimPage: FC<ReduxType> = ({
 }) => {
 
   const screen = defineCurrentScreen(step)
-  const { connector, account, chainId } = useWeb3React()
+  const { address } = useAccount()
+  const chainId = useChainId()
+  console.log({ chainId })
   useEffect(() => {
-    getData(
-      account,
-      chainId
-    )
-  }, [account])
+    const init = async () => {
+      getData(
+        address,
+        chainId
+      )
+    }
+    if (address && chainId) {
+      init()
+    } else {
+      getData()
+    }
+    
+  }, [address, chainId])
   
   return <Page>
     <Container>
