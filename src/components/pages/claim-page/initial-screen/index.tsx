@@ -99,7 +99,7 @@ const InitialScreen: FC<ReduxType> = ({
       Claim NFT to: <UserAddress>{shortenString(address, 3)}</UserAddress>.
     </TextComponent>
     {defineButton()}
-    <Terms>By claiming NFT you agree to <TermsLink href="#">Terms and Conditions</TermsLink></Terms>
+    <Terms>By claiming NFT you agree to <TermsLink target="_blank" href="https://www.notion.so/Terms-and-Privacy-dfa7d9b85698491d9926cbfe3c9a0a58">Terms and Conditions</TermsLink></Terms>
   </Container>
 }
 
