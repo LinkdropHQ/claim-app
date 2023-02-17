@@ -50,8 +50,8 @@ const ChooseWallet: FC<ReduxType> = () => {
         nonce: generateNonce(),
       })
       .then(({ uri }) => {
-        alert(`zerion://wc?uri=${uri}`)
-        window.location.href = `zerion://wc?uri=${uri}`
+        alert(`rainbow://wc?uri=${uri}`)
+        window.location.href = `rainbow://wc?uri=${uri}`
       })
   }, [client])
 
