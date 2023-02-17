@@ -50,8 +50,8 @@ const ChooseWallet: FC<ReduxType> = () => {
         nonce: generateNonce(),
       })
       .then(({ uri }) => {
-        alert(`rainbow://wc?uri=${uri}`)
-        window.location.href = `rainbow://wc?uri=${uri}`
+        alert(`zerion://wc?uri=${uri}`)
+        window.location.href = `zerion://wc?uri=${uri}`
       })
   }, [client])
 
@@ -71,7 +71,7 @@ const ChooseWallet: FC<ReduxType> = () => {
         metadata: {
           name: "Linkdrop-Test",
           description: "A dapp using WalletConnect AuthClient",
-          url: "https://jazzy-donut-086baa.netlify.app/",
+          url: window.location.host,
           icons: ["https://jazzy-donut-086baa.netlify.app/zerion.png"],
         }
       })
