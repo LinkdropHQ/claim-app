@@ -69,9 +69,8 @@ const ChooseWallet: FC<ReduxType> = () => {
     client
       .request({
         aud: window.location.href,
-        domain: 'jazzy-donut-086baa.netlify.app',
+        domain: window.location.hostname.split(".").slice(-2).join("."),
         chainId: "eip155:1",
-        type: "eip4361",
         nonce: generateNonce(),
       })
       .then(({ uri }) => {
@@ -94,6 +93,7 @@ const ChooseWallet: FC<ReduxType> = () => {
     <ScreenButton onClick={async () => {
       const authClient = await AuthClient.init({
         projectId: REACT_APP_WC_PROJECT_ID as string,
+        relayUrl: "wss://relay.walletconnect.com",
         metadata: {
           name: "Linkdrop-Test",
           description: "A dapp using WalletConnect AuthClient",
