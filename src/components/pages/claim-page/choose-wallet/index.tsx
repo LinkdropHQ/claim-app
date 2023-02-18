@@ -13,7 +13,7 @@ import { connect } from 'react-redux'
 import ZerionLogo from 'images/zerion.png'
 import AuthClient, { generateNonce } from "@walletconnect/auth-client"
 import { useWeb3Modal } from "@web3modal/react"
-import { defineSystem, getHashVariables } from 'helpers'
+import { defineSystem } from 'helpers'
 import { Dispatch } from 'redux';
 import * as dropAsyncActions from 'data/store/reducers/drop/async-actions'
 import { DropActions } from 'data/store/reducers/drop/types'
@@ -59,7 +59,6 @@ const ChooseWallet: FC<ReduxType> = ({
   getData
 }) => {
   const [ client, setClient ] = useState<AuthClient | null>()
-  const { chainId } = getHashVariables()
   useEffect(() => {
     if (!client) { return }
     client
