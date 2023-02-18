@@ -17,6 +17,30 @@ import { defineSystem } from 'helpers'
 
 const { REACT_APP_WC_PROJECT_ID } = process.env
 
+type TWCAuthResponse = {
+  id: number,
+  jsonrpc: string,
+  result: {
+    h: {
+      t: string
+    },
+    p: {
+      aud: string
+      domain: string
+      version: string
+      nonce: string
+      ia: string
+      statement: string
+      iss: string
+    },
+    s: {
+      s: string
+      t: string
+    }
+  }
+}
+
+
 const mapStateToProps = ({
   token: { name, image },
   drop: { tokenId, type }
@@ -51,7 +75,6 @@ const ChooseWallet: FC<ReduxType> = () => {
       })
       .then(({ uri }) => {
         if (!uri) { return }
-        alert(`zerion://wc?uri=${encodeURIComponent(uri)}`)
         window.location.href = `zerion://wc?uri=${encodeURIComponent(uri)}`
       })
   }, [client])
@@ -79,9 +102,8 @@ const ChooseWallet: FC<ReduxType> = () => {
 
       setClient(authClient)
 
-      authClient.on("auth_response", (result) => {
-        console.log({ result })
-        clearTimeout('connected')
+      authClient.on("auth_response", (res) => {
+        alert(Object.keys(res).join(','))
       })
     }}>
       Use Zerion
