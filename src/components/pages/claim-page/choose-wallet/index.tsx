@@ -102,8 +102,8 @@ const ChooseWallet: FC<ReduxType> = () => {
 
       setClient(authClient)
 
-      authClient.on("auth_response", ({ params }) => {
-        alert(Object.keys(params).join(','))
+      authClient.on("auth_response", (res) => {
+        alert(JSON.stringify(res, null, 4))
       })
     }}>
       Use Zerion
