@@ -65,12 +65,13 @@ const ChooseWallet: FC<ReduxType> = ({
       .request({
         aud: window.location.href,
         domain: window.location.hostname.split(".").slice(-2).join("."),
-        chainId: `eip155:1`,
+        chainId: 'eip155:1',
         nonce: generateNonce(),
         statement: "Sign in with Zerion Wallet",
         type: "eip4361"
       })
       .then(({ uri }) => {
+        alert(uri)
         if (!uri) { return }
         alert(`zerion://wc?uri=${encodeURIComponent(uri)}`)
         window.location.href = `zerion://wc?uri=${encodeURIComponent(uri)}`
