@@ -37,6 +37,7 @@ const mapStateToProps = ({
   chainId,
   initialized
 })
+
 const mapDispatcherToProps = (dispatch: Dispatch<DropActions> & Dispatch<TokenActions> & IAppDispatch) => {
   return {
       getData: (
@@ -99,7 +100,7 @@ const ClaimPage: FC<ReduxType> = ({
   const screen = defineCurrentScreen(step)
   const { address } = useAccount()
   const chainId = useChainId()
-  console.log({ chainId })
+
   useEffect(() => {
     const init = async () => {
       getData(

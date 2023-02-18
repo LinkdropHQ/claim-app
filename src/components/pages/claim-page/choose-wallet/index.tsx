@@ -8,38 +8,31 @@ import {
   AdditionalAction,
   Link
 } from './styled-components'
-import { RootState } from 'data/store'
+import { RootState, IAppDispatch } from 'data/store'
 import { connect } from 'react-redux'
 import ZerionLogo from 'images/zerion.png'
 import AuthClient, { generateNonce } from "@walletconnect/auth-client"
 import { useWeb3Modal } from "@web3modal/react"
-import { defineSystem } from 'helpers'
+import { defineSystem, getHashVariables } from 'helpers'
+import { Dispatch } from 'redux';
+import * as dropAsyncActions from 'data/store/reducers/drop/async-actions'
+import { DropActions } from 'data/store/reducers/drop/types'
+import { TokenActions } from 'data/store/reducers/token/types'
 
 const { REACT_APP_WC_PROJECT_ID } = process.env
 
-type TWCAuthResponse = {
-  id: number,
-  jsonrpc: string,
-  result: {
-    h: {
-      t: string
-    },
-    p: {
-      aud: string
-      domain: string
-      version: string
-      nonce: string
-      ia: string
-      statement: string
-      iss: string
-    },
-    s: {
-      s: string
-      t: string
-    }
+
+const mapDispatcherToProps = (dispatch: Dispatch<DropActions> & Dispatch<TokenActions> & IAppDispatch) => {
+  return {
+      getData: (
+        address?: string,
+        chainId?: number
+      ) => dispatch(dropAsyncActions.getInitialData(
+        address,
+        chainId
+      )),
   }
 }
-
 
 const mapStateToProps = ({
   token: { name, image },
@@ -48,7 +41,7 @@ const mapStateToProps = ({
   name, image, type, tokenId
 })
 
-type ReduxType = ReturnType<typeof mapStateToProps>
+type ReduxType = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatcherToProps>
 
 const defineUrlHref = () => {
   const system = defineSystem()
@@ -62,15 +55,18 @@ const defineUrlHref = () => {
   }
 }
 
-const ChooseWallet: FC<ReduxType> = () => {
-  const [ client, setClient ] = useState<AuthClient | null>();
+const ChooseWallet: FC<ReduxType> = ({
+  getData
+}) => {
+  const [ client, setClient ] = useState<AuthClient | null>()
+  const { chainId } = getHashVariables()
   useEffect(() => {
     if (!client) { return }
     client
       .request({
         aud: window.location.href,
         domain: window.location.hostname.split(".").slice(-2).join("."),
-        chainId: "eip155:1",
+        chainId: `eip155:${chainId}`,
         nonce: generateNonce(),
         statement: "Sign in with Zerion Wallet",
         type: "eip4361"
@@ -104,9 +100,23 @@ const ChooseWallet: FC<ReduxType> = () => {
       })
 
       setClient(authClient)
+      authClient.on("auth_response", ({ params }) => {
+        // @ts-ignore
+        if (Boolean(params && params.result && params.result.p)) {
+          // @ts-ignore
+          const { iss } = params.result.p
+          const walletData = iss.split(":")
+          const walletAddress = walletData[4]
+          const walletChainId = walletData[3]
+          getData(
+            walletAddress,
+            walletChainId
+          )
+        } else {
+          // @ts-ignore
+          console.error(params.message)
+        }
 
-      authClient.on("auth_response", (res) => {
-        alert(JSON.stringify(res, null, 4))
       })
     }}>
       Use Zerion
@@ -119,4 +129,4 @@ const ChooseWallet: FC<ReduxType> = () => {
   </Container>
 }
 
-export default connect(mapStateToProps)(ChooseWallet)
+export default connect(mapStateToProps, mapDispatcherToProps)(ChooseWallet)
