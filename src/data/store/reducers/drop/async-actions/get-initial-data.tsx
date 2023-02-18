@@ -110,7 +110,7 @@ export default function getData(
 
       if (isClaimed) {
         dispatch(actionsDrop.setLoading(false))
-        return dispatch(actionsDrop.setStep('already_claimed'))
+        return dispatch(actionsDrop.setStep('claiming_finished'))
       }
 
       if (!hasConnector && !address) {
