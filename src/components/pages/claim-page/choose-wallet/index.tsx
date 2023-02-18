@@ -72,6 +72,8 @@ const ChooseWallet: FC<ReduxType> = () => {
         domain: window.location.hostname.split(".").slice(-2).join("."),
         chainId: "eip155:1",
         nonce: generateNonce(),
+        statement: "Sign in with Zerion Wallet",
+        type: "eip4361"
       })
       .then(({ uri }) => {
         if (!uri) { return }
@@ -93,7 +95,6 @@ const ChooseWallet: FC<ReduxType> = () => {
     <ScreenButton onClick={async () => {
       const authClient = await AuthClient.init({
         projectId: REACT_APP_WC_PROJECT_ID as string,
-        relayUrl: "wss://relay.walletconnect.com",
         metadata: {
           name: "Linkdrop-Test",
           description: "A dapp using WalletConnect AuthClient",
