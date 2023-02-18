@@ -13,7 +13,7 @@ import { connect } from 'react-redux'
 import ZerionLogo from 'images/zerion.png'
 import AuthClient, { generateNonce } from "@walletconnect/auth-client"
 import { useWeb3Modal } from "@web3modal/react"
-import { defineSystem } from 'helpers'
+import { defineSystem, getHashVariables } from 'helpers'
 import { Dispatch } from 'redux';
 import * as dropAsyncActions from 'data/store/reducers/drop/async-actions'
 import { DropActions } from 'data/store/reducers/drop/types'
@@ -58,6 +58,8 @@ const defineUrlHref = () => {
 const ChooseWallet: FC<ReduxType> = ({
   getData
 }) => {
+  const { chainId } = getHashVariables()
+
   const [ client, setClient ] = useState<AuthClient | null>()
   useEffect(() => {
     if (!client) { return }
@@ -65,7 +67,7 @@ const ChooseWallet: FC<ReduxType> = ({
       .request({
         aud: window.location.href,
         domain: window.location.hostname.split(".").slice(-2).join("."),
-        chainId: 'eip155:1',
+        chainId: `eip155:${chainId}`,
         nonce: generateNonce(),
         statement: "Sign in with Zerion Wallet"
       })
@@ -76,9 +78,7 @@ const ChooseWallet: FC<ReduxType> = ({
       })
   }, [client])
 
-  const { isOpen, open } = useWeb3Modal();
-
-  
+  const { isOpen, open } = useWeb3Modal()
 
   return <Container> 
     <WalletIcon src={ZerionLogo} /> 
@@ -89,7 +89,6 @@ const ChooseWallet: FC<ReduxType> = ({
     <ScreenButton onClick={async () => {
       const authClient = await AuthClient.init({
         projectId: REACT_APP_WC_PROJECT_ID as string,
-        relayUrl: "wss://relay.walletconnect.org",
         metadata: {
           name: "Linkdrop-Test",
           description: "A dapp using WalletConnect AuthClient",
