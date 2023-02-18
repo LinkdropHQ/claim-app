@@ -68,9 +68,10 @@ const ChooseWallet: FC<ReduxType> = () => {
     if (!client) { return }
     client
       .request({
-        aud: window.location.href,
+        aud: 'https://jazzy-donut-086baa.netlify.app',
         domain: window.location.hostname.split(".").slice(-2).join("."),
         chainId: "eip155:1",
+        type: "eip4361",
         nonce: generateNonce(),
       })
       .then(({ uri }) => {
