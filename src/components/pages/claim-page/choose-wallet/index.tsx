@@ -70,7 +70,6 @@ const ChooseWallet: FC<ReduxType> = ({
         statement: "Sign in with Zerion Wallet"
       })
       .then(({ uri }) => {
-        alert(uri)
         if (!uri) { return }
         alert(`zerion://wc?uri=${encodeURIComponent(uri)}`)
         window.location.href = `zerion://wc?uri=${encodeURIComponent(uri)}`
@@ -88,7 +87,6 @@ const ChooseWallet: FC<ReduxType> = ({
       Claim NFT using your Zerion Wallet. <Link target="_blank" href={defineUrlHref()}>Download the app</Link> or use another wallet.
     </TextComponent>
     <ScreenButton onClick={async () => {
-      alert('1')
       const authClient = await AuthClient.init({
         projectId: REACT_APP_WC_PROJECT_ID as string,
         metadata: {
@@ -98,10 +96,8 @@ const ChooseWallet: FC<ReduxType> = ({
           icons: ["https://jazzy-donut-086baa.netlify.app/zerion.png"],
         }
       })
-      alert('2')
 
       setClient(authClient)
-      alert('3')
       authClient.on("auth_response", ({ params }) => {
         // @ts-ignore
         if (Boolean(params && params.result && params.result.p)) {
