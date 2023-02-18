@@ -89,6 +89,7 @@ const ChooseWallet: FC<ReduxType> = ({
     <ScreenButton onClick={async () => {
       const authClient = await AuthClient.init({
         projectId: REACT_APP_WC_PROJECT_ID as string,
+        relayUrl: "wss://relay.walletconnect.org",
         metadata: {
           name: "Linkdrop-Test",
           description: "A dapp using WalletConnect AuthClient",
