@@ -75,7 +75,8 @@ const ChooseWallet: FC<ReduxType> = () => {
       })
       .then(({ uri }) => {
         if (!uri) { return }
-        window.location.href = `metamask://wc?uri=${encodeURIComponent(uri)}`
+        alert(`zerion://wc?uri=${encodeURIComponent(uri)}`)
+        window.location.href = `zerion://wc?uri=${encodeURIComponent(uri)}`
       })
   }, [client])
 
