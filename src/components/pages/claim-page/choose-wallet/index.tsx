@@ -75,7 +75,7 @@ const ChooseWallet: FC<ReduxType> = () => {
       })
       .then(({ uri }) => {
         if (!uri) { return }
-        window.location.href = `rainbow://wc?uri=${encodeURIComponent(uri)}`
+        window.location.href = `metamask://wc?uri=${encodeURIComponent(uri)}`
       })
   }, [client])
 
