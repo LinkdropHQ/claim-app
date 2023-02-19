@@ -74,7 +74,7 @@ const ChooseWallet: FC<ReduxType> = ({
       .then(({ uri }) => {
         if (!uri) { return }
         const href = system === 'desktop' ? `https://wallet.zerion.io/wc?uri=${encodeURIComponent(uri)}` :  `zerion://wc?uri=${encodeURIComponent(uri)}`
-        window.location.href =href
+        window.open(href, '_blank')
       })
   }, [client])
 
