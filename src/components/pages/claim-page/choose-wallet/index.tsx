@@ -59,7 +59,7 @@ const ChooseWallet: FC<ReduxType> = ({
   getData
 }) => {
   const { chainId } = getHashVariables()
-
+  const system = defineSystem()
   const [ client, setClient ] = useState<AuthClient | null>()
   useEffect(() => {
     if (!client) { return }
@@ -73,7 +73,8 @@ const ChooseWallet: FC<ReduxType> = ({
       })
       .then(({ uri }) => {
         if (!uri) { return }
-        window.location.href = `zerion://wc?uri=${encodeURIComponent(uri)}`
+        const href = system === 'desktop' ? `https://wallet.zerion.io/wc?uri=${encodeURIComponent(uri)}` :  `zerion://wc?uri=${encodeURIComponent(uri)}`
+        window.location.href =href
       })
   }, [client])
 
