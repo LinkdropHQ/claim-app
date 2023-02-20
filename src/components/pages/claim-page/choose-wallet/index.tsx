@@ -6,21 +6,23 @@ import {
   TextComponent,
   WalletIcon,
   AdditionalAction,
-  Link
+  Link,
+  WalletIconEth
 } from './styled-components'
 import { RootState, IAppDispatch } from 'data/store'
 import { connect } from 'react-redux'
 import ZerionLogo from 'images/zerion.png'
+import EthWallet from 'images/eth-wallet.png'
 import AuthClient, { generateNonce } from "@walletconnect/auth-client"
 import { useWeb3Modal } from "@web3modal/react"
 import { defineSystem, getHashVariables } from 'helpers'
-import { Dispatch } from 'redux';
+import { Dispatch } from 'redux'
+import { TSystem } from 'types'
 import * as dropAsyncActions from 'data/store/reducers/drop/async-actions'
 import { DropActions } from 'data/store/reducers/drop/types'
 import { TokenActions } from 'data/store/reducers/token/types'
 
 const { REACT_APP_WC_PROJECT_ID } = process.env
-
 
 const mapDispatcherToProps = (dispatch: Dispatch<DropActions> & Dispatch<TokenActions> & IAppDispatch) => {
   return {
@@ -55,6 +57,78 @@ const defineUrlHref = () => {
   }
 }
 
+const defineButton = (
+  system: TSystem,
+  open: () => void,
+  setClient: (client: AuthClient) => void,
+  getData: (
+    address?: string,
+    chainId?: number
+  ) => void
+) => {
+  if (system === 'desktop') {
+    return <ScreenButton onClick={() => {
+      open()
+    }}>
+      Connect Wallet
+    </ScreenButton>
+  }
+  return <ScreenButton onClick={async () => {
+    const authClient = await AuthClient.init({
+      projectId: REACT_APP_WC_PROJECT_ID as string,
+      metadata: {
+        name: "Linkdrop-Test",
+        description: "A dapp using WalletConnect AuthClient",
+        url: window.location.host,
+        icons: ["https://jazzy-donut-086baa.netlify.app/zerion.png"],
+      }
+    })
+
+    setClient(authClient)
+    authClient.on("auth_response", ({ params }) => {
+      // @ts-ignore
+      if (Boolean(params && params.result && params.result.p)) {
+        // @ts-ignore
+        const { iss } = params.result.p
+        const walletData = iss.split(":")
+        const walletAddress = walletData[4]
+        const walletChainId = walletData[3]
+        getData(
+          walletAddress,
+          walletChainId
+        )
+      } else {
+        // @ts-ignore
+        console.error(params.message)
+      }
+
+    })
+  }}>
+    Use Zerion
+  </ScreenButton>
+}
+
+const renderTexts = (
+  system: TSystem
+) => {
+  if (system === 'desktop') {
+    return <>
+      <WalletIconEth src={EthWallet} /> 
+      <TitleComponent>Connect your wallet</TitleComponent>
+      <TextComponent>
+      If you don’t have a wallet, <Link target="_blank" href='https://metamask.io/download/'>download Metamask</Link> or use another wallet.
+      </TextComponent>
+    </>
+  }
+  return <>
+    <WalletIcon src={ZerionLogo} /> 
+    <TitleComponent>Connect your wallet</TitleComponent>
+    <TextComponent>
+      Claim NFT using your Zerion Wallet. <Link target="_blank" href={defineUrlHref()}>Download the app</Link> or use another wallet.
+    </TextComponent>
+  </>
+}
+
 const ChooseWallet: FC<ReduxType> = ({
   getData
 }) => {
@@ -81,49 +155,20 @@ const ChooseWallet: FC<ReduxType> = ({
   const { isOpen, open } = useWeb3Modal()
 
   return <Container> 
-    <WalletIcon src={ZerionLogo} /> 
-    <TitleComponent>Connect your wallet</TitleComponent>
-    <TextComponent>
-      Claim NFT using your Zerion Wallet. <Link target="_blank" href={defineUrlHref()}>Download the app</Link> or use another wallet.
-    </TextComponent>
-    <ScreenButton onClick={async () => {
-      const authClient = await AuthClient.init({
-        projectId: REACT_APP_WC_PROJECT_ID as string,
-        metadata: {
-          name: "Linkdrop-Test",
-          description: "A dapp using WalletConnect AuthClient",
-          url: window.location.host,
-          icons: ["https://jazzy-donut-086baa.netlify.app/zerion.png"],
-        }
-      })
-
-      setClient(authClient)
-      authClient.on("auth_response", ({ params }) => {
-        // @ts-ignore
-        if (Boolean(params && params.result && params.result.p)) {
-          // @ts-ignore
-          const { iss } = params.result.p
-          const walletData = iss.split(":")
-          const walletAddress = walletData[4]
-          const walletChainId = walletData[3]
-          getData(
-            walletAddress,
-            walletChainId
-          )
-        } else {
-          // @ts-ignore
-          console.error(params.message)
-        }
-
-      })
-    }}>
-      Use Zerion
-    </ScreenButton>
-    <AdditionalAction onClick={() => {
+    {renderTexts(
+      system
+    )}
+    {defineButton(
+      system,
+      open,
+      setClient,
+      getData
+    )}
+    {system !== 'desktop' && <AdditionalAction onClick={() => {
       open()
     }}>
       Choose another wallet
-    </AdditionalAction>
+    </AdditionalAction>}
   </Container>
 }
 

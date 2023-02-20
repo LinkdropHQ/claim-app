@@ -33,6 +33,11 @@ export const WalletIcon = styled.img`
   margin-bottom: 25px;
 `
 
+export const WalletIconEth = styled.img`
+  max-width: 120px;
+  margin-bottom: 25px;
+`
+
 export const AdditionalAction = styled.div`
   color: ${props => props.theme.additionalTextColor};
   font-size: 16px;

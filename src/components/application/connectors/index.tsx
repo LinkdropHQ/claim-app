@@ -3,7 +3,7 @@ import {
   modalConnectors,
   walletConnectProvider,
 } from "@web3modal/ethereum"
-import { configureChains, createClient, WagmiConfig } from "wagmi"
+import { configureChains, createClient } from "wagmi"
 import { mainnet, polygon } from "wagmi/chains"
 const { REACT_APP_WC_PROJECT_ID } = process.env
 
