@@ -74,7 +74,6 @@ const defineButton = (
     </ScreenButton>
   }
   return <ScreenButton onClick={async () => {
-    alert('start auth')
     const authClient = await AuthClient.init({
       projectId: REACT_APP_WC_PROJECT_ID as string,
       metadata: {
@@ -86,7 +85,6 @@ const defineButton = (
     })
 
     setClient(authClient)
-    alert('auth client initialized')
     authClient.on("auth_response", ({ params }) => {
       // @ts-ignore
       if (Boolean(params && params.result && params.result.p)) {
@@ -139,7 +137,6 @@ const ChooseWallet: FC<ReduxType> = ({
   const [ client, setClient ] = useState<AuthClient | null>()
   useEffect(() => {
     if (!client) { return }
-    alert('auth client detected')
     client
       .request({
         aud: window.location.href,
@@ -149,7 +146,6 @@ const ChooseWallet: FC<ReduxType> = ({
         statement: "Sign in with Zerion Wallet"
       })
       .then(({ uri }) => {
-        alert(uri)
         if (!uri) { return }
         const href = `zerion://wc?uri=${encodeURIComponent(uri)}`
         window.location.href = href
