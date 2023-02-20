@@ -78,6 +78,7 @@ const InitialScreen: FC<ReduxType> = ({
       appearance={loading ? 'inverted' : 'default'}
       title='Add to my collection'
       onClick={() => {
+        return false
         if (type === 'erc1155') {
           return claimERC1155()
         }

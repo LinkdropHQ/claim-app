@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { TokenImage } from './styled-components'
+import { TokenImage, TokenVideo, TokenVideoSource } from './styled-components'
 
 type TProps = {
   src: string,
@@ -8,6 +8,12 @@ type TProps = {
 }
 
 const TokenImageComponent: FC<TProps> = ({ src, alt, className }) => {
+  if (src.includes('.mp4')) {
+    return <TokenVideo muted autoPlay className={className}>
+      <TokenVideoSource src={src} type="video/mp4"/>
+      Your browser does not support the video tag.
+    </TokenVideo>
+  }
   return <TokenImage
     src={src}
     alt={alt}
