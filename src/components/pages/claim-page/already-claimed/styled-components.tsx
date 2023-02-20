@@ -3,7 +3,6 @@ import { Button, TokenImage, Title } from 'components/common'
 import Icons from 'icons'
 
 type TScreenButton = {
-  title: string
 }
 
 export const TitleComponent = styled(Title)`

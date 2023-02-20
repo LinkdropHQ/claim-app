@@ -53,8 +53,11 @@ const AlreadyClaimed: FC<ReduxType> = ({
       />
     </TokenImageContainer>}
     <TitleComponent>NFT already claimed</TitleComponent>
-    <Subtitle>This NFT has already been claimed. If you did that you can find it in your wallet.</Subtitle>
+    <Subtitle>This NFT has already been claimed. Next, sign up for the “Early Access” to Zerion Browser Extension.</Subtitle>
     <ButtonsContainer>
+      <ScreenButton href='https://zerion.io/extension-waitlist' target='_blank'>
+        Get Early Access
+      </ScreenButton>
       {chainId && hash && <ScreenButton
         title='View in explorer'
         appearance='inverted'
