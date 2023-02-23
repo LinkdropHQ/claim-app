@@ -7,11 +7,13 @@ import { configureChains, createClient } from "wagmi"
 import { mainnet, polygon } from "wagmi/chains"
 const { REACT_APP_WC_PROJECT_ID } = process.env
 
-const chains = [polygon]
+const chains = [ polygon ]
 
 // Wagmi client
 const { provider } = configureChains(chains, [
-  walletConnectProvider({ projectId: REACT_APP_WC_PROJECT_ID as string }),
+  walletConnectProvider({
+    projectId: REACT_APP_WC_PROJECT_ID as string
+  }),
 ]);
 
 const wagmiClient = createClient({
