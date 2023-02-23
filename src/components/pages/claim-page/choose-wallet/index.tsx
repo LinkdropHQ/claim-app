@@ -128,8 +128,6 @@ const renderTexts = (
     <TextComponent>
       Claim NFT using your Zerion Wallet. <Link target="_blank" href={defineUrlHref()}>Download the app</Link> or use another wallet.
     </TextComponent>
-    <Hr />
-    <AdditionalTextComponent>Once you approve the connection with your wallet, return to this page to claim the NFT.</AdditionalTextComponent>
   </>
 }
 
@@ -173,6 +171,10 @@ const ChooseWallet: FC<ReduxType> = ({
     }}>
       Choose another wallet
     </AdditionalAction>}
+    {system !== 'desktop' && <>
+      <Hr />
+      <AdditionalTextComponent>Once you approve the connection with your wallet, return to this page to claim the NFT.</AdditionalTextComponent>
+    </>}
   </Container>
 }
 

@@ -31,7 +31,7 @@ export const TextComponent = styled(Text)`
 
 export const Hr = styled.hr`
   margin: 20px 0;
-  border-bottom: 1px solid ${props => props.theme.additionalTextColor};
+  color: ${props => props.theme.additionalTextColor};
 `
 
 export const AdditionalTextComponent = styled(Text)`
