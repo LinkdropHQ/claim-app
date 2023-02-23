@@ -21,11 +21,22 @@ export const ScreenButton = styled(Button)<TScreenButton>`
   max-width: 100%;
   width: 100%;
   margin-bottom: 20px;
+  margin-top: 32px;
 `
 
 export const TextComponent = styled(Text)`
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 0;
+`
+
+export const Hr = styled.hr`
+  margin: 20px 0;
+  border-bottom: 1px solid ${props => props.theme.additionalTextColor};
+`
+
+export const AdditionalTextComponent = styled(Text)`
+  text-align: center;
+  font-size: 13px;
 `
 
 export const WalletIcon = styled.img`

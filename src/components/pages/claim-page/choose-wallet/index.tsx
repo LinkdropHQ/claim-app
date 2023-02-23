@@ -7,7 +7,9 @@ import {
   WalletIcon,
   AdditionalAction,
   Link,
-  WalletIconEth
+  WalletIconEth,
+  AdditionalTextComponent,
+  Hr
 } from './styled-components'
 import { RootState, IAppDispatch } from 'data/store'
 import { connect } from 'react-redux'
@@ -126,6 +128,8 @@ const renderTexts = (
     <TextComponent>
       Claim NFT using your Zerion Wallet. <Link target="_blank" href={defineUrlHref()}>Download the app</Link> or use another wallet.
     </TextComponent>
+    <Hr />
+    <AdditionalTextComponent>Once you approve the connection with your wallet, return to this page to claim the NFT.</AdditionalTextComponent>
   </>
 }
 
