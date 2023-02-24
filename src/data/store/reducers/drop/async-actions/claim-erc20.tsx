@@ -81,11 +81,6 @@ export default function claimERC20(
       return alert(`linkdropSignerSignature is not provided`)
     }
 
-    if (!wallet) {
-      dispatch(dropActions.setLoading(false))
-      return alert(`wallet is not provided`)
-    }
-
     if (!address && manualAddress) {
       const jsonRpcUrl = defineJSONRpcUrl({ chainId: 1, infuraPk: REACT_APP_INFURA_ID })
       const provider = new ethers.providers.JsonRpcProvider(jsonRpcUrl)

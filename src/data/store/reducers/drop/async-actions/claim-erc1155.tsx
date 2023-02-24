@@ -82,11 +82,6 @@ export default function claimERC1155(
       return alert(`linkdropSignerSignature is not provided`)
     }
 
-    if (!wallet) {
-      dispatch(dropActions.setLoading(false))
-      return alert(`wallet is not provided`)
-    }
-
     if (!amount) {
       dispatch(dropActions.setLoading(false))
       return alert(`amount is not provided`)
