@@ -60,7 +60,7 @@ const ClaimingFinished: FC<ReduxType> = ({
       Next, sign up for the “Early Access” to Zerion Browser Extension.
     </Description>
     <ButtonsContainer>
-      <ScreenButton href='https://zerion.io/extension-waitlist' target='_blank'>
+      <ScreenButton href='https://form.waitlistpanda.com/go/aOfkJhcpwDHpJVkzO6FB' target='_blank'>
         Get Early Access
       </ScreenButton>
     </ButtonsContainer>
