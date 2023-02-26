@@ -13,6 +13,7 @@ import { shortenString } from 'helpers'
 import * as dropActions from 'data/store/reducers/drop/actions'
 import { Dispatch } from 'redux';
 import { DropActions } from 'data/store/reducers/drop/types'
+import { useConnect } from 'wagmi'
 
 const mapStateToProps = ({
   token: { name, image },
@@ -45,8 +46,34 @@ const SetConnector: FC<ReduxType> = ({
   image,
   chooseWallet
 }) => {
+  const { connect, connectors, error, isLoading, pendingConnector } =
+    useConnect()
 
-  return <Container> 
+  // get injected connector
+  const injectedProvider = connectors.filter(c => c.id === "injected")[0]
+
+  if (injectedProvider.ready) { //  if provider is injected
+    return <Container>
+      {image && <TokenImageContainer src={image} alt={name} />}
+      <Subtitle>{name}{defineTokenId(tokenId)}</Subtitle>
+      <TitleComponent>Zerion ETHDenver 2023</TitleComponent>
+      <TextComponent>
+        Claim this free NFT and get early access to the Zerion Browser Extension.
+      </TextComponent>
+      <div>
+        <ScreenButton
+          disabled={!injectedProvider.ready}
+          key={injectedProvider.id}
+          onClick={() => connect({ connector: injectedProvider })}
+          >
+          Connect Wallet
+        </ScreenButton>
+        {error && <div>{error.message}</div>}
+      </div>
+    </Container>
+  }
+
+  return <Container>
     {image && <TokenImageContainer src={image} alt={name} />}
     <Subtitle>{name}{defineTokenId(tokenId)}</Subtitle>
     <TitleComponent>Zerion ETHDenver 2023</TitleComponent>
@@ -55,7 +82,7 @@ const SetConnector: FC<ReduxType> = ({
     </TextComponent>
     <ScreenButton onClick={() => {
       chooseWallet()
-    }}>
+    } }>
       Claim
     </ScreenButton>
   </Container>
