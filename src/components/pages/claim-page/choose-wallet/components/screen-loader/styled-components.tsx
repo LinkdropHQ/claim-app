@@ -23,6 +23,7 @@ export const ButtonStyled = styled(Button)`
 
 export const ScreenTitle = styled(Title)`
   margin-bottom: 70px;
+  text-align: center;
 `
 
 export const LoaderStyled = styled(Loader)`
