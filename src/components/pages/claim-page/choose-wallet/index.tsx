@@ -24,6 +24,7 @@ import * as dropAsyncActions from 'data/store/reducers/drop/async-actions'
 import * as userAsyncActions from 'data/store/reducers/user/async-actions'
 import { DropActions } from 'data/store/reducers/drop/types'
 import { UserActions } from 'data/store/reducers/user/types'
+import { ScreenLoader } from './components'
 
 const { REACT_APP_WC_PROJECT_ID } = process.env
 
@@ -144,6 +145,7 @@ const ChooseWallet: FC<ReduxType> = ({
   const { chainId } = getHashVariables()
   const system = defineSystem()
   const [ client, setClient ] = useState<AuthClient | null>()
+  const [ loading, setLoading ] = useState<boolean>(false)
   useEffect(() => {
     if (!client) { return }
     client
@@ -156,13 +158,22 @@ const ChooseWallet: FC<ReduxType> = ({
       })
       .then(({ uri }) => {
         if (!uri) { return }
+        setLoading(true)
         const href = `zerion://wc?uri=${encodeURIComponent(uri)}`
         window.location.href = href
+      })
+      .catch(err => {
+        setLoading(false)
       })
   }, [client])
 
   const { isOpen, open } = useWeb3Modal()
 
+  if (loading) {  
+    return <ScreenLoader onClose={() => {
+      setLoading(false)
+    }}/>
+  }
   return <Container> 
     {renderTexts(
       system

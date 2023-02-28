@@ -26,6 +26,7 @@ import * as dropAsyncActions from 'data/store/reducers/drop/async-actions'
 import * as dropActions from 'data/store/reducers/drop/actions'
 import { DropActions } from 'data/store/reducers/drop/types'
 import { TokenActions } from 'data/store/reducers/token/types'
+import * as userAsyncActions from 'data/store/reducers/user/async-actions'
 
 const mapStateToProps = ({
   user: { address, provider, chainId, initialized },
@@ -47,7 +48,14 @@ const mapDispatcherToProps = (dispatch: Dispatch<DropActions> & Dispatch<TokenAc
         address,
         chainId
       )),
-      setStep: (step: TDropStep) => dispatch(dropActions.setStep(step))
+      setStep: (step: TDropStep) => dispatch(dropActions.setStep(step)),
+      updateUserData: (
+        address: string,
+        chainId: number
+      ) => dispatch(userAsyncActions.updateUserData(
+        address,
+        chainId
+      ))
   }
 }
 
@@ -94,7 +102,8 @@ const defineCurrentScreen: TDefineStep = step => {
 
 const ClaimPage: FC<ReduxType> = ({
   step,
-  getData
+  getData,
+  updateUserData
 }) => {
 
   const screen = defineCurrentScreen(step)
@@ -102,14 +111,11 @@ const ClaimPage: FC<ReduxType> = ({
   const chainId = useChainId()
 
   useEffect(() => {
-    const init = async () => {
-      getData(
+    if (address && chainId) {
+      updateUserData(
         address,
         chainId
       )
-    }
-    if (address && chainId) {
-      init()
     } else {
       getData()
     }
