@@ -21,12 +21,13 @@ import { defineSystem, getHashVariables } from 'helpers'
 import { Dispatch } from 'redux'
 import { TSystem } from 'types'
 import * as dropAsyncActions from 'data/store/reducers/drop/async-actions'
+import * as userAsyncActions from 'data/store/reducers/user/async-actions'
 import { DropActions } from 'data/store/reducers/drop/types'
-import { TokenActions } from 'data/store/reducers/token/types'
+import { UserActions } from 'data/store/reducers/user/types'
 
 const { REACT_APP_WC_PROJECT_ID } = process.env
 
-const mapDispatcherToProps = (dispatch: Dispatch<DropActions> & Dispatch<TokenActions> & IAppDispatch) => {
+const mapDispatcherToProps = (dispatch: Dispatch<DropActions> & Dispatch<UserActions> & IAppDispatch) => {
   return {
       getData: (
         address?: string,
@@ -35,6 +36,13 @@ const mapDispatcherToProps = (dispatch: Dispatch<DropActions> & Dispatch<TokenAc
         address,
         chainId
       )),
+      updateUserData: (
+        address: string,
+        chainId: number
+      ) => dispatch(userAsyncActions.updateUserData(
+        address,
+        chainId
+      ))
   }
 }
 
@@ -63,9 +71,9 @@ const defineButton = (
   system: TSystem,
   open: () => void,
   setClient: (client: AuthClient) => void,
-  getData: (
-    address?: string,
-    chainId?: number
+  updateUserData: (
+    address: string,
+    chainId: number
   ) => void
 ) => {
   if (system === 'desktop') {
@@ -95,7 +103,7 @@ const defineButton = (
         const walletData = iss.split(":")
         const walletAddress = walletData[4]
         const walletChainId = walletData[3]
-        getData(
+        updateUserData(
           walletAddress,
           walletChainId
         )
@@ -103,7 +111,6 @@ const defineButton = (
         // @ts-ignore
         console.error(params.message)
       }
-
     })
   }}>
     Use Zerion
