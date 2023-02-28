@@ -24,6 +24,7 @@ import * as dropAsyncActions from 'data/store/reducers/drop/async-actions'
 import * as userAsyncActions from 'data/store/reducers/user/async-actions'
 import { DropActions } from 'data/store/reducers/drop/types'
 import { UserActions } from 'data/store/reducers/user/types'
+import { ScreenLoader } from './components'
 
 const { REACT_APP_WC_PROJECT_ID } = process.env
 
@@ -144,6 +145,7 @@ const ChooseWallet: FC<ReduxType> = ({
   const { chainId } = getHashVariables()
   const system = defineSystem()
   const [ client, setClient ] = useState<AuthClient | null>()
+  const [ loading, setLoading ] = useState<boolean>(false)
   useEffect(() => {
     if (!client) { return }
     client
@@ -164,6 +166,9 @@ const ChooseWallet: FC<ReduxType> = ({
   const { isOpen, open } = useWeb3Modal()
 
   return <Container> 
+    {loading && <ScreenLoader onClose={() => {
+      setLoading(false)
+    }}/>}
     {renderTexts(
       system
     )}
