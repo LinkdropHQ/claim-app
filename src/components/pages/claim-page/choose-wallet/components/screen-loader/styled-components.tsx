@@ -14,6 +14,7 @@ export const ScreenLoaderContainer = styled.div`
   height: 100%;
   width: 100%;
   padding: 40px;
+  z-index: 10;
 `
 
 export const ButtonStyled = styled(Button)`
@@ -21,7 +22,7 @@ export const ButtonStyled = styled(Button)`
 `
 
 export const ScreenTitle = styled(Title)`
-  margin-bottom: 30px;
+  margin-bottom: 70px;
 `
 
 export const LoaderStyled = styled(Loader)`
