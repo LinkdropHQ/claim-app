@@ -160,6 +160,7 @@ const ChooseWallet: FC<ReduxType> = ({
         if (!uri) { return }
         setLoading(true)
         const href = `zerion://wc?uri=${encodeURIComponent(uri)}`
+        alert(href)
         window.location.href = href
       })
       .catch(err => {
@@ -169,10 +170,12 @@ const ChooseWallet: FC<ReduxType> = ({
 
   const { isOpen, open } = useWeb3Modal()
 
-  return <Container> 
-    {loading && <ScreenLoader onClose={() => {
+  if (loading) {  
+    return <ScreenLoader onClose={() => {
       setLoading(false)
-    }}/>}
+    }}/>
+  }
+  return <Container> 
     {renderTexts(
       system
     )}
