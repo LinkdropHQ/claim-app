@@ -11,11 +11,13 @@ export const ScreenLoaderContainer = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  padding-top: 40px;
+  height: 100%;
+  width: 100%;
+  padding: 40px;
 `
 
 export const ButtonStyled = styled(Button)`
-
+  width: 100%;
 `
 
 export const ScreenTitle = styled(Title)`
