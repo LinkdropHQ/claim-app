@@ -15,14 +15,14 @@ type TGetTokenERC1155Data = (provider: any, tokenAddress: string, tokenId: strin
 const getTokenData: TGetTokenERC1155Data = async (provider, tokenAddress, tokenId ) => {
   try {
     const contractInstance = await new ethers.Contract(tokenAddress, ERC1155Contract, provider)
-    
     let actualUrl = await contractInstance.uri(tokenId)
     actualUrl = IPFSRedefineUrl(actualUrl, tokenId)
     const tokenData = await getERC1155TokenData(actualUrl, tokenId)
-    // const image = await getValidImage(tokenData.data.animation_url || tokenData.data.image)
+    const image = await getValidImage(tokenData.data.animation_url || tokenData.data.image)
+    console.log({ image })
     return {
       ...tokenData.data,
-      image: tokenId === '1' ? Token1Video : tokenId === '2' ? Token2Video : tokenId === '3' ? Token3Video : Token4Video
+      image
     }
   } catch (e) {
     // @ts-ignore

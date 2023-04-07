@@ -121,7 +121,6 @@ const ClaimPage: FC<ReduxType> = ({
     }
     
   }, [address, chainId])
-  
   return <Page>
     <Container>
       {screen}
