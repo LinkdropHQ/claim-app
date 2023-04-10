@@ -14,13 +14,13 @@ import ErrorServerFail from './error-server-fail'
 import ErrorLinkExpired from './error-link-expired'
 import ErrorAlreadyClaimed from './error-already-claimed'
 import ChooseWallet from './choose-wallet'
-import { useAccount, useConnect, useEnsName, useChainId } from 'wagmi'
+import { useAccount, useChainId } from 'wagmi'
 import { Loader } from 'components/common'
 import Page from '../page'
 import { TDropStep } from 'types'
 import { RootState, IAppDispatch } from 'data/store'
 import { connect } from 'react-redux'
-import { Container } from './styled-components'
+import { Container, Footer } from './styled-components'
 import { Dispatch } from 'redux';
 import * as dropAsyncActions from 'data/store/reducers/drop/async-actions'
 import * as dropActions from 'data/store/reducers/drop/actions'
@@ -67,8 +67,6 @@ const defineCurrentScreen: TDefineStep = step => {
   switch (step) {
     case 'initial':
       return <InitialScreen />
-    case 'change_network':
-      return <ChangeNetwork />
     case 'claiming_process':
       return <ClaimingProcess />
     case 'claiming_finished':
@@ -77,8 +75,6 @@ const defineCurrentScreen: TDefineStep = step => {
       return <AlreadyClaimed />
     case 'set_connector':
       return <SetConnector />
-    case 'no_tokens_left':
-      return <NoTokensLeft />
     case 'error':
       return <ErrorPage />
     case 'set_address':
@@ -124,7 +120,8 @@ const ClaimPage: FC<ReduxType> = ({
   return <Page>
     <Container>
       {screen}
-    </Container> 
+      <Footer href='https://linkdrop.io' target='_blank'>Powered by Linkdrop</Footer>
+    </Container>
   </Page>
 }
 
