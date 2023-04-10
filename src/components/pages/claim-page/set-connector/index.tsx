@@ -90,9 +90,9 @@ const SetConnector: FC<ReduxType> = ({
   /> : <>
     {image && <TokenImageContainer src={image} alt={name} />}
     <Subtitle>{defineTokenId(type, tokenId)}</Subtitle>
-    <TitleComponent>{name}</TitleComponent>
+    <TitleComponent>Early access NFT to Zerion extension wallet</TitleComponent>
     <TextComponent>
-      Here is a preview of the NFT you’re about to receive
+      Be one of the first to access the Zerion extension
     </TextComponent>
   </>
 

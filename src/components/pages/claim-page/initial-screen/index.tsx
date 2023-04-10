@@ -115,9 +115,9 @@ const InitialScreen: FC<ReduxType> = ({
       appearance='default'
       title='Claim'
       onClick={() => {
-        if (Number(userChainId) !== Number(chainId)) {
-          return setStep('change_network')
-        }
+        // if (Number(userChainId) !== Number(chainId)) {
+        //   return setStep('change_network')
+        // }
 
         plausibleApi.invokeEvent({
           eventName: 'claim_initiated',
@@ -153,7 +153,7 @@ const InitialScreen: FC<ReduxType> = ({
   </> : <>
     {image && <TokenImageContainer src={image} alt={name} />}
     <Subtitle>{defineTokenId(type, tokenId)}</Subtitle>
-    <TitleComponent>{name}</TitleComponent>
+    <TitleComponent>Early access NFT to Zerion extension wallet</TitleComponent>
     <TextComponent>
       Here is a preview of the NFT you’re about to receive to address: <UserAddress>{shortenString(address, 3)}</UserAddress>
     </TextComponent>
