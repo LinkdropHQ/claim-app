@@ -19,6 +19,7 @@ export const LinkdropHeader = styled.header`
 
 export const LinkdropHeaderLogo = styled.img`
   max-width: 120px;
+  max-height: 40px;
 `
 
 export const LinkdropHeaderBack = styled.div`

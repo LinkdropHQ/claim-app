@@ -129,7 +129,6 @@ const defineOptionsList = (
       connect({ connector: injected })
     },
     icon: <WalletIcon src={BrowserWalletIcon} />,
-    recommended: !injectedOptionIsBrave
   } : undefined
 
   const metamaskDeeplink = getWalletDeeplink('metamask', system, window.location.href, chainId)
@@ -137,7 +136,6 @@ const defineOptionsList = (
     title: 'Metamask',
     href: metamaskDeeplink,
     icon: <WalletIcon src={MetamaskIcon} />,
-    recommended: wallet === 'metamask'
   }
 
   const trustDeeplink = getWalletDeeplink('trust', system, window.location.href, chainId)
@@ -145,7 +143,6 @@ const defineOptionsList = (
     title: 'Trust Wallet',
     href: trustDeeplink,
     icon: <WalletIcon src={TrustWalletIcon} />,
-    recommended: wallet === 'trust'
   }
 
   const coinbaseDeeplink = getWalletDeeplink('coinbase', system, window.location.href, chainId)
@@ -153,7 +150,6 @@ const defineOptionsList = (
     title: 'Coinbase Wallet',
     href: coinbaseDeeplink,
     icon: <WalletIcon src={CoinabseWalletIcon} />,
-    recommended: wallet === 'coinbase_wallet'
   }
 
   const zerionOption = (injectedOption && !injectedOptionIsBrave) || isManual ? undefined : {
@@ -162,7 +158,7 @@ const defineOptionsList = (
       setStep('zerion_connection')
     },
     icon: <WalletIcon src={ZerionWalletIcon} />,
-    recommended: wallet === 'zerion'
+    recommended: true
   }
 
   const rainbowDeeplink = getWalletDeeplink('rainbow', system, window.location.href, chainId)
@@ -170,13 +166,12 @@ const defineOptionsList = (
     title: 'Rainbow',
     href: rainbowDeeplink,
     icon: <WalletIcon src={RainbowWalletIcon} />,
-    recommended: wallet === 'rainbow'
   }
 
   const wallets = [
+    zerionOption,
     injectedOption,
     metamaskOption,
-    zerionOption,
     walletConnectOption,
     ensOption,
     rainbowOption,

@@ -1,4 +1,4 @@
-import LinkdropLogo from 'images/linkdrop-header.png'
+import ZerionLogo from 'images/zerion-header-logo.png'
 
 type TApplicationParams = {
   highlightColor: string
@@ -8,9 +8,9 @@ type TApplicationParams = {
 }
 
 const applicationParams: TApplicationParams = {
-  highlightColor: '#0C5EFF',
+  highlightColor: '#2461ED',
   primaryTextColor: '#121212',
-  logo: LinkdropLogo,
+  logo: ZerionLogo,
   backgroundColor: '#F7F7FB'
 }
 
