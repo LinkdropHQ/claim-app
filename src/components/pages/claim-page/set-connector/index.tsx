@@ -3,7 +3,6 @@ import {
   TitleComponent,
   ScreenButton,
   Container,
-  Subtitle,
   TokenImageContainer,
   TextComponent
 } from './styled-components'
@@ -55,8 +54,7 @@ const SetConnector: FC<ReduxType> = ({
   if (injectedProvider.ready) { //  if provider is injected
     return <Container>
       {image && <TokenImageContainer src={image} alt={name} />}
-      <Subtitle>{name}{defineTokenId(tokenId)}</Subtitle>
-      <TitleComponent>Zerion ETHDenver 2023</TitleComponent>
+      <TitleComponent>{name}{defineTokenId(tokenId)}</TitleComponent>
       <TextComponent>
         Claim this free NFT and get early access to the Zerion Browser Extension.
       </TextComponent>
@@ -75,8 +73,7 @@ const SetConnector: FC<ReduxType> = ({
 
   return <Container>
     {image && <TokenImageContainer src={image} alt={name} />}
-    <Subtitle>{name}{defineTokenId(tokenId)}</Subtitle>
-    <TitleComponent>Zerion ETHDenver 2023</TitleComponent>
+    <TitleComponent>{name}{defineTokenId(tokenId)}</TitleComponent>
     <TextComponent>
       Claim this free NFT and get early access to the Zerion Browser Extension.
     </TextComponent>

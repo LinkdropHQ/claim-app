@@ -7,3 +7,11 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
 `
+
+export const Footer = styled.a`
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+  color: ${props => props.theme.primaryTextColor};
+  text-decoration: none;
+`

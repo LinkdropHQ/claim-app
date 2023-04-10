@@ -16,7 +16,7 @@ export const Container = styled.div`
 
 export const ButtonsContainer = styled.div`
   width: 100%;
-  padding-bottom: 40px;
+  margin-bottom: 16px;
 `
 
 export const ScreenButton = styled(Button)`

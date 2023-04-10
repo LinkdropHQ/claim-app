@@ -21,7 +21,6 @@ export default function getData(
     dispatch: Dispatch<DropActions> & Dispatch<TokenActions> & Dispatch<UserActions> & IAppDispatch,
     getState: () => RootState
   ) => {
-    
     try {
       dispatch(actionsDrop.setLoading(true))
       const {
@@ -74,7 +73,7 @@ export default function getData(
       dispatch(actionsDrop.setAutoClaim(Boolean(autoClaim)))
       dispatch(actionsDrop.setTheme(theme as TTheme))
       dispatch(actionsDrop.setRedirctToOnboarding(Boolean(redirectToOnboarding)))
-  
+      
       if (tokenId && tokenAmount) {
         const { name, image, description } = await getERC1155Data(provider, tokenAddress, tokenId)
         dispatch(actionsDrop.setAmount(tokenAmount))

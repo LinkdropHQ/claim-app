@@ -21,6 +21,7 @@ export const ScreenSubtitle = styled(Text)`
 
 export const ButtonComponent = styled(Button)`
   width: 100%;
+  margin-bottom: 16px;
 `
 
 export const IconContainer = styled.div`

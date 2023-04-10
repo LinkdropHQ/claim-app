@@ -3,7 +3,6 @@ import {
   TitleComponent,
   ScreenButton,
   Container,
-  Subtitle,
   TokenImageContainer,
   TextComponent,
   UserAddress,
@@ -93,8 +92,7 @@ const InitialScreen: FC<ReduxType> = ({
 
   return <Container> 
     {image && <TokenImageContainer src={image} alt={name} />}
-    <Subtitle>{name}{defineTokenId(tokenId)}</Subtitle>
-    <TitleComponent>Zerion ETHDenver 2023</TitleComponent>
+    <TitleComponent>{name}{defineTokenId(tokenId)}</TitleComponent>
     <TextComponent>
       Claim NFT to: <UserAddress>{shortenString(address, 3)}</UserAddress>.
     </TextComponent>

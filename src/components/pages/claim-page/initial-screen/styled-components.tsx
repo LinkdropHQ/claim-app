@@ -47,9 +47,11 @@ export const Terms = styled.p`
   margin: 0;
   font-size: 12px;
   color: ${props => props.theme.additionalTextColor};
+  margin-bottom: 16px;
 `
 
 export const TermsLink = styled.a`
   color: ${props => props.theme.linkColor};
   text-decoration: none;
+  
 `
