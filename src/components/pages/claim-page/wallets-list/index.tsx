@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react'
+import { FC, useState } from 'react'
 import {
   TitleComponent,
   Container,
@@ -13,7 +13,6 @@ import { useWeb3Modal } from "@web3modal/react"
 import MetamaskIcon from 'images/metamask-wallet.png'
 import TrustWalletIcon from 'images/trust-wallet.png'
 import CoinabseWalletIcon from 'images/coinbase-wallet.png'
-import AuthClient, { generateNonce } from "@walletconnect/auth-client"
 import BrowserWalletIcon from 'images/browser-wallet.png'
 import ZerionWalletIcon from 'images/zerion-wallet.png'
 import RainbowWalletIcon from 'images/rainbow-wallet.png'
@@ -21,21 +20,14 @@ import WalletConnectIcon from 'images/walletconnect-wallet.png'
 import ENSIcon from 'images/ens-logo.png'
 import { useConnect, Connector } from 'wagmi'
 import { TDropStep } from 'types'
-import {
-  Popup,
-  Note
-} from 'components/common'
 import * as dropActions from 'data/store/reducers/drop/actions'
 import * as userAsyncActions from 'data/store/reducers/user/async-actions'
 import { Dispatch } from 'redux'
 import { DropActions } from 'data/store/reducers/drop/types'
-import { PopupContents } from './components'
-import DesktopPopupContents from '../choose-wallet/components/popup-contents'
 import { defineSystem, getWalletDeeplink } from 'helpers'
 import { detect } from 'detect-browser'
 import { plausibleApi } from 'data/api'
 
-const { REACT_APP_WC_PROJECT_ID } = process.env
 
 const mapStateToProps = ({
   token: { name, image },
@@ -225,27 +217,6 @@ const WalletsList: FC<ReduxType> = ({
       })
       setShowPopup(true)
     }}>What is browser wallet?</LinkButton>}
-    {system !== 'desktop' && <Note
-      text='Don’t know what to choose?'
-      position='bottom'
-      onClick={() => {
-        plausibleApi.invokeEvent({
-          eventName: 'educate_me',
-          data: {
-            campaignId: campaignId as string,
-            screen: 'what_is_connection'
-          }
-        })
-        setShowPopup(true)
-      }}
-    />}
-    {showPopup && <Popup
-      title={system === 'desktop' ? 'What is a Wallet?' : 'Connecting your wallet'}
-      onCloseAction={() => { setShowPopup(false) }}
-      mainAction={() => { setShowPopup(false) }}
-    >
-      {system === 'desktop' ? <DesktopPopupContents /> : <PopupContents />}
-    </Popup>}
   </Container>
 }
 
