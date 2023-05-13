@@ -1,6 +1,6 @@
 # Linkdrop Claim app
 
-## 2.2.5-rc.0
+## 2.2.5
 - Added Coinbase Wallet SDK support
 
 ## 2.2.4
