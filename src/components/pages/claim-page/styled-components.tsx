@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Container = styled.div`
   max-width: 342px;
@@ -17,9 +17,13 @@ export const LinkdropHeader = styled.header`
   margin-bottom: 24px;
 `
 
-export const LinkdropHeaderLogo = styled.img`
+export const LinkdropHeaderLogo = styled.img<{ isZerionConnectionPage: boolean }>`
   max-width: 120px;
   max-height: 40px;
+
+  ${props => props.isZerionConnectionPage && css`
+    opacity: 0;
+  `}
 `
 
 export const LinkdropHeaderBack = styled.div`

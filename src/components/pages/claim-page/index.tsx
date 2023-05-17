@@ -160,7 +160,7 @@ const defineHeader = (step: TDropStep, action: (prevoiusStep: TDropStep) => void
     {backAction && <LinkdropHeaderBack onClick={() => backAction()}>
       <Icons.ArrowLeftIcon />
     </LinkdropHeaderBack>}
-    <LinkdropHeaderLogo src={applicationOptions.logo} alt="Application Logo" />
+    <LinkdropHeaderLogo src={applicationOptions.logo} alt="Application Logo" isZerionConnectionPage={step === 'zerion_connection'}/>
   </LinkdropHeader>
 }
 
