@@ -3,6 +3,7 @@ import { getERC1155TokenData } from 'data/api'
 import { ethers } from 'ethers'
 import { getValidImage, getAlchemyTokenImage, createAlchemyInstance, IPFSRedefineUrl } from 'helpers'
 import tokenPlaceholder from 'images/token-placeholder.png'
+import Video0xc039407496c240085215653bb7c5ed5d754a9e49 from 'videos/0xc039407496c240085215653bb7c5ed5d754a9e49.mp4'
 
 type TTokenERC1155Data = { name: string, image: string, description: string }
 type TGetTokenERC1155Data = (provider: any, tokenAddress: string, tokenId: string, chainId: number | null) => Promise<TTokenERC1155Data>
@@ -14,7 +15,7 @@ const getTokenData: TGetTokenERC1155Data = async (provider, tokenAddress, tokenI
       throw new Error('No Alchemy instance is created')
     }
     const tokenData = await alchemy.nft.getNftMetadata(tokenAddress, tokenId)
-    const image = await getAlchemyTokenImage(tokenData)
+    const image = await getTokenImage(tokenAddress, tokenId, tokenData)
     return { name: tokenData.title || 'ERC1155 Token', image, description: tokenData.description }
   } catch (err) {
     try {
@@ -35,6 +36,14 @@ const getTokenData: TGetTokenERC1155Data = async (provider, tokenAddress, tokenI
       return { name: 'ERC1155 Token', image: tokenPlaceholder, description: '' }
     }
   }
+}
+
+
+const getTokenImage = async (tokenAddress: string, tokenId: string, tokenData: any) => {
+  if (tokenAddress.toLowerCase() === '0xc039407496c240085215653bb7c5ed5d754a9e49' && tokenId === '1') {
+    return Video0xc039407496c240085215653bb7c5ed5d754a9e49
+  }
+  return await getAlchemyTokenImage(tokenData)
 }
 
 
