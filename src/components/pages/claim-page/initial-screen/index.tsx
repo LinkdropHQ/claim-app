@@ -7,8 +7,6 @@ import {
   TokenImageContainer,
   TextComponent,
   UserAddress,
-  PoweredBy,
-  PoweredByImage
 } from './styled-components'
 import { RootState, IAppDispatch } from 'data/store'
 import { DropActions } from 'data/store/reducers/drop/types'
@@ -18,9 +16,8 @@ import { Dispatch } from 'redux'
 import * as dropActions from 'data/store/reducers/drop/actions'
 import { TDropStep, TDropType } from 'types'
 import { shortenString, defineSystem } from 'helpers'
-import LinkdropLogo from 'images/linkdrop-header.png'
 import { plausibleApi } from 'data/api'
-import { ERC20TokenPreview } from 'components/pages/common'
+import { ERC20TokenPreview, PoweredByFooter } from 'components/pages/common'
 import { connect } from 'react-redux'
 import { switchNetwork } from 'data/store/reducers/user/async-actions'
 
@@ -174,10 +171,7 @@ const InitialScreen: FC<ReduxType> = ({
   return <Container> 
     {content}
     {defineButton()}
-    <PoweredBy href='https://linkdrop.io' target='_blank'>
-      Powered by
-      <PoweredByImage src={LinkdropLogo} alt="Linkdrop Logo"/>
-    </PoweredBy>
+    <PoweredByFooter />
   </Container>
 }
 

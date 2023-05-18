@@ -7,6 +7,7 @@ import ClaimingFinishedButton from './claiming-finished-button'
 import PopupWalletListContents from './popup-wallet-list-contents'
 import PopupWhatIsWalletContents from './popup-what-is-wallet-contents'
 import PageHeader from './page-header'
+import PoweredByFooter from './powered-by-footer'
 
 export {
   QRNotMapped,
@@ -17,5 +18,6 @@ export {
   QRIncorrectParameter,
   ERC20TokenPreview,
   ClaimingFinishedButton,
-  PopupWhatIsWalletContents
+  PopupWhatIsWalletContents,
+  PoweredByFooter
 }

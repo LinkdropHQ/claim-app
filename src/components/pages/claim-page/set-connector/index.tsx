@@ -5,11 +5,9 @@ import {
   Container,
   Subtitle,
   TokenImageContainer,
-  TextComponent,
-  PoweredBy,
-  PoweredByImage,
+  TextComponent
 } from './styled-components'
-import { ERC20TokenPreview } from 'components/pages/common'
+import { ERC20TokenPreview, PoweredByFooter } from 'components/pages/common'
 import { RootState, IAppDispatch } from 'data/store'
 import { connect } from 'react-redux'
 import { shortenString, defineSystem, getWalletDeeplink } from 'helpers'
@@ -17,7 +15,6 @@ import * as dropActions from 'data/store/reducers/drop/actions'
 import { Dispatch } from 'redux'
 import { DropActions } from 'data/store/reducers/drop/types'
 import { useConnect } from 'wagmi'
-import LinkdropLogo from 'images/linkdrop-header.png'
 import { TDropType, TWalletName } from 'types'
 import { plausibleApi } from 'data/api'
 import * as dropAsyncActions from 'data/store/reducers/drop/async-actions'
@@ -155,10 +152,7 @@ const SetConnector: FC<ReduxType> = ({
     }>
       Claim
     </ScreenButton>
-    <PoweredBy href='https://linkdrop.io' target='_blank'>
-      Powered by
-      <PoweredByImage src={LinkdropLogo} alt="Linkdrop Logo"/>
-    </PoweredBy>
+    <PoweredByFooter />
   </Container>
 }
 

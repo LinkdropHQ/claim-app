@@ -32,6 +32,7 @@ export const Subtitle = styled.h3`
 
 export const ButtonStyled = styled(Button)`
   width: 100%;
+  margin-bottom: 16px;
 `
 
 export const IconContainer = styled.div`
