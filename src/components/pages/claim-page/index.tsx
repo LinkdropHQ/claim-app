@@ -24,6 +24,7 @@ import ShortCodeLoading from './short-code-loading'
 import HighGasPrice from './high-gas-price'
 import ZerionConnection from './zerion-connection'
 import { Loader } from 'components/common'
+import { PageHeader } from 'components/pages/common'
 import Page from '../page'
 import { TDropStep, TWalletName } from 'types'
 import { RootState, IAppDispatch } from 'data/store'
@@ -166,7 +167,7 @@ const defineBackAction = (
 
 const defineHeader = (step: TDropStep, wallet: string | null, action: (prevStep: TDropStep) => void) => {
   const backAction = defineBackAction(step, wallet, action)
-  
+  return <PageHeader backAction={backAction}/>
 }
 
 const ClaimPage: FC<ReduxType> = ({
