@@ -152,7 +152,7 @@ const InitialScreen: FC<ReduxType> = ({
     </TextComponent>
   </> : <>
     {image && <TokenImageContainer src={image} alt={name} />}
-    <TitleComponent>Zerion @ EDCON MNE 2023 {defineTokenId(type, tokenId)}</TitleComponent>
+    <TitleComponent>{name} {defineTokenId(type, tokenId)}</TitleComponent>
     <TextComponent>
       Here is a preview of the NFT you’re about to receive to address: <UserAddress>{shortenString(address, 3)}</UserAddress>
     </TextComponent>

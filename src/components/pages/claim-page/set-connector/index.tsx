@@ -89,7 +89,7 @@ const SetConnector: FC<ReduxType> = ({
     status='initial'
   /> : <>
     {image && <TokenImageContainer src={image} alt={name} />}
-    <TitleComponent>Zerion @ EDCON MNE 2023 {defineTokenId(type, tokenId)}</TitleComponent>
+    <TitleComponent>{name} {defineTokenId(type, tokenId)}</TitleComponent>
     <TextComponent>
       Claim this free NFT and get early access to the Zerion Browser Extension.
     </TextComponent>
