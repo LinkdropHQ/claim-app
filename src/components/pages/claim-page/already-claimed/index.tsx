@@ -15,7 +15,11 @@ import {
   DoneIconERC20
 } from './styled-components'
 import { plausibleApi } from 'data/api'
-import { ERC20TokenPreview, ClaimingFinishedButton } from 'components/pages/common'
+import {
+  ERC20TokenPreview,
+  ClaimingFinishedButton,
+  PoweredByFooter
+} from 'components/pages/common'
 import AlreadyClaimedERC20 from 'images/already-claimed-erc20.png'
 
 const mapStateToProps = ({
@@ -101,6 +105,7 @@ const AlreadyClaimed: FC<ReduxType> = ({
       <ClaimingFinishedButton />
       {explorerUrl}
     </ButtonsContainer>
+    <PoweredByFooter />
   </>
 }
 
