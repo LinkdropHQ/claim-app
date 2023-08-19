@@ -40,8 +40,15 @@ const ClaimingFinishedButton: FC<ReduxType> = ({
 }) => {
   if (claiming_finished_button_url && claiming_finished_button_title) {
     return <ButtonStyled
-      href={claiming_finished_button_url}
-      target="_blank"
+      onClick={() => {
+        plausibleApi.invokeEvent({
+          eventName: 'click_custom_redirect_button',
+          data: {
+            campaignId: campaignId as string,
+          }
+        })
+        window.open(claiming_finished_button_url, '_blank')
+      }}
     >
       {claiming_finished_button_title}
     </ButtonStyled>
