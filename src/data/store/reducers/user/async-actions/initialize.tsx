@@ -1,10 +1,9 @@
-import { Dispatch } from 'redux';
-import * as actions from '../actions';
-import { UserActions } from '../types';
+import { Dispatch } from 'redux'
+import * as actions from '../actions'
+import { UserActions } from '../types'
 import { RootState } from 'data/store'
 import { ethers } from 'ethers'
-import checkIfClaimed from '../../drop/async-actions/check-if-claimed'
-import { getLastTxHash } from 'data/api'
+import checkIfClaimed from '../../drop/async-actions/get-status'
 import * as actionsDrop from '../../drop/actions'
 import { DropActions } from '../../drop/types'
 import {
@@ -23,12 +22,6 @@ const initialize = (
     getState: () => RootState
   ) => {
 
-    console.log({
-      connector,
-      userChainId,
-      userAddress
-    })
-
     dispatch(actions.setInitialized(false))
 
     const {
@@ -36,9 +29,14 @@ const initialize = (
         chainId: linkChainId,
         campaignId,
         linkdropMasterAddress,
-        linkId
+        linkId,
+        claimCode
+      },
+      user: {
+        sdk
       }
     } = getState()
+
 
     if (!campaignId) {
       return onReload && onReload() 
@@ -68,24 +66,18 @@ const initialize = (
     const provider = new ethers.providers.JsonRpcProvider(jsonRpcUrl)
     dispatch(actions.setProvider(provider))
 
-    const claimed = await checkIfClaimed(
-      provider,
-      Number(linkChainId),
-      linkId,
-      linkdropMasterAddress,
-      campaignId
+    const status = await checkIfClaimed(
+      sdk,
+      claimCode as string
     )
 
-    if (claimed) {
-      try {
-        const latestTxHash = await getLastTxHash(Number(linkChainId), linkdropMasterAddress, linkId)
-        if (latestTxHash.data.txHash) {
-          dispatch(actionsDrop.setHash(latestTxHash.data.txHash))
-        }
-      } catch (err) {
-        console.log({ err })
+    if (status) {
+      if (status.txHash) {
+        dispatch(actionsDrop.setHash(status.txHash))
       }
-      dispatch(actionsDrop.setIsClaimed(claimed))
+      if (status.status === 'CLAIMED') {
+        dispatch(actionsDrop.setIsClaimed(true))
+      }
     }
 
     if (!userChainId || !userAddress || !connector) {

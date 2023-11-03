@@ -25,7 +25,7 @@ export default function getData(
     
     try {
       dispatch(actionsDrop.setLoading(true))
-      console.log({ userChainId, userAddress, connector })
+
       await dispatch(asyncActionsUser.initialize(
         onReload,
         connector,
