@@ -3,8 +3,7 @@ import { Dispatch } from 'redux';
 import * as actionsDrop from '../actions';
 import { DropActions } from '../types';
 import { TokenActions } from '../../token/types';
-import checkIfClaimed from './check-if-claimed'
-import { getLastTxHash } from 'data/api'
+import getStatus from './get-status'
 import { ethers } from 'ethers'
 import { RootState } from 'data/store'
 import { plausibleApi } from 'data/api'
@@ -20,12 +19,14 @@ export default function getData() {
       const {
         user: {
           provider,
+          sdk
         },
         drop: {
           campaignId,
           linkKey,
           linkdropMasterAddress,
-          chainId
+          chainId,
+          claimCode
         }
       } = getState()
 
@@ -46,31 +47,22 @@ export default function getData() {
       }
 
 
-      const linkWallet = new ethers.Wallet(linkKey, provider)
-      const linkId = linkWallet.address
 
       const interval = window.setInterval(async () => {
-        const claimed = await checkIfClaimed(
-          provider,
-          Number(chainId),
-          linkId,
-          linkdropMasterAddress,
-          campaignId
+        const status = await getStatus(
+          sdk,
+          claimCode
         )
         try {
-          dispatch(actionsDrop.setLoading(false))
-          const latestTxHash = await getLastTxHash(Number(chainId), linkdropMasterAddress, linkId)
-          const { txHash } = latestTxHash.data
-          if (claimed) {
-            if (txHash) {
-              dispatch(actionsDrop.setHash(txHash))
-            }
-            window.clearInterval(interval)
-            return dispatch(actionsDrop.setStep('claiming_finished'))
-          } else {
-            if (txHash) {
-              const receipt = await provider.getTransactionReceipt(txHash)
-              if (receipt && receipt.status !== undefined && receipt.status === 0) {
+          if (status) {
+            if (status.status === 'CLAIMED') {
+              if (status.txHash) {
+                dispatch(actionsDrop.setHash(status.txHash))
+              }
+              window.clearInterval(interval)
+              return dispatch(actionsDrop.setStep('claiming_finished'))
+            } else {
+              if (status.status === 'FAILED') {
                 window.clearInterval(interval)
                 plausibleApi.invokeEvent({
                   eventName: 'error',
@@ -83,6 +75,7 @@ export default function getData() {
               }
             }
           }
+          
         } catch (err) {
           console.log({ err })
         }
