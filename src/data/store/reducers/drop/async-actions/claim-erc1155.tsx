@@ -150,7 +150,7 @@ export default function claimERC1155(
         //  if (gasPrice.gte(BigNumber.from(gasPriceLimits[chainId]))) {
         //    return dispatch(dropActions.setStep('gas_price_high'))
         //  }
-        }
+        // }
 
         if (!claimCode) {
           return 
