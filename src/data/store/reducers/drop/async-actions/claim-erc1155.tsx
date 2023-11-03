@@ -23,6 +23,7 @@ export default function claimERC1155(
     dispatch: Dispatch<DropActions> & Dispatch<UserActions>,
     getState: () => RootState
   ) => {
+    console.log("dispatching claim action...")
     dispatch(dropActions.setLoading(true))
     let {
       user: {
@@ -144,17 +145,17 @@ export default function claimERC1155(
         )
     
       } else {
-        if (checkGasPrice) {
-          const gasPrice = await provider.getGasPrice()
-          if (gasPrice.gte(BigNumber.from(gasPriceLimits[chainId]))) {
-            return dispatch(dropActions.setStep('gas_price_high'))
-          }
+        //if (checkGasPrice) {
+        //  const gasPrice = await provider.getGasPrice()
+        //  if (gasPrice.gte(BigNumber.from(gasPriceLimits[chainId]))) {
+        //    return dispatch(dropActions.setStep('gas_price_high'))
+        //  }
         }
 
         if (!claimCode) {
           return 
         }
-
+        console.log("before sdk call")
         const res = await sdk?.redeem(claimCode, address)
         if (!res) {
           return
