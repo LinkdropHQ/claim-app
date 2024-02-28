@@ -64,6 +64,7 @@ export const Content = styled.div`
 
 export const Paragraph = styled.p`
   margin-bottom: 24px;
+  font-weight: 500;
 
   &:last-child {
     margin-bottom: 0px;
@@ -108,4 +109,5 @@ export const ButtonStyled = styled(Button)<{ disabled: boolean }>`
 
 export const LinkStyled = styled(Link)`
   margin-left: 4px;
+  font-weight: 600;
 `

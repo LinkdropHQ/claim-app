@@ -88,48 +88,6 @@ const SetConnector: FC<ReduxType> = ({
   const injected = connectors.find(connector => connector.id === 'injected')
   const system = defineSystem()
   const [ initialized, setInitialized ] = useState<boolean>(false)
-
-  useEffect(() => {
-    plausibleApi.invokeEvent({
-      eventName: 'claimpage_open',
-      data: {
-        campaignId: campaignId as string,
-        status: 'loaded'
-      }
-    })
-  }, [])
-
-  useEffect(() => {
-    // connect instantly if opened in Coinbase wallet
-    if(window &&
-      window.ethereum &&
-      // @ts-ignore
-      window.ethereum.isCoinbaseWallet &&
-      system !== 'desktop' && 
-      injected &&
-      injected.ready
-    ) {
-      return connect({ connector: injected })
-    } else {
-      setInitialized(true)
-    }
-  }, [])
-
-  const content = type === 'ERC20' ? <ERC20TokenPreview
-    name={name}
-    image={image as string}
-    amount={amount as string}
-    decimals={decimals}
-    status='initial'
-  /> : <>
-    {image && <TokenImageContainer src={image} alt={name} />}
-    <Subtitle>{defineTokenId(type, tokenId)}</Subtitle>
-    <TitleComponent>{name}</TitleComponent>
-    <TextComponent>
-      Here is a preview of the NFT you’re about to receive
-    </TextComponent>
-  </>
-
   const buttonClick = () => {
     if (!confirm) {
       return setConfirmModal(true)
@@ -185,6 +143,54 @@ const SetConnector: FC<ReduxType> = ({
     setStep('choose_wallet')
   }
 
+  useEffect(() => {
+    if (!confirm) { return }
+    setConfirmModal(false)
+    buttonClick()
+  }, [confirm])
+
+  useEffect(() => {
+    plausibleApi.invokeEvent({
+      eventName: 'claimpage_open',
+      data: {
+        campaignId: campaignId as string,
+        status: 'loaded'
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    // connect instantly if opened in Coinbase wallet
+    if(window &&
+      window.ethereum &&
+      // @ts-ignore
+      window.ethereum.isCoinbaseWallet &&
+      system !== 'desktop' && 
+      injected &&
+      injected.ready
+    ) {
+      return connect({ connector: injected })
+    } else {
+      setInitialized(true)
+    }
+  }, [])
+
+  const content = type === 'ERC20' ? <ERC20TokenPreview
+    name={name}
+    image={image as string}
+    amount={amount as string}
+    decimals={decimals}
+    status='initial'
+  /> : <>
+    {image && <TokenImageContainer src={image} alt={name} />}
+    <Subtitle>{defineTokenId(type, tokenId)}</Subtitle>
+    <TitleComponent>{name}</TitleComponent>
+    <TextComponent>
+      Here is a preview of the NFT you’re about to receive
+    </TextComponent>
+  </>
+
+  
 
   return <Container> 
     {content}
@@ -193,8 +199,6 @@ const SetConnector: FC<ReduxType> = ({
       onClose={() => setConfirmModal(false)}
       onConfirm={(value: boolean) => {
         setConfirm(value)
-        setConfirmModal(false)
-        buttonClick()
       }}
     />}
     <ScreenButton
