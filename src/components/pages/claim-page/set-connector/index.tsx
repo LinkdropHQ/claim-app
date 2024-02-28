@@ -7,6 +7,8 @@ import {
   TokenImageContainer,
   TextComponent
 } from './styled-components'
+import { ConfirmModal } from './components'
+
 import { ERC20TokenPreview, PoweredByFooter } from 'components/pages/common'
 import { RootState, IAppDispatch } from 'data/store'
 import { connect } from 'react-redux'
@@ -78,6 +80,11 @@ const SetConnector: FC<ReduxType> = ({
 }) => {
   const { connect, connectors } = useConnect()
   const { open } = useWeb3Modal()
+
+
+  const [ confirm, setConfirm ] = useState(false)
+  const [ confirmModal, setConfirmModal ] = useState(false)
+
   const injected = connectors.find(connector => connector.id === 'injected')
   const system = defineSystem()
   const [ initialized, setInitialized ] = useState<boolean>(false)
@@ -96,6 +103,7 @@ const SetConnector: FC<ReduxType> = ({
     // connect instantly if opened in Coinbase wallet
     if(window &&
       window.ethereum &&
+      // @ts-ignore
       window.ethereum.isCoinbaseWallet &&
       system !== 'desktop' && 
       injected &&
@@ -122,62 +130,77 @@ const SetConnector: FC<ReduxType> = ({
     </TextComponent>
   </>
 
+  const buttonClick = () => {
+    if (!confirm) {
+      return setConfirmModal(true)
+    }
+
+    plausibleApi.invokeEvent({
+      eventName: 'claimpage_click',
+      data: {
+        campaignId: campaignId as string
+      }
+    })
+    // connect to wallet if has injected
+    if (
+      !address &&
+      injected &&
+      injected.ready &&
+      system !== 'desktop' &&
+      injected.name !== 'Brave Wallet'
+    ) {
+      return connect({ connector: injected })
+    }
+
+    if (
+      wallet &&
+      chainId &&
+      availableWallets.includes(wallet) &&
+      availableWallets.length === 1
+    ) {
+      if (
+        wallet !== 'walletconnect' &&
+        wallet !== 'manual_address' &&
+        wallet !== 'crossmint' &&
+        wallet !== 'zerion'
+      ) {
+        const deeplink = getWalletDeeplink(wallet, system, window.location.href, chainId)
+        if (deeplink) {
+          return deeplinkRedirect(deeplink, wallet, () => setStep('wallet_redirect_await'))
+        }
+      } else if (
+        wallet === 'walletconnect'
+      ) {
+        return open()
+      } else if (wallet === 'zerion') {
+        return setStep('zerion_connection')
+      } else if (wallet === 'crossmint') {
+        return setStep('crossmint_connection')
+      } else if (wallet === 'manual_address') {
+        return setStep('set_address')
+      }
+
+    } 
+
+    setStep('choose_wallet')
+  }
+
+
   return <Container> 
     {content}
+    {confirmModal && <ConfirmModal
+      visible
+      onClose={() => setConfirmModal(false)}
+      onConfirm={(value: boolean) => {
+        setConfirm(value)
+        setConfirmModal(false)
+        buttonClick()
+      }}
+    />}
     <ScreenButton
       appearance='action'
       disabled={!initialized}
-      onClick={() => {
-        plausibleApi.invokeEvent({
-          eventName: 'claimpage_click',
-          data: {
-            campaignId: campaignId as string
-          }
-        })
-        // connect to wallet if has injected
-        if (
-          !address &&
-          injected &&
-          injected.ready &&
-          system !== 'desktop' &&
-          injected.name !== 'Brave Wallet'
-        ) {
-          return connect({ connector: injected })
-        }
-
-        if (
-          wallet &&
-          chainId &&
-          availableWallets.includes(wallet) &&
-          availableWallets.length === 1
-        ) {
-          if (
-            wallet !== 'walletconnect' &&
-            wallet !== 'manual_address' &&
-            wallet !== 'crossmint' &&
-            wallet !== 'zerion'
-          ) {
-            const deeplink = getWalletDeeplink(wallet, system, window.location.href, chainId)
-            if (deeplink) {
-              return deeplinkRedirect(deeplink, wallet, () => setStep('wallet_redirect_await'))
-            }
-          } else if (
-            wallet === 'walletconnect'
-          ) {
-            return open()
-          } else if (wallet === 'zerion') {
-            return setStep('zerion_connection')
-          } else if (wallet === 'crossmint') {
-            return setStep('crossmint_connection')
-          } else if (wallet === 'manual_address') {
-            return setStep('set_address')
-          }
-
-        } 
-
-        setStep('choose_wallet')
-      }
-    }>
+      onClick={buttonClick}>
       Claim
     </ScreenButton>
     <PoweredByFooter />

@@ -1,6 +1,7 @@
 import LinkdropLogo from 'images/linkdrop.png'
 import LumasLogo from 'images/lumas.png'
 import AlphemyLogo from 'images/alphemy.png'
+import LedgerRTFKTLogo from 'images/ledger-rtfkt.png'
 
 type TApplicationParams = {
   highlightColor: string
@@ -61,10 +62,24 @@ const alphemyParams: TApplicationParams = {
   }
 }
 
+
+const ledgerParams: TApplicationParams = {
+  highlightColor: '#FFF',
+  primaryTextColor: '#FFF',
+  footerLogoStyle: 'light',
+  secondaryTextColor: '#000',
+  additionalTextColor: 'rgba(255, 255, 255, .4)',
+  logo: LedgerRTFKTLogo,
+  backgroundColor: '#000',
+  highlightHoverColor: 'rgba(255, 255, 255, .6)',
+  highlightActiveColor: 'rgba(255, 255, 255, .6)'
+}
+
 const applicationParams: TConfig = {
   linkdrop: originalParams,
   lumas: lumasParams,
-  alphemy: alphemyParams
+  alphemy: alphemyParams,
+  ledger: ledgerParams
 }
 
 
