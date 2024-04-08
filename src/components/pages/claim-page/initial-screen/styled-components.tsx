@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { Button, Text, TokenImage, Title } from 'components/common'
+import { Button, Text, Title } from 'components/common'
+import { NFTTokenPreview } from 'components/pages/common'
 
 type TScreenButton = {
   onClick: () => void
@@ -8,13 +9,6 @@ type TScreenButton = {
 export const TitleComponent = styled(Title)`
   margin: 0 0 12px;
   font-weight: 600;
-`
-
-export const Subtitle = styled.h3`
-  font-size: 14px;
-  color: ${props => props.theme.primaryTextColor};
-  font-weight: 500;
-  margin: 0 0 36px;
 `
 
 export const Container = styled.div`
@@ -33,11 +27,11 @@ export const TextComponent = styled(Text)`
   margin-bottom: 32px;
 `
 
-export const TokenImageContainer = styled(TokenImage)`
-  margin: 0 auto 25px;
-  background: ${props => props.theme.widgetColor};
-`
 
 export const UserAddress = styled.span`
   color: ${props => props.theme.linkColor};
+`
+
+export const NFTTokenPreviewStyled = styled(NFTTokenPreview)`
+  margin-bottom: 39px;
 `

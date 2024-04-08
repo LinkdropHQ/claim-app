@@ -30,10 +30,14 @@ import checkIfMultiscanIsPresented from './check-if-multiscan-qr-id-presented-in
 import getWalletOption from './get-wallet-option'
 import getInjectedWalletOption from './get-injected-wallet-option'
 import defineApplicationConfig from './define-application-config'
+import defineLedgerClaimDescription from './define-ledger-claim-description'
+import defineLedgerClaimTitle from './define-ledger-claim-title'
 
 export {
   copyToClipboard,
+  defineLedgerClaimDescription,
   defineApplicationConfig,
+  defineLedgerClaimTitle,
   getInjectedWalletOption,
   getWalletOption,
   checkIfMultiscanIsPresented,

@@ -68,7 +68,7 @@ const ledgerParams: TApplicationParams = {
   primaryTextColor: '#FFF',
   footerLogoStyle: 'light',
   secondaryTextColor: '#000',
-  additionalTextColor: 'rgba(255, 255, 255, .4)',
+  additionalTextColor: '#FFF',
   logo: LedgerRTFKTLogo,
   backgroundColor: '#000',
   highlightHoverColor: 'rgba(255, 255, 255, .6)',

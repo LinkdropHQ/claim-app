@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Button, TokenImage, Title, Text } from 'components/common'
 import Icons from 'icons'
+import { NFTTokenPreview } from 'components/pages/common'
 
 export const TitleComponent = styled(Title)`
   margin-bottom: 20px;
@@ -61,7 +62,8 @@ export const DoneIcon = styled(Icons.DoneIcon)`
   border: 6px solid ${props => props.theme.blankColor};
   border-radius: 100%;
   top: 0px;
-  right: 0px;
+  left: calc(50% + 80px);
+  z-index: 2;
   background: ${props => props.theme.blankColor};
 `
 
@@ -72,4 +74,8 @@ export const UserAddress = styled.span`
 export const DoneIconERC20 = styled.img`
   max-width: 24px;
   margin-right: 8px;
+`
+
+export const NFTTokenPreviewStyled = styled(NFTTokenPreview)`
+  margin-bottom: 39px;
 `

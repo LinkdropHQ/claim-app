@@ -4,11 +4,11 @@ import { connect } from 'react-redux'
 import { 
   TitleComponent,
   ButtonsContainer,
-  TokenImageLarge,
   TokenImageContainer,
   DoneIcon,
   Subtitle,
-  DoneIconERC20
+  DoneIconERC20,
+  NFTTokenPreviewStyled
 } from './styled-components'
 import {
   ERC20TokenPreview,
@@ -22,16 +22,19 @@ const mapStateToProps = ({
   drop: {
     type,
     amount,
+    tokenId,
     claiming_finished_description
   },
   token: {
     image,
     name,
-    decimals
+    decimals,
+    
   }
 }: RootState) => ({
   image,
   name,
+  tokenId,
   type,
   decimals,
   amount,
@@ -46,6 +49,7 @@ const AlreadyClaimed: FC<ReduxType> = ({
   type,
   amount,
   decimals,
+  tokenId,
   claiming_finished_description
 }) => {
 
@@ -57,10 +61,7 @@ const AlreadyClaimed: FC<ReduxType> = ({
   /> : <>
     {image && <TokenImageContainer>
       <DoneIcon />
-      <TokenImageLarge
-        src={image}
-        alt={name}
-      />
+      <NFTTokenPreviewStyled image={image} name={name} tokenId={tokenId} />
     </TokenImageContainer>}
   </>
 

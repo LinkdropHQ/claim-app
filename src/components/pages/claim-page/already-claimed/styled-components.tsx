@@ -1,6 +1,7 @@
 import styled from 'styled-components'
-import { Button, TokenImage, Title } from 'components/common'
+import { Button, Title } from 'components/common'
 import Icons from 'icons'
+import { NFTTokenPreview } from 'components/pages/common'
 
 export const TitleComponent = styled(Title)`
   margin-bottom: 20px;
@@ -38,24 +39,22 @@ export const TokenImageContainer = styled.div`
   padding: 12px 12px 0px;
 `
 
-export const TokenImageLarge = styled(TokenImage)`
-  max-width: 223px;
-  max-height: 223px;
-  border-radius: 8px;
-  margin-bottom: 24px;
-  background: ${props => props.theme.widgetColor};
-`
 
 export const DoneIcon = styled(Icons.OrangeExclamationIcon)`
   position: absolute;
   border: 6px solid ${props => props.theme.blankColor};
   border-radius: 100%;
   top: 0px;
-  right: 0px;
+  left: calc(50% + 80px);
+  z-index: 2;
   background: ${props => props.theme.blankColor};
 `
 
 export const DoneIconERC20 = styled.img`
   max-width: 24px;
   margin-right: 8px;
+`
+
+export const NFTTokenPreviewStyled = styled(NFTTokenPreview)`
+  margin-bottom: 39px;
 `

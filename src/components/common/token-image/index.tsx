@@ -1,13 +1,13 @@
 import { FC } from 'react'
 import { TokenImage, TokenVideo, TokenVideoSource } from './styled-components'
+import { TProps } from './types'
 
-type TProps = {
-  src: string,
-  alt: string,
-  className?: string
-}
-
-const TokenImageComponent: FC<TProps> = ({ src, alt, className }) => {
+const TokenImageComponent: FC<TProps> = ({
+  src,
+  alt,
+  className,
+  onClick
+}) => {
   if (src.includes('.mp4')) {
     return <TokenVideo muted autoPlay className={className} loop playsInline>
       <TokenVideoSource src={src} type="video/mp4"/>
@@ -15,6 +15,7 @@ const TokenImageComponent: FC<TProps> = ({ src, alt, className }) => {
     </TokenVideo>
   }
   return <TokenImage
+    onClick={onClick}
     src={src}
     alt={alt}
     className={className}

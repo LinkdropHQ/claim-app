@@ -8,9 +8,10 @@ export const Container = styled.div<{ visible: boolean }>`
   bottom: 0px;
   left: 0px;
   width: 100%;
+  z-index: 100;
   transform: translateY(100%);
   transition: transform .3s;
-  background: rgba(0, 0, 0, .7);
+  background: rgb(0, 0, 0);
   height: 100%;
 
   ${props => props.visible && css`
@@ -20,7 +21,7 @@ export const Container = styled.div<{ visible: boolean }>`
 
 export const Body = styled.div`
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 100%;
   background-color: ${props => props.theme.blankColor};
@@ -29,16 +30,16 @@ export const Body = styled.div`
   padding: 36px 16px 24px;
 `
 
-
-
 export const Header = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
+  line-height: 1;
 `
 
 export const BackArrow = styled.div`
   margin-right: 12px;
+  cursor: pointer;
 
   svg {
     stroke: ${props => props.theme.primaryTextColor};

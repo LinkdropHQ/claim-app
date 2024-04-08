@@ -3,16 +3,19 @@ import {
   TitleComponent,
   ScreenButton,
   Container,
-  Subtitle,
-  TokenImageContainer,
-  TextComponent
+  TextComponent,
+  NFTTokenPreviewStyled
 } from './styled-components'
-import { ConfirmModal } from './components'
-
 import { ERC20TokenPreview, PoweredByFooter } from 'components/pages/common'
 import { RootState, IAppDispatch } from 'data/store'
 import { connect } from 'react-redux'
-import { shortenString, defineSystem, getWalletDeeplink } from 'helpers'
+import {
+  shortenString,
+  defineSystem,
+  getWalletDeeplink,
+  defineLedgerClaimDescription,
+  defineLedgerClaimTitle
+} from 'helpers'
 import * as dropActions from 'data/store/reducers/drop/actions'
 import { Dispatch } from 'redux'
 import { DropActions } from 'data/store/reducers/drop/types'
@@ -82,16 +85,10 @@ const SetConnector: FC<ReduxType> = ({
   const { open } = useWeb3Modal()
 
 
-  const [ confirm, setConfirm ] = useState(false)
-  const [ confirmModal, setConfirmModal ] = useState(false)
-
   const injected = connectors.find(connector => connector.id === 'injected')
   const system = defineSystem()
   const [ initialized, setInitialized ] = useState<boolean>(false)
   const buttonClick = () => {
-    if (!confirm) {
-      return setConfirmModal(true)
-    }
 
     plausibleApi.invokeEvent({
       eventName: 'claimpage_click',
@@ -144,12 +141,6 @@ const SetConnector: FC<ReduxType> = ({
   }
 
   useEffect(() => {
-    if (!confirm) { return }
-    setConfirmModal(false)
-    buttonClick()
-  }, [confirm])
-
-  useEffect(() => {
     plausibleApi.invokeEvent({
       eventName: 'claimpage_open',
       data: {
@@ -175,6 +166,8 @@ const SetConnector: FC<ReduxType> = ({
     }
   }, [])
 
+  const description = defineLedgerClaimDescription(String(tokenId))
+
   const content = type === 'ERC20' ? <ERC20TokenPreview
     name={name}
     image={image as string}
@@ -182,25 +175,15 @@ const SetConnector: FC<ReduxType> = ({
     decimals={decimals}
     status='initial'
   /> : <>
-    {image && <TokenImageContainer src={image} alt={name} />}
-    <Subtitle>{defineTokenId(type, tokenId)}</Subtitle>
-    <TitleComponent>{name}</TitleComponent>
+    {image && <NFTTokenPreviewStyled image={image} name={name} tokenId={tokenId} />}
+    <TitleComponent>{defineLedgerClaimTitle(tokenId as string)}</TitleComponent>
     <TextComponent>
-      Here is a preview of the NFT you’re about to receive
+      {description}
     </TextComponent>
   </>
 
-  
-
   return <Container> 
     {content}
-    {confirmModal && <ConfirmModal
-      visible
-      onClose={() => setConfirmModal(false)}
-      onConfirm={(value: boolean) => {
-        setConfirm(value)
-      }}
-    />}
     <ScreenButton
       appearance='action'
       disabled={!initialized}

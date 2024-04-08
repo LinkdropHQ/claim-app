@@ -24,10 +24,12 @@ import EligibleToClaim from './eligible-to-claim'
 import QRCampaignNotEligible from './qr-campaign-not-eligible'
 import ScreenLoader from './screen-loader'
 import LedgerConnection from './ledger-connection'
+import NFTTokenPreview from './nft-token-preview'
 
 export {
   QRCampaignNotEligible,
   LedgerConnection,
+  NFTTokenPreview,
   ScreenLoader,
   EligibleToClaim,
   SetAddress,

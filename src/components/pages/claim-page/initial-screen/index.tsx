@@ -1,12 +1,10 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import {
   TitleComponent,
   ScreenButton,
   Container,
-  Subtitle,
-  TokenImageContainer,
   TextComponent,
-  UserAddress
+  NFTTokenPreviewStyled
 } from './styled-components'
 import { RootState, IAppDispatch } from 'data/store'
 import { DropActions } from 'data/store/reducers/drop/types'
@@ -15,11 +13,17 @@ import * as dropAsyncActions from 'data/store/reducers/drop/async-actions'
 import { Dispatch } from 'redux'
 import * as dropActions from 'data/store/reducers/drop/actions'
 import { TDropStep, TDropType } from 'types'
-import { shortenString, defineSystem } from 'helpers'
+import {
+  shortenString,
+  defineSystem,
+  defineLedgerClaimDescription,
+  defineLedgerClaimTitle
+} from 'helpers'
 import { plausibleApi } from 'data/api'
 import { ERC20TokenPreview, PoweredByFooter } from 'components/pages/common'
 import { connect } from 'react-redux'
 import { switchNetwork } from 'data/store/reducers/user/async-actions'
+import { ConfirmModal } from './components'
 
 const mapStateToProps = ({
   token: { name, image, decimals },
@@ -96,8 +100,48 @@ const InitialScreen: FC<ReduxType> = ({
   userProvider,
   email
 }) => {
+  const description = defineLedgerClaimDescription(String(tokenId))
 
+  const [ confirm, setConfirm ] = useState(false)
+  const [ confirmModal, setConfirmModal ] = useState(false)
   const system = defineSystem()
+
+
+  const buttonClick = async () => {
+    if (!confirm) {
+      return setConfirmModal(true)
+    }
+
+    if (Number(userChainId) !== Number(chainId) && userProvider) {
+      // @ts-ignore
+      if(window && window.ethereum && window.ethereum.isCoinbaseWallet && system !== 'desktop') {
+        if (chainId) {
+          await switchNetwork(userProvider, chainId, campaignId as string, () => {})
+        } else {
+          alert('No chain provided')
+        }
+      } else {
+        return setStep('change_network')
+      }
+    }
+
+    plausibleApi.invokeEvent({
+      eventName: 'claim_initiated',
+      data: {
+        campaignId: campaignId as string,
+      }
+    })
+
+    if (type === 'ERC1155') {
+      return claimERC1155()
+    }
+    if (type === 'ERC721') {
+      return claimERC721()
+    }
+    if (type === 'ERC20') {
+      return claimERC20()
+    }
+  }
 
   useEffect(() => {
     plausibleApi.invokeEvent({
@@ -108,7 +152,13 @@ const InitialScreen: FC<ReduxType> = ({
     })
   }, [])
 
-  const defineButton = () => {
+  useEffect(() => {
+    if (!confirm) { return }
+    setConfirmModal(false)
+    buttonClick()
+  }, [confirm])
+
+  const defineButton = (address: string) => {
     return <ScreenButton
       disabled={
         (type === 'ERC1155' && (!tokenId || !amount)) ||
@@ -118,42 +168,12 @@ const InitialScreen: FC<ReduxType> = ({
       }
       loading={loading}
       appearance='action'
-      title='Claim'
-      onClick={async () => {
-        if (Number(userChainId) !== Number(chainId) && userProvider) {
-          // @ts-ignore
-          if(window && window.ethereum && window.ethereum.isCoinbaseWallet && system !== 'desktop') {
-            if (chainId) {
-              await switchNetwork(userProvider, chainId, campaignId as string, () => {})
-            } else {
-              alert('No chain provided')
-            }
-          } else {
-            return setStep('change_network')
-          }
-        }
-
-        plausibleApi.invokeEvent({
-          eventName: 'claim_initiated',
-          data: {
-            campaignId: campaignId as string,
-          }
-        })
-
-        if (type === 'ERC1155') {
-          return claimERC1155()
-        }
-        if (type === 'ERC721') {
-          return claimERC721()
-        }
-        if (type === 'ERC20') {
-          return claimERC20()
-        }
-      }}
+      title={`Claim to ${address}`}
+      onClick={buttonClick}
     />
   }
 
-  const addressPreview = <UserAddress>{email ? email : shortenString(address, 3)}</UserAddress>
+  const addressPreview = email ? email : shortenString(address, 5)
 
   const content = type === 'ERC20' ? <>
     <ERC20TokenPreview
@@ -164,20 +184,26 @@ const InitialScreen: FC<ReduxType> = ({
       status='initial'
     />
     <TextComponent>
-      Please proceed to receive tokens to: {addressPreview}
+      {description}
     </TextComponent>
   </> : <>
-    {image && <TokenImageContainer src={image} alt={name} />}
-    <Subtitle>{defineTokenId(type, tokenId)}</Subtitle>
-    <TitleComponent>{name}</TitleComponent>
+    {image && <NFTTokenPreviewStyled image={image} name={name} tokenId={tokenId} />}
+    <TitleComponent>{defineLedgerClaimTitle(tokenId as string)}</TitleComponent>
     <TextComponent>
-      Here is a preview of the NFT you’re about to receive to: {addressPreview}
+      {description}
     </TextComponent>
   </>
 
-  return <Container> 
+  return <Container>
+    {confirmModal && <ConfirmModal
+      visible
+      onClose={() => setConfirmModal(false)}
+      onConfirm={(value: boolean) => {
+        setConfirm(value)
+      }}
+    />}
     {content}
-    {defineButton()}
+    {defineButton(addressPreview)}
     <PoweredByFooter />
   </Container>
 }

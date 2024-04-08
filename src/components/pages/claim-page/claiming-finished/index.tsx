@@ -4,8 +4,7 @@ import { connect } from 'react-redux'
 import { 
   TitleComponent,
   ButtonsContainer,
-  ScreenButton,
-  TokenImageLarge,
+  NFTTokenPreviewStyled,
   TokenImageContainer,
   DoneIcon,
   Container,
@@ -28,6 +27,7 @@ const mapStateToProps = ({
     campaignId,
     type,
     amount,
+    tokenId,
     claiming_finished_description
   },
   token: {
@@ -42,6 +42,7 @@ const mapStateToProps = ({
   image,
   name,
   type,
+  tokenId,
   campaignId,
   email,
   amount,
@@ -66,6 +67,7 @@ const ClaimingFinished: FC<ReduxType> = ({
   campaignId,
   type,
   amount,
+  tokenId,
   decimals,
   claiming_finished_description,
   email
@@ -88,10 +90,7 @@ const ClaimingFinished: FC<ReduxType> = ({
   /> : <>
     {image && <TokenImageContainer>
       <DoneIcon />
-      <TokenImageLarge
-        src={image}
-        alt={name}
-      />
+      <NFTTokenPreviewStyled image={image} name={name} tokenId={tokenId} />
     </TokenImageContainer>}
   </>
 
