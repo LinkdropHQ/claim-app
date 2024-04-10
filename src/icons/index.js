@@ -9,6 +9,7 @@ import { ReactComponent as BlueArrowIcon } from './blue-arrow-icon.svg';
 import { ReactComponent as ArrowLeftIcon } from './arrow-left-icon.svg';
 import { ReactComponent as DoneIcon } from './done-icon.svg';
 import { ReactComponent as ExclamationIcon } from './exclamation-icon.svg';
+import { ReactComponent as LogoutIcon } from './logout-icon.svg';
 import { ReactComponent as SecureIcon } from './secure-icon.svg';
 import { ReactComponent as OrangeExclamationIcon } from './orange-exclamation-icon.svg';
 import { ReactComponent as WarningIcon } from './warning-icon.svg';
@@ -23,6 +24,7 @@ import { ReactComponent as RefreshIcon } from './refresh-icon.svg'
 
 const Icons = {
   EthereumLogo,
+  LogoutIcon,
   DroplistLogo,
   RefreshIcon,
   LinkdropIcon,

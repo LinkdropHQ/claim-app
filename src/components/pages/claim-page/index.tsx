@@ -88,6 +88,7 @@ const mapDispatcherToProps = (dispatch: Dispatch<DropActions> & Dispatch<TokenAc
         signer,
         callback
       )),
+      logout: () => dispatch(userAsyncActions.logout()),
       setStep: (step: TDropStep) => dispatch(dropActions.setStep(step)),
       claimERC1155: (address: string) => dispatch(
         dropAsyncActions.claimERC1155(address, true)
@@ -205,9 +206,19 @@ const defineBackAction = (
   }
 }
 
-const defineHeader = (step: TDropStep, wallet: string | null, action: (prevStep: TDropStep) => void) => {
+const defineHeader = (
+  step: TDropStep,
+  wallet: string | null,
+  action: (prevStep: TDropStep) => void,
+  logout: () => void,
+  address?: string
+) => {
   const backAction = defineBackAction(step, wallet, action)
-  return <PageHeader backAction={backAction}/>
+  return <PageHeader
+    backAction={backAction}
+    address={address}
+    logout={logout}
+  />
 }
 
 const ClaimPage: FC<ReduxType> = ({
@@ -221,7 +232,8 @@ const ClaimPage: FC<ReduxType> = ({
   type,
   claimERC1155,
   claimERC20,
-  claimERC721
+  claimERC721,
+  logout
 }) => {
   const setAddressCallback = (address: string) => {
     if (type === 'ERC1155') {
@@ -266,7 +278,13 @@ const ClaimPage: FC<ReduxType> = ({
   
   return <Page>
     <Container>
-      {defineHeader(step, wallet, setStep)}
+      {defineHeader(
+        step,
+        wallet,
+        setStep,
+        logout,
+        address
+      )}
       {screen}
     </Container> 
   </Page>

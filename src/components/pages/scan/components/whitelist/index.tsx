@@ -15,6 +15,7 @@ import {
 } from './styled-components'
 import { useParams, useHistory } from 'react-router-dom'
 import Page from 'components/pages/page'
+import * as userAsyncActions from 'data/store/reducers/user/async-actions'
 import { TDropError, TDropType, TMultiscanStep, TWhitelistType } from 'types'
 import {
   QRNotMapped,
@@ -83,6 +84,7 @@ const mapStateToProps = ({
 const mapDispatcherToProps = (dispatch: Dispatch<DropActions> & IAppDispatch) => {
   return {
     setMultiscanStep: (step: TMultiscanStep) => dispatch(dropActions.setMultiscanStep(step)),
+    logout: () => dispatch(userAsyncActions.logout()),
     getLinkByAddress: (
       multiscanQRId: string,
       scanId: string,
@@ -265,10 +267,16 @@ const defineBackAction = (
 const defineHeader = (
   multiscanStep: TMultiscanStep,
   wallet: string | null,
-  action: (step: TMultiscanStep
-) => void) => {
+  action: (step: TMultiscanStep) => void,
+  logout: () => void,
+  address: string
+) => {
   const backAction = defineBackAction(multiscanStep, wallet, action)
-  return <PageHeader backAction={backAction}/>
+  return <PageHeader
+    backAction={backAction}
+    address={address}
+    logout={logout}
+  />
 }
 
 const renderContent = (
@@ -282,13 +290,18 @@ const renderContent = (
   decimals: number,
   whitelistOn: boolean,
   whitelistType: TWhitelistType | null,
-  setAddressCallback: (address?: string) => void
+  setAddressCallback: (address?: string) => void,
+  userAddress: string,
+  logout: () => void
 ) => {
   let content = null
   const header = defineHeader(
     multiscanStep,
     wallet,
-    () => setMultiscanStep('whitelist'))
+    () => setMultiscanStep('whitelist'),
+    logout,
+    userAddress,
+  )
   switch (multiscanStep) {
     case 'whitelist':
       content = <DefaultScreen
@@ -374,6 +387,7 @@ const Scan: FC<ReduxType> = ({
   whitelistOn,
   whitelistType,
   userAddress,
+  logout
 }) => {
   const { multiscanQRId, scanId, scanIdSig, multiscanQREncCode } = useParams<TParams>()
   const history = useHistory()
@@ -463,7 +477,9 @@ const Scan: FC<ReduxType> = ({
     decimals,
     whitelistOn,
     whitelistType,
-    getLinkCallback
+    getLinkCallback,
+    userAddress,
+    logout
   )
 }
 
