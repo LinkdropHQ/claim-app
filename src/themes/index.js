@@ -57,8 +57,8 @@ const themes = {
     tagInfoColor: '#2B32EA',
     tagSuccessColor: '#21F142',
 
-    noteDefaultBgColor: '#E4EDFF',
-    noteDefaultTextColor: config.highlightColor,
+    noteDefaultBgColor: config.noteDefaultBgColor || '#E4EDFF',
+    noteDefaultTextColor: config.noteDefaultTextColor,
     noteAttentionBgColor: '#272727',
     noteAttentionTextColor: '#C3C3C3',
 

@@ -12,7 +12,7 @@ export const WidgetTitle = styled.h2`
   font-weight: 600;
   text-align: center;
   width: 100%;
-  color: ${props => props.theme.primaryTextColor};
+  color: ${props => props.theme.secondaryTextColor};
 `
 
 export const WidgetSubtitle = styled.h3`
@@ -22,7 +22,7 @@ export const WidgetSubtitle = styled.h3`
   text-align: center;
   width: 100%;
   margin: 0 0 64px;
-  color: ${props => props.theme.additionalTextColor};
+  color: ${props => props.theme.secondaryTextColor};
 `
 
 export const ButtonStyled = styled(Button)`

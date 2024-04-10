@@ -28,6 +28,9 @@ export const Body = styled.div`
   border-top-left-radius: 18px;
   border-top-right-radius: 18px;
   padding: 36px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 export const Header = styled.div`
@@ -35,6 +38,8 @@ export const Header = styled.div`
   align-items: center;
   margin-bottom: 24px;
   line-height: 1;
+  max-width: 343px;
+  width: 100%;
 `
 
 export const BackArrow = styled.div`
@@ -61,6 +66,7 @@ export const Title = styled.h2`
 export const Content = styled.div`
   color: ${props => props.theme.primaryTextColor};
   text-align: left;
+  max-width: 343px;
 `
 
 export const Paragraph = styled.p`
@@ -102,6 +108,7 @@ export const CheckboxContainer = styled.div`
 
 export const ButtonStyled = styled(Button)<{ disabled: boolean }>`
   width: 100%;
+  max-width: 343px;
 
   ${props => props.disabled && css`
     color: ${props.theme.buttonDefaultDisabledTextColor};

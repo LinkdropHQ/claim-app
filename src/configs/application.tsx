@@ -9,9 +9,11 @@ type TApplicationParams = {
   additionalTextColor: string
   secondaryTextColor: string
   logo: string
+  noteDefaultBgColor: string
   backgroundColor: string
   highlightHoverColor: string
   highlightActiveColor: string
+  noteDefaultTextColor: string
   footerLogoStyle: 'dark' | 'light'
   claimFinishedButton?: {
     title: string
@@ -28,6 +30,8 @@ const originalParams: TApplicationParams = {
   footerLogoStyle: 'dark',
   additionalTextColor: '#9D9D9D',
   secondaryTextColor: '#FFF',
+  noteDefaultBgColor: '#E4EDFF',
+  noteDefaultTextColor: '#0C5EFF',
   logo: LinkdropLogo,
   backgroundColor: '#F7F7FB',
   highlightHoverColor: '#357AFF',
@@ -39,6 +43,8 @@ const lumasParams: TApplicationParams = {
   primaryTextColor: '#121212',
   footerLogoStyle: 'dark',
   additionalTextColor: '#9D9D9D',
+  noteDefaultTextColor: '#0C5EFF',
+  noteDefaultBgColor: '#E4EDFF',
   logo: LumasLogo,
   backgroundColor: '#F7F7FB',
   secondaryTextColor: '#FFF',
@@ -53,7 +59,9 @@ const alphemyParams: TApplicationParams = {
   secondaryTextColor: '#000',
   additionalTextColor: 'rgba(255, 255, 255, .4)',
   logo: AlphemyLogo,
+  noteDefaultBgColor: '#E4EDFF',
   backgroundColor: '#000',
+  noteDefaultTextColor: '#0C5EFF',
   highlightHoverColor: 'rgba(255, 255, 255, .6)',
   highlightActiveColor: 'rgba(255, 255, 255, .6)',
   claimFinishedButton: {
@@ -72,7 +80,10 @@ const ledgerParams: TApplicationParams = {
   logo: LedgerRTFKTLogo,
   backgroundColor: '#000',
   highlightHoverColor: 'rgba(255, 255, 255, .6)',
-  highlightActiveColor: 'rgba(255, 255, 255, .6)'
+  highlightActiveColor: 'rgba(255, 255, 255, .6)',
+  noteDefaultBgColor: '#29406D',
+  noteDefaultTextColor: '#6294F5'
+
 }
 
 const applicationParams: TConfig = {

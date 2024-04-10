@@ -1,9 +1,24 @@
 import styled from 'styled-components'
 import { Button, Text, Title } from 'components/common'
+import { AdditionalNoteComponent } from 'linkdrop-ui'
 
 type TScreenButton = {
   onClick: () => void
 }
+
+
+export const AdditionalNoteComponentStyled = styled(AdditionalNoteComponent)`
+  background-color: ${props => props.theme.noteDefaultBgColor};
+  color: ${props => props.theme.noteDefaultTextColor};
+
+  svg {
+    circle {
+      stroke: ${props => props.theme.noteDefaultTextColor};
+    }
+    stroke: ${props => props.theme.noteDefaultTextColor};
+  }
+`
+
 
 export const TitleComponent = styled(Title)`
   font-size: 22px;

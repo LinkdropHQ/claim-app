@@ -34,4 +34,8 @@ export const TokenImageSlider = styled.div<{ sliderImage: number }>`
   ${props => props.sliderImage === 2 && css`
     right: calc(186px / 2 + 16px / 2);
   `}
+
+  @media (min-width: 768px) {
+    right: 0;
+  }
 `

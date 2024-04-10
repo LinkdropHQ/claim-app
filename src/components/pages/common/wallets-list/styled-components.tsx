@@ -1,7 +1,20 @@
 import styled from 'styled-components'
 import { Button, Text, Title } from 'components/common'
 import { OptionsList } from 'linkdrop-ui'
+import { AdditionalNoteComponent } from 'linkdrop-ui'
 
+
+export const AdditionalNoteComponentStyled = styled(AdditionalNoteComponent)`
+  background-color: ${props => props.theme.noteDefaultBgColor};
+  color: ${props => props.theme.noteDefaultTextColor};
+
+  svg {
+    circle {
+      stroke: ${props => props.theme.noteDefaultTextColor};
+    }
+    stroke: ${props => props.theme.noteDefaultTextColor};
+  }
+`
 export const TitleComponent = styled(Title)`
   font-size: 22px;
   color: ${props => props.theme.primaryTextColor};
@@ -40,6 +53,12 @@ export const AdditionalAction = styled.div`
 export const OptionsListStyled = styled(OptionsList)`
   width: 100%;
   margin: 0 0 36px;
+  li {
+    background-color: #1D1F2B;
+    color: #FFF;
+
+  }
+
   @media (max-width: 500px) {
     margin: 0 0 150px;
   }    

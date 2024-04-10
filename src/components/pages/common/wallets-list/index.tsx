@@ -5,9 +5,9 @@ import {
   TextComponent,
   OptionsListStyled,
   WalletIcon,
-  LinkButton
+  LinkButton,
+  AdditionalNoteComponentStyled
 } from './styled-components'
-import { ethers } from 'ethers'
 import { RootState, IAppDispatch } from 'data/store'
 import { connect } from 'react-redux'
 import { useWeb3Modal } from "@web3modal/react"
@@ -23,7 +23,6 @@ import CrossmintIcon from 'images/crossmint-wallet.png'
 import ENSIcon from 'images/ens-logo.png'
 import { useConnect, Connector } from 'wagmi'
 import { TDropStep, TMultiscanStep, TWalletName, TWalletOption, TDropType } from 'types'
-import { AdditionalNoteComponent } from 'linkdrop-ui'
 import { OverlayScreen } from 'linkdrop-ui'
 import * as dropAsyncActions from 'data/store/reducers/drop/async-actions'
 import { Dispatch } from 'redux'
@@ -320,7 +319,7 @@ const WalletsList: FC<ReduxType> = ({
       })
       setShowPopup(true)
     }}>What is browser wallet?</LinkButton>}
-    {system !== 'desktop' && <AdditionalNoteComponent
+    {system !== 'desktop' && <AdditionalNoteComponentStyled
       text='Don’t know what to choose?'
       position='bottom'
       onClick={() => {

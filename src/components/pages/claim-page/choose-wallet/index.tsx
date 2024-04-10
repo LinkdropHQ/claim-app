@@ -4,13 +4,13 @@ import {
   ScreenButton,
   Container,
   TextComponent,
-  WalletIcon
+  WalletIcon,
+  AdditionalNoteComponentStyled
 } from './styled-components'
 import LinkdropLogoLight from 'images/linkdrop-light.png'
 import { RootState, IAppDispatch } from 'data/store'
 import { connect } from 'react-redux'
 import WalletsImg from 'images/wallets.png'
-import { AdditionalNoteComponent } from 'linkdrop-ui'
 import * as dropActions from 'data/store/reducers/drop/actions'
 import { Dispatch } from 'redux';
 import { DropActions } from 'data/store/reducers/drop/types'
@@ -65,7 +65,7 @@ const ChooseWallet: FC<ReduxType> = ({
     }>
       Connect
     </ScreenButton>
-    {system !== 'desktop' && <AdditionalNoteComponent
+    {system !== 'desktop' && <AdditionalNoteComponentStyled
       text='What is a Wallet?'
       position='bottom'
       onClick={() => {

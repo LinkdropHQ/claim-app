@@ -20,4 +20,10 @@ export const LinkdropHeaderBack = styled.div`
   transform: translateY(-50%);
   cursor: pointer;
   display: flex;
+
+  svg {
+    path {
+      fill: #FFF;
+    }
+  }
 `
