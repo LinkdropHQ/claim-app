@@ -45,7 +45,14 @@ const ConfirmModal: FC<TProps> = ({
             value={platformTerms}
             onChange={() => setPlatformTerms(!platformTerms)}
           />
-          <span>I agree to the <LinkStyled target='_blank' href="https://rtfkt.com/legal-2D">RTFKT Digital Collectible terms</LinkStyled></span>
+          <span
+            onClick={(e) => {
+              if (e.target !== e.currentTarget) {
+                return
+              }
+              setPlatformTerms(!platformTerms)
+            }}
+          >I agree to the <LinkStyled target='_blank' href="https://rtfkt.com/legal-2D">RTFKT Digital Collectible terms</LinkStyled></span>
         </CheckboxContainer>
 
         <CheckboxContainer>
@@ -53,7 +60,14 @@ const ConfirmModal: FC<TProps> = ({
             value={marketingPolicy}
             onChange={() => setMarketingPolicy(!marketingPolicy)}
           />
-          <span>I agree to the <LinkStyled target='_blank' href="https://rtfkt.com/tos">RTFKT Platform Terms of Services</LinkStyled> and RTFKT Marketing Policy</span>
+          <span
+            onClick={(e) => {
+              if (e.target !== e.currentTarget) {
+                return
+              }
+              setMarketingPolicy(!marketingPolicy)
+            }}
+          >I agree to the <LinkStyled target='_blank' href="https://rtfkt.com/tos">RTFKT Platform Terms of Services</LinkStyled> and RTFKT Marketing Policy</span>
         </CheckboxContainer>
 
         <CheckboxContainer>
@@ -61,7 +75,14 @@ const ConfirmModal: FC<TProps> = ({
             value={digitalCollectibleTerms}
             onChange={() => setDigitalCollectibleTerms(!digitalCollectibleTerms)}
           />
-          <span>I agree to the <LinkStyled target='_blank' href="https://rtfkt.com/legal-overview#licenses-owned">Digital Collectible Terms</LinkStyled> applicable to each RTFKT NFT I own</span>
+          <span
+            onClick={(e) => {
+              if (e.target !== e.currentTarget) {
+                return
+              }
+              setDigitalCollectibleTerms(!digitalCollectibleTerms)
+            }}
+          >I agree to the <LinkStyled target='_blank' href="https://rtfkt.com/legal-overview#licenses-owned">Digital Collectible Terms</LinkStyled> applicable to each RTFKT NFT I own</span>
         </CheckboxContainer>
 
 
@@ -70,7 +91,14 @@ const ConfirmModal: FC<TProps> = ({
             value={privacyPolicy}
             onChange={() => setPrivacyPolicy(!privacyPolicy)}
           />
-          <span>I acknowledge the <LinkStyled target='_blank' href="https://rtfkt.com/privacy">RTFKT Privacy Policy.</LinkStyled></span>
+          <span
+            onClick={(e) => {
+              if (e.target !== e.currentTarget) {
+                return
+              }
+              setPrivacyPolicy(!privacyPolicy)
+            }}
+          >I acknowledge the <LinkStyled target='_blank' href="https://rtfkt.com/privacy">RTFKT Privacy Policy.</LinkStyled></span>
         </CheckboxContainer>
         
 
@@ -79,7 +107,11 @@ const ConfirmModal: FC<TProps> = ({
             value={sanctionsPolicy}
             onChange={() => setSanctionsPolicy(!sanctionsPolicy)}
           />
-            <span>I confirm I am not subject to sanctions under the OFAC, UN, EU, UK or other  applicable authorities. Failure to comply will void transaction and forfeit any refund</span>
+            <span
+              onClick={(e) => {
+                setSanctionsPolicy(!sanctionsPolicy)
+              }}
+            >I confirm I am not subject to sanctions under the OFAC, UN, EU, UK or other  applicable authorities. Failure to comply will void transaction and forfeit any refund</span>
         </CheckboxContainer>
         
       </Content>
