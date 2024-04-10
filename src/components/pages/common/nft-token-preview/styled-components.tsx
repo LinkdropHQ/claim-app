@@ -9,7 +9,6 @@ export const Subtitle = styled.h3`
 `
 
 export const TokenImageContainer = styled(TokenImage)`
-  background: ${props => props.theme.widgetColor};
   margin-bottom: 16px;
 `
 

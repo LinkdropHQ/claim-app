@@ -9,14 +9,30 @@ import { infuraProvider } from 'wagmi/providers/infura'
 import { publicProvider } from 'wagmi/providers/public'
 import { coinbaseConnector } from './coinbase-connector'
 
-const { REACT_APP_WC_PROJECT_ID, REACT_APP_INFURA_ID } = process.env
-const chains = [mainnet, polygon, goerli, polygonMumbai, base, baseGoerli]
+const {
+  REACT_APP_WC_PROJECT_ID,
+  REACT_APP_INFURA_ID,
+  REACT_APP_JSON_RPC_MUMBAI
+} = process.env
+
+const polygonMumbaiUpdated = {
+  ...polygonMumbai,
+  rpcUrls: {
+    ...polygonMumbai.rpcUrls,
+    default: {
+      http: [
+        REACT_APP_JSON_RPC_MUMBAI as string
+      ]
+    }
+  }
+}
+const chains = [
+  mainnet, polygon, goerli, polygonMumbaiUpdated, base, baseGoerli
+]
 
 // Wagmi client
 const { publicClient, webSocketPublicClient } = configureChains(
-  [
-    mainnet, polygon, goerli, polygonMumbai, base, baseGoerli
-  ],
+  chains,
   [
     infuraProvider({ apiKey: REACT_APP_INFURA_ID as string }),
     publicProvider()
