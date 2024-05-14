@@ -21,7 +21,9 @@ export const ButtonStyled = styled(Button)`
   width: calc(100% - (40px * 2));
   position: absolute;
   bottom: 40px;
-  left: 40px;
+  left: 50%;
+  max-width: 343px;
+  transform: translateX(-50%);
 `
 
 export const ScreenTitle = styled(Title)`
