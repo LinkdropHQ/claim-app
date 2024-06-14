@@ -1,14 +1,7 @@
 import { FC, useEffect } from 'react'
 import {
-  TitleComponent,
-  ScreenButton,
-  Container,
-  Subtitle,
-  TokenImageContainer,
-  TextComponent,
-  UserAddress
+  Container
 } from './styled-components'
-import { useConnect } from 'wagmi'
 import { RootState, IAppDispatch } from 'data/store'
 import { DropActions } from 'data/store/reducers/drop/types'
 import { TokenActions } from 'data/store/reducers/token/types'
@@ -16,17 +9,10 @@ import * as dropAsyncActions from 'data/store/reducers/drop/async-actions'
 import { Dispatch } from 'redux'
 import * as dropActions from 'data/store/reducers/drop/actions'
 import { TDropStep, TDropType } from 'types'
-import {
-  shortenString,
-  defineSystem,
-  defineApplicationConfig
-} from 'helpers'
 import { plausibleApi } from 'data/api'
-import { ERC20TokenPreview, PoweredByFooter } from 'components/pages/common'
 import { connect } from 'react-redux'
 import { switchNetwork } from 'data/store/reducers/user/async-actions'
-const { REACT_APP_CLIENT} = process.env
-const config = defineApplicationConfig()
+import { Loader } from 'components/common'
 
 const mapStateToProps = ({
   token: {
@@ -96,13 +82,6 @@ const mapDispatcherToProps = (dispatch: Dispatch<DropActions> & Dispatch<TokenAc
 
 type ReduxType = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatcherToProps> 
 
-const defineTokenId = (type: TDropType | null, tokenId?: string | null) => {
-  if (type === 'ERC20' || !tokenId) { return '' }
-  if (tokenId.length > 5) {
-    return ` #${shortenString(tokenId, 3)}`
-  }
-  return ` #${tokenId}`
-}
 
 const InitialScreen: FC<ReduxType> = ({
   name,
@@ -125,66 +104,21 @@ const InitialScreen: FC<ReduxType> = ({
   autoclaim
 }) => {
 
-  const system = defineSystem()
-  const { connectors } = useConnect()
-
-  const onClaim = async () => {
-    if (Number(userChainId) !== Number(chainId) && userProvider) {
-      // @ts-ignore
-
-      const coinbaseConnector = connectors.find(connector => connector.id === "coinbaseWalletSDK")
-      const isAuthorized = await coinbaseConnector?.isAuthorized()
-      if (isAuthorized) {
-        await switchNetwork(userProvider, chainId as number, campaignId as string, () => {
-          if (type === 'ERC1155') {
-            return claimERC1155()
-          }
-          if (type === 'ERC721') {
-            return claimERC721()
-          }
-          if (type === 'ERC20') {
-            return claimERC20()
-          }
-        })
-      }
-      if(
-        window &&
-        window.ethereum &&
-        window.ethereum.isCoinbaseWallet &&
-        system !== 'desktop'
-      ) {
-        if (chainId) {
-          await switchNetwork(userProvider, chainId as number, campaignId as string, () => {})
-        } else {
-          alert('No chain provided')
-        }
-      } else {
-        return setStep('change_network')
-      }
-    }
-
-    plausibleApi.invokeEvent({
-      eventName: 'claim_initiated',
-      data: {
-        campaignId: campaignId as string,
-      }
-    })
-
-    if (type === 'ERC1155') {
-      return claimERC1155()
-    }
-    if (type === 'ERC721') {
-      return claimERC721()
-    }
-    if (type === 'ERC20') {
-      return claimERC20()
-    }
-  }
-
   useEffect(() => {
-    if (autoclaim) {
-      onClaim()
+    const claim = async () => {
+      await switchNetwork(userProvider, chainId as number, campaignId as string, () => {
+        if (type === 'ERC1155') {
+          return claimERC1155()
+        }
+        if (type === 'ERC721') {
+          return claimERC721()
+        }
+        if (type === 'ERC20') {
+          return claimERC20()
+        }
+      })
     }
+    claim()
   }, [])
 
   useEffect(() => {
@@ -196,48 +130,8 @@ const InitialScreen: FC<ReduxType> = ({
     })
   }, [])
 
-  const defineButton = () => {
-    return <ScreenButton
-      disabled={
-        (type === 'ERC1155' && (!tokenId || !amount)) ||
-        (type === 'ERC721' && (!tokenId)) ||
-        (type === 'ERC20' && (!amount)) ||
-        loading
-      }
-      loading={loading}
-      appearance='action'
-      title='Claim'
-      onClick={onClaim}
-    />
-  }
-
-  const addressPreview = <UserAddress>{email ? email : shortenString(address, 3)}</UserAddress>
-  const tokenTitle = config.primaryText || name
-
-  const content = type === 'ERC20' ? <>
-    <ERC20TokenPreview
-      name={name}
-      image={image as string}
-      amount={amount as string}
-      decimals={decimals}
-      status='initial'
-    />
-    <TextComponent>
-      Please proceed to receive tokens to: {addressPreview}
-    </TextComponent>
-  </> : <>
-    {image && <TokenImageContainer src={image} alt={name} />}
-    {(REACT_APP_CLIENT as string) !== 'wedding' && <Subtitle>{defineTokenId(type, tokenId)}</Subtitle>}
-    <TitleComponent>{tokenTitle}</TitleComponent>
-    <TextComponent>
-      Here is a preview of the NFT you’re about to receive to: {addressPreview}
-    </TextComponent>
-  </>
-
   return <Container> 
-    {content}
-    {defineButton()}
-    <PoweredByFooter />
+    <Loader /> 
   </Container>
 }
 

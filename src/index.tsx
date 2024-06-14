@@ -19,8 +19,7 @@ const {
 const container = document.getElementById('root') as HTMLElement
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 
-root.render(<React.StrictMode>
-  <Auth0Provider
+root.render(<Auth0Provider
     domain={REACT_APP_AUTH0_DOMAIN as string}
     clientId={REACT_APP_AUTH0_CLIENT_ID as string}
     authorizationParams={{
@@ -29,8 +28,7 @@ root.render(<React.StrictMode>
   >
     <App />
   </Auth0Provider>
-  </React.StrictMode>
-);
+)
 
 
 // If you want to start measuring performance in your app, pass a function
