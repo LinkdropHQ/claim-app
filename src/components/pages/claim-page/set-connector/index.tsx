@@ -80,7 +80,6 @@ const SetConnector: FC<ReduxType> = ({
   const { connect, connectors } = useConnect()
   const { open } = useWeb3Modal()
 
-
   const injected = connectors.find(connector => connector.id === 'injected')
 
   const system = defineSystem()
@@ -105,6 +104,7 @@ const SetConnector: FC<ReduxType> = ({
     }
   }, [])
 
+
   const content = type === 'ERC20' ? <ERC20TokenPreview
     name={name}
     image={image as string}
@@ -113,10 +113,9 @@ const SetConnector: FC<ReduxType> = ({
     status='initial'
   /> : <>
     {image && <TokenImageContainer src={image} alt={name} />}
-    {(REACT_APP_CLIENT as string) !== 'wedding' && <Subtitle>{defineTokenId(type, tokenId)}</Subtitle>}
-    <TitleComponent>{name}</TitleComponent>
+    <TitleComponent>I love you, onchain</TitleComponent>
     <TextComponent>
-      Here is a preview of the NFT you’re about to receive
+    Tap to claim an onchain memento of our wedding, as well as 0.001 ETH on Base to get your started exploring onchain
     </TextComponent>
   </>
 
