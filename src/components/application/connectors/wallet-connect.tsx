@@ -1,6 +1,6 @@
 import { createWeb3Modal } from '@web3modal/wagmi/react'
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
-import { WagmiProvider } from 'wagmi'
+import { createStorage, WagmiProvider } from 'wagmi'
 import {
   mainnet,
   polygon,
@@ -41,19 +41,21 @@ const chains = [
   polygonMumbai
 ] as const
 
+localStorage.clear()
+sessionStorage.clear()
+
 const config = defaultWagmiConfig({
   chains,
   projectId,
   metadata,
-  enableEmail: true,
+  storage: null, 
   connectors: [
     walletConnect({
       projectId,
       metadata,
       showQrModal: false
     }),
-    injected(),
-    coinbaseWallet()
+    coinbaseWallet({})
   ],
   transports: {
     [mainnet.id]: http(),

@@ -78,11 +78,6 @@ const SetConnector: FC<ReduxType> = ({
   availableWallets
 }) => {
   const { connect, connectors } = useConnect()
-  const { open } = useWeb3Modal()
-
-  const injected = connectors.find(connector => connector.id === 'injected')
-
-  const system = defineSystem()
   const [ initialized, setInitialized ] = useState<boolean>(false)
 
   useEffect(() => {

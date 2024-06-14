@@ -70,6 +70,7 @@ const ClaimingFinished: FC<ReduxType> = ({
   claiming_finished_description,
   email
 }) => {
+
   useEffect(() => {
     plausibleApi.invokeEvent({
       eventName: 'claim_finished',
