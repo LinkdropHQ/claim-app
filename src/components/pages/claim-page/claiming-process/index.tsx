@@ -39,8 +39,8 @@ const ClaimingProcess: FC<ReduxType> = ({ hash, chainId, checkTransactionStatus 
     <IconContainer>
       <Loader />
     </IconContainer>
-    <ScreenTitle>Processing Transaction</ScreenTitle>
-    <ScreenSubtitle>This may take a few minutes. You can return to the app later to check on the status</ScreenSubtitle>
+    <ScreenTitle>Claiming your NFT</ScreenTitle>
+    <ScreenSubtitle>This might take a few minutes. Feel free to check back later</ScreenSubtitle>
     {explorerUrl} 
   </Container>
 }
