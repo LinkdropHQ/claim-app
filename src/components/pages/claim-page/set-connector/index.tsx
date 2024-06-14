@@ -103,22 +103,6 @@ const SetConnector: FC<ReduxType> = ({
     ) {
       return setInitialized(true)
     }
-
-    if(window &&
-
-      //@ts-ignore
-      window.ethereum &&
-      (
-        // @ts-ignore
-        window.ethereum.isCoinbaseWallet || window.ethereum.isOneInchIOSWallet || window.ethereum.isOneInchAndroidWallet
-      ) &&
-      system !== 'desktop' && 
-      injected
-    ) {
-      return connect({ connector: injected })
-    } else {
-      setInitialized(true)
-    }
   }, [])
 
   const content = type === 'ERC20' ? <ERC20TokenPreview
@@ -148,16 +132,6 @@ const SetConnector: FC<ReduxType> = ({
             campaignId: campaignId as string
           }
         })
-        // connect to wallet if has injected
-        if (
-          !address &&
-          injected &&
-          window.ethereum &&
-          system !== 'desktop' &&
-          injected.name !== 'Brave Wallet'
-        ) {
-          return connect({ connector: injected })
-        }
 
         if (
           wallet &&
@@ -170,28 +144,6 @@ const SetConnector: FC<ReduxType> = ({
             if (coinbaseConnector) {
               return connect({ connector: coinbaseConnector })
             }
-          }
-
-          if (
-            wallet !== 'walletconnect' &&
-            wallet !== 'manual_address' &&
-            wallet !== 'crossmint' &&
-            wallet !== 'zerion'
-          ) {
-            const deeplink = getWalletDeeplink(wallet, system, window.location.href, chainId)
-            if (deeplink) {
-              return deeplinkRedirect(deeplink, wallet, () => setStep('wallet_redirect_await'))
-            }
-          } else if (
-            wallet === 'walletconnect'
-          ) {
-            return open()
-          } else if (wallet === 'zerion') {
-            return setStep('zerion_connection')
-          } else if (wallet === 'crossmint') {
-            return setStep('crossmint_connection')
-          } else if (wallet === 'manual_address') {
-            return setStep('set_address')
           }
         }
 
