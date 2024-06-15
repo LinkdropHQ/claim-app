@@ -81,6 +81,8 @@ const weddingParams: TApplicationParams = {
   tokenImage: WeddingImage
 }
 
+console.log({ weddingParams })
+
 const applicationParams: TConfig = {
   linkdrop: originalParams,
   lumas: lumasParams,
