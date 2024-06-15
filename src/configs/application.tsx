@@ -77,7 +77,7 @@ const weddingParams: TApplicationParams = {
   highlightActiveColor: '#095AF5',
 
   primaryText: 'I love you, onchain',
-  primaryDescription: 'Tap to claim an onchain memento of our wedding, as well as 0.001 ETH on Base to get your started exploring onchain.',
+  primaryDescription: 'Tap to claim an onchain memento of our wedding, as well as 0.001 ETH on Base to get you started exploring onchain.',
   tokenImage: WeddingImage
 }
 
