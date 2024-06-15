@@ -110,7 +110,7 @@ const SetConnector: FC<ReduxType> = ({
     {image && <TokenImageContainer src={image} alt={name} />}
     <TitleComponent>I love you, onchain</TitleComponent>
     <TextComponent>
-    Tap to claim an onchain memento of our wedding, as well as 0.001 ETH on Base to get your started exploring onchain
+    Tap to claim an onchain memento of our wedding, as well as 0.001 ETH on Base to get you started exploring onchain.
     </TextComponent>
   </>
 
