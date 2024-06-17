@@ -16,10 +16,6 @@ type TApplicationParams = {
   primaryText?: string
   primaryDescription?: string
   tokenImage?: string
-  claimFinishedButton?: {
-    title: string
-    url: string
-  }
 }
 
 type TConfig = Record<string, TApplicationParams>
@@ -35,7 +31,6 @@ const originalParams: TApplicationParams = {
   backgroundColor: '#F7F7FB',
   highlightHoverColor: '#357AFF',
   highlightActiveColor: '#095AF5'
-
 }
 
 const applicationParams: TConfig = {

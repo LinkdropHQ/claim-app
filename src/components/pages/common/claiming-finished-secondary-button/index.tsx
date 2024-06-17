@@ -1,10 +1,9 @@
 import { FC } from 'react'
 import { ButtonStyled } from './styled-components'
-import { defineExplorerURL, defineApplicationConfig } from 'helpers'
+import { defineExplorerURL } from 'helpers'
 import { plausibleApi } from 'data/api'
 import { RootState } from 'data/store'
 import { connect } from 'react-redux'
-const config = defineApplicationConfig()
 
 const mapStateToProps = ({
   drop: {
@@ -25,18 +24,6 @@ const ClaimingFinishedSecondaryButton: FC<ReduxType> = ({
   hash,
   campaignId
 }) => {
-  if (
-    config &&
-    config.claimFinishedButton
-  ) {
-    return <ButtonStyled
-      onClick={() => {
-        window.open((config.claimFinishedButton || {}).url, '_blank')
-      }}
-      title={config.claimFinishedButton.title}
-      appearance='default'
-    />
-  }
   const explorerUrl = chainId && hash ? <ButtonStyled
     onClick={() => {
       plausibleApi.invokeEvent({

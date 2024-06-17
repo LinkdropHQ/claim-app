@@ -15,7 +15,6 @@ import throttling from './throttling'
 import handleClaimResponseError from './handle-claim-response-error'
 import defineRealNetworkName from './define-real-network-name'
 import toHex from './to-hex'
-import defineOpenseaURL from './define-opensea-url'
 import defineAlchemyNetwork from './define-alchemy-network'
 import createAlchemyInstance from './create-alchemy-instance'
 import getAlchemyTokenImage from './get-alchemy-token-image'
@@ -31,7 +30,6 @@ export {
   createAlchemyInstance,
   defineAlchemyNetwork,
   shortenString,
-  defineOpenseaURL,
   toHex,
   defineNetworkName,
   defineRealNetworkName,
