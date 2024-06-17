@@ -68,24 +68,6 @@ const chains: TChains = {
       'https://goerli.etherscan.io'
     ]
   },
-  80001: {
-    chainName: 'Mumbai',
-    displayName: 'Mumbai',
-    alchemySupport: true,
-    testnet: true,
-    nativeCurrency: {
-      
-      name: 'MATIC',
-      symbol: 'MATIC',
-      decimals: 18
-    },
-    rpcUrls: [
-      'https://endpoints.omniatech.io/v1/matic/mumbai/public'
-    ],
-    blockExplorerUrls: [
-      'https://mumbai.polygonscan.com'
-    ]
-  },
   8453: {
     chainName: 'Base',
     displayName: 'Base',

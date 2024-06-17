@@ -1,6 +1,5 @@
 import { createWeb3Modal } from '@web3modal/wagmi/react'
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
-import { createStorage, WagmiProvider } from 'wagmi'
 import {
   mainnet,
   polygon,
@@ -10,21 +9,16 @@ import {
   polygonMumbai
 } from 'wagmi/chains'
 import { http } from 'wagmi'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-// import { metamaskConfig } from './metamask-connect'
-// import { coinbaseConfig } from './coinbase-connector'
+import { QueryClient } from '@tanstack/react-query'
 
-import { injected, walletConnect, coinbaseWallet } from 'wagmi/connectors'
+import { walletConnect, coinbaseWallet } from 'wagmi/connectors'
 
 const { REACT_APP_WC_PROJECT_ID } = process.env
 
-// 0. Setup queryClient
 const queryClient = new QueryClient()
 
-// 1. Get projectId at https://cloud.walletconnect.com
 const projectId = REACT_APP_WC_PROJECT_ID as string
 
-// 2. Create wagmiConfig
 const metadata = {
   name: 'Linkdrop Claim App',
   description: 'Linkdrop Claim App',
@@ -40,9 +34,6 @@ const chains = [
   baseGoerli,
   polygonMumbai
 ] as const
-
-localStorage.clear()
-sessionStorage.clear()
 
 const config = defaultWagmiConfig({
   chains,
@@ -67,11 +58,10 @@ const config = defaultWagmiConfig({
   },
 })
 
-// 3. Create modal
 createWeb3Modal({
   wagmiConfig: config,
   projectId,
-  enableAnalytics: true, // Optional - defaults to your Cloud configuration
+  enableAnalytics: true,
 })
 
 

@@ -12,29 +12,14 @@ import PopupWhatIsWalletContents from './popup-what-is-wallet-contents'
 import PageHeader from './page-header'
 import PoweredByFooter from './powered-by-footer'
 import QRNoLinksToShare from './qr-no-links-to-share'
-import WalletsListPage from './wallets-list'
-import SetAddress from './set-address'
-import ZerionConnection from './zerion-connection'
-import DownloadAwait from './download-await'
-import WalletRedirectAwait from './wallet-redirect-await'
 import QRCampaignNotActive from './qr-campaign-not-active'
-import CrossmintConnection from './crossmint-connection'
-import SignMessage from './sign-message'
-import EligibleToClaim from './eligible-to-claim'
 import QRCampaignNotEligible from './qr-campaign-not-eligible'
 import ScreenLoader from './screen-loader'
-import LedgerConnection from './ledger-connection'
 
 export {
   QRCampaignNotEligible,
-  LedgerConnection,
   ScreenLoader,
-  EligibleToClaim,
-  SetAddress,
   ClaimingFinishedSecondaryButton,
-  SignMessage,
-  ZerionConnection,
-  DownloadAwait,
   QRCampaignNotActive,
   QRNotMapped,
   PageHeader,
@@ -48,8 +33,5 @@ export {
   PopupWhatIsWalletContents,
   QRCampaignNotStarted,
   QRNoLinksToShare,
-  WalletsListPage,
-  PoweredByFooter,
-  WalletRedirectAwait,
-  CrossmintConnection
+  PoweredByFooter
 }

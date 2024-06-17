@@ -84,24 +84,14 @@ type ReduxType = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispa
 
 
 const InitialScreen: FC<ReduxType> = ({
-  name,
   type,
-  tokenId,
-  amount,
-  image,
   claimERC1155,
   claimERC721,
   claimERC20,
-  loading,
-  address,
   chainId,
-  userChainId,
   setStep,
   campaignId,
-  decimals,
-  userProvider,
-  email,
-  autoclaim
+  userProvider
 }) => {
 
   useEffect(() => {

@@ -7,13 +7,11 @@ import contracts from 'configs/contracts'
 import LinkdropFactory from 'abi/linkdrop-factory.json'
 import { signReceiverAddress } from '@linkdrop/contracts/scripts/utils.js'
 import * as dropActions from '../actions'
-import * as userActions from '../../user/actions'
 import { UserActions } from '../../user/types'
-import { resolveENS, defineJSONRpcUrl, handleClaimResponseError } from 'helpers'
+import { handleClaimResponseError } from 'helpers'
 import { AxiosError } from 'axios'
 import gasPriceLimits from 'configs/gas-price-limits'
 import { plausibleApi } from 'data/api'
-const { REACT_APP_INFURA_ID = '' } = process.env
 
 export default function claimERC1155(
   manualAddress?: string,
@@ -99,33 +97,7 @@ export default function claimERC1155(
     }
 
     if (!address) {
-      if (manualAddress) {
-        const jsonRpcUrl = defineJSONRpcUrl({ chainId: 1, infuraPk: REACT_APP_INFURA_ID })
-        const provider = new ethers.providers.JsonRpcProvider(jsonRpcUrl)
-
-        const addressResolved = await resolveENS(manualAddress, provider)
-
-        if (addressResolved) {
-          dispatch(userActions.setAddress(addressResolved))
-          address = addressResolved
-          dispatch(dropActions.setAddressIsManuallySet(true))
-        } else if (!window.navigator.onLine) {
-          dispatch(dropActions.setLoading(false))
-          plausibleApi.invokeEvent({
-            eventName: 'error',
-            data: {
-              err_name: 'error_no_connection',
-              campaignId
-            }
-          })
-          return dispatch(dropActions.setStep('error_no_connection'))
-        } else {
-          dispatch(dropActions.setLoading(false))
-          return alert('Provided address or ens is not correct')
-        }
-      } else if (email) {
-        alert('No user address provided for claim')
-      }
+      alert('No user address provided for claim')
     }
 
     let finalTxHash = ''

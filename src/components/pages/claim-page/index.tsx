@@ -11,16 +11,7 @@ import ErrorPage from './error'
 import ErrorTransactionPage from './error-transaction'
 import ErrorNoConnectionPage from './error-no-connection'
 import { useEthersSigner } from 'hooks'
-import {
-  WalletsListPage,
-  ZerionConnection,
-  SetAddress,
-  PageHeader,
-  LedgerConnection,
-  DownloadAwait,
-  WalletRedirectAwait,
-  CrossmintConnection
-} from 'components/pages/common'
+import { PageHeader } from 'components/pages/common'
 import ErrorServerFail from './error-server-fail'
 import ErrorRegion from './error-region'
 import ErrorLinkExpired from './error-link-expired'
@@ -28,7 +19,6 @@ import ErrorAlreadyClaimed from './error-already-claimed'
 import ErrorLinkNotFound from './error-link-not-found'
 import ErrorLinkNoConnection from './error-link-no-connection'
 import ErrorLink from './error-link'
-import ChooseWallet from './choose-wallet'
 import ShortCodeLoading from './short-code-loading'
 import HighGasPrice from './high-gas-price'
 import { Loader } from 'components/common'
@@ -129,10 +119,6 @@ type TDefineStep = (
       return <NoTokensLeft />
     case 'error':
       return <ErrorPage />
-    case 'set_address':
-      return <SetAddress
-        onSubmit={setAddressCallback}
-      />
     case 'error_transaction':
       return <ErrorTransactionPage />
     case 'error_region':
@@ -145,14 +131,6 @@ type TDefineStep = (
       return <ErrorLinkExpired />
     case 'error_already_claimed':
       return <ErrorAlreadyClaimed />
-    case 'choose_wallet':
-      return <ChooseWallet />
-    case 'wallets_list':
-      return <WalletsListPage
-        enableENS
-        setStep={setStep}
-        enableZerion
-      />
     case 'gas_price_high':
       return <HighGasPrice />
     case 'error_link_not_found':
@@ -163,20 +141,6 @@ type TDefineStep = (
       return <ErrorLink />
     case 'short_code_loading':
       return <ShortCodeLoading />
-    case 'download_await':
-      return <DownloadAwait />
-    case 'zerion_connection':
-      return <ZerionConnection
-        setStepCallback={() => setStep('initial')}
-      />
-    case 'ledger_connection':
-      return <LedgerConnection
-        setStepCallback={() => setStep('initial')}
-      />
-    case 'crossmint_connection':
-      return <CrossmintConnection />
-    case 'wallet_redirect_await':
-      return <WalletRedirectAwait />
     default:
       return <Loader />
   }
@@ -188,22 +152,6 @@ const defineBackAction = (
   action: (prevoiusStep: TDropStep) => void
 ) => {
   switch (step) {
-    case 'set_address':
-    case 'download_await':
-    case 'zerion_connection':
-    case 'ledger_connection':
-    case 'crossmint_connection':
-      return () => action('wallets_list')
-    case 'wallet_redirect_await':
-      // if coinbase - do not show other wallets
-      if (wallet === 'coinbase_wallet') {
-        return () => action('set_connector')
-      }
-      return () => action('wallets_list')
-    case 'wallets_list':
-      return () => action('choose_wallet')
-    case 'choose_wallet':
-      return () => action('set_connector')
     default:
       return null
   }
