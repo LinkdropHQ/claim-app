@@ -23,7 +23,8 @@ const mapStateToProps = ({
     type,
     amount,
     tokenId,
-    claiming_finished_description
+    claiming_finished_description,
+    tokenAddress
   },
   token: {
     image,
@@ -37,6 +38,7 @@ const mapStateToProps = ({
   tokenId,
   type,
   decimals,
+  tokenAddress,
   amount,
   claiming_finished_description
 })
@@ -50,6 +52,7 @@ const AlreadyClaimed: FC<ReduxType> = ({
   amount,
   decimals,
   tokenId,
+  tokenAddress,
   claiming_finished_description
 }) => {
 
@@ -61,7 +64,12 @@ const AlreadyClaimed: FC<ReduxType> = ({
   /> : <>
     {image && <TokenImageContainer>
       <DoneIcon />
-      <NFTTokenPreviewStyled image={image} name={name} tokenId={tokenId} />
+      <NFTTokenPreviewStyled
+        image={image}
+        name={name}
+        tokenId={tokenId}
+        tokenAddress={tokenAddress as string}
+      />
     </TokenImageContainer>}
   </>
 

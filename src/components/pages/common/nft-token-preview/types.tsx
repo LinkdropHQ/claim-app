@@ -3,4 +3,5 @@ export type TProps = {
   name: string | null
   tokenId: string | null
   className?: string
+  tokenAddress: string
 }

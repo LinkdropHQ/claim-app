@@ -26,13 +26,33 @@ import { switchNetwork } from 'data/store/reducers/user/async-actions'
 import { ConfirmModal } from './components'
 
 const mapStateToProps = ({
-  token: { name, image, decimals },
-  user: { address, chainId: userChainId, userProvider, email, signer },
-  drop: { tokenId, amount, type, isManual, loading, chainId, campaignId }
+  token: {
+    name,
+    image,
+    decimals
+  },
+  user: {
+    address,
+    chainId: userChainId,
+    userProvider,
+    email,
+    signer
+  },
+  drop: {
+    tokenAddress,
+    tokenId,
+    amount,
+    type,
+    isManual,
+    loading,
+    chainId,
+    campaignId
+  }
 }: RootState) => ({
   name,
   image,
   type,
+  tokenAddress,
   tokenId,
   amount,
   isManual,
@@ -93,6 +113,7 @@ const InitialScreen: FC<ReduxType> = ({
   loading,
   address,
   chainId,
+  tokenAddress,
   userChainId,
   setStep,
   campaignId,
@@ -187,7 +208,12 @@ const InitialScreen: FC<ReduxType> = ({
       {description}
     </TextComponent>
   </> : <>
-    {image && <NFTTokenPreviewStyled image={image} name={name} tokenId={tokenId} />}
+    {image && <NFTTokenPreviewStyled
+      image={image}
+      name={name}
+      tokenId={tokenId}
+      tokenAddress={tokenAddress as string}
+    />}
     <TitleComponent>{defineLedgerClaimTitle(tokenId as string)}</TitleComponent>
     <TextComponent>
       {description}

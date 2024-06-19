@@ -27,6 +27,7 @@ const mapStateToProps = ({
     campaignId,
     type,
     amount,
+    tokenAddress,
     tokenId,
     claiming_finished_description
   },
@@ -43,6 +44,7 @@ const mapStateToProps = ({
   name,
   type,
   tokenId,
+  tokenAddress,
   campaignId,
   email,
   amount,
@@ -68,6 +70,7 @@ const ClaimingFinished: FC<ReduxType> = ({
   type,
   amount,
   tokenId,
+  tokenAddress,
   decimals,
   claiming_finished_description,
   email
@@ -90,7 +93,12 @@ const ClaimingFinished: FC<ReduxType> = ({
   /> : <>
     {image && <TokenImageContainer>
       <DoneIcon />
-      <NFTTokenPreviewStyled image={image} name={name} tokenId={tokenId} />
+      <NFTTokenPreviewStyled
+        image={image}
+        name={name}
+        tokenId={tokenId}
+        tokenAddress={tokenAddress as string}
+      />
     </TokenImageContainer>}
   </>
 

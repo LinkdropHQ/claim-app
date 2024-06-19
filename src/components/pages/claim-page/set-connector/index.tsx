@@ -26,13 +26,29 @@ import * as dropAsyncActions from 'data/store/reducers/drop/async-actions'
 import { useWeb3Modal } from "@web3modal/react"
 
 const mapStateToProps = ({
-  token: { name, image, decimals, },
-  drop: { tokenId, type, campaignId, amount, wallet, chainId, availableWallets },
-  user: { address }
+  token: {
+    name,
+    image,
+    decimals
+  },
+  drop: {
+    tokenAddress,
+    tokenId,
+    type,
+    campaignId,
+    amount,
+    wallet,
+    chainId,
+    availableWallets
+  },
+  user: {
+    address
+  }
 }: RootState) => ({
   name,
   image,
   type,
+  tokenAddress,
   tokenId,
   address,
   campaignId,
@@ -77,6 +93,7 @@ const SetConnector: FC<ReduxType> = ({
   amount,
   decimals,
   wallet,
+  tokenAddress,
   chainId,
   deeplinkRedirect,
   availableWallets
@@ -175,7 +192,12 @@ const SetConnector: FC<ReduxType> = ({
     decimals={decimals}
     status='initial'
   /> : <>
-    {image && <NFTTokenPreviewStyled image={image} name={name} tokenId={tokenId} />}
+    {image && <NFTTokenPreviewStyled
+      image={image}
+      name={name}
+      tokenId={tokenId}
+      tokenAddress={tokenAddress as string}
+    />}
     <TitleComponent>{defineLedgerClaimTitle(tokenId as string)}</TitleComponent>
     <TextComponent>
       {description}
