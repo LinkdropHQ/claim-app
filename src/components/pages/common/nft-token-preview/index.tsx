@@ -17,7 +17,7 @@ const defineSubtitle = (
   name: string,
   tokenId?: string | null,
 ) => {
-  if (tokenAddress === tokenAddressCustom) {
+  if (tokenAddress.toLowerCase() === tokenAddressCustom) {
     if (!tokenId || tokenId === '2') { return null }
     if (tokenId === '1') return `Collection of 2 collectibles`
   }
@@ -32,7 +32,7 @@ const defineTokenImage = (
   sliderImage: number,
   setSliderImage: (sliderImage: number) => void
 ) => {
-  if (tokenAddress === tokenAddressCustom) {
+  if (tokenAddress.toLowerCase() === tokenAddressCustom) {
     if (tokenId === '1') {
       return <TokenImageSlider sliderImage={sliderImage}>
         <TokenImageContainer
@@ -80,7 +80,7 @@ const NFTTokenPreview: FC<TProps> = ({
     )}
     <Subtitle>{defineSubtitle(
       tokenAddress,
-      name,
+      name as string,
       tokenId
     )}</Subtitle>
   </Container>
