@@ -14,7 +14,9 @@ const getTokenData: TGetTokenERC1155Data = async (provider, tokenAddress, tokenI
       throw new Error('No Alchemy instance is created')
     }
     const tokenData = await alchemy.nft.getNftMetadata(tokenAddress, tokenId)
+    console.log({ tokenData })
     const image = await getAlchemyTokenImage(tokenData)
+    console.log({ image })
     return { name: tokenData.title || 'ERC1155 Token', image, description: tokenData.description }
   } catch (err) {
     try {
