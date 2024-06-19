@@ -1,4 +1,4 @@
-const ipfsGatewayUrl = 'https://cloudflare-ipfs.com/ipfs'
+const ipfsGatewayUrl = 'https://alchemy.mypinata.cloud/ipfs'
 const ipfsPinataGatewayUrl = 'https://gateway.pinata.cloud/ipfs'
 
 const addTokenIdToIPFS = (url: string, tokenId?: string) => {
