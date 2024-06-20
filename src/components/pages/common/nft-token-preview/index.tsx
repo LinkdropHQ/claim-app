@@ -9,15 +9,17 @@ import {
 import Token1 from 'images/token-1.png'
 import Token2 from 'images/token-2.png'
 
-const tokenAddressCustom = '0xe0195b5e2c917fb3174d19ddff8a92a993b54981'
-
+const tokenAddressCustom = [
+  '0xe0195b5e2c917fb3174d19ddff8a92a993b54981',
+  '0x20db9a6007d1735727dec15808578ba39cabf7dd'
+]
 
 const defineSubtitle = (
   tokenAddress: string,
   name: string,
   tokenId?: string | null,
 ) => {
-  if (tokenAddress.toLowerCase() === tokenAddressCustom) {
+  if (tokenAddressCustom.includes(tokenAddress.toLowerCase())) {
     if (!tokenId || tokenId === '2') { return null }
     if (tokenId === '1') return `Collection of 2 collectibles`
   }
@@ -32,7 +34,7 @@ const defineTokenImage = (
   sliderImage: number,
   setSliderImage: (sliderImage: number) => void
 ) => {
-  if (tokenAddress.toLowerCase() === tokenAddressCustom) {
+  if (tokenAddressCustom.includes(tokenAddress.toLowerCase())) {
     if (tokenId === '1') {
       return <TokenImageSlider sliderImage={sliderImage}>
         <TokenImageContainer
