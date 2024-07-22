@@ -1,4 +1,3 @@
-const ipfsGatewayUrl = 'https://cloudflare-ipfs.com/ipfs'
 const ipfsPinataGatewayUrl = 'https://gateway.pinata.cloud/ipfs'
 
 const addTokenIdToIPFS = (url: string, tokenId?: string) => {
@@ -7,17 +6,16 @@ const addTokenIdToIPFS = (url: string, tokenId?: string) => {
       return url
         .replace('0x{id}', tokenId)
         .replace('{id}', tokenId)
-        .replace(ipfsPinataGatewayUrl, ipfsGatewayUrl)
     }
-    return url.replace(ipfsPinataGatewayUrl, ipfsGatewayUrl)
+    return url
   } else {
-    return url.replace(ipfsPinataGatewayUrl, ipfsGatewayUrl)
+    return url
   }
 }
 
 const redefineURL = (url: string, tokenId?: string) => {
   if (url.startsWith('ipfs://')) {
-    const urlUpdated = `${ipfsGatewayUrl}/${url.replaceAll('ipfs://', '').replaceAll('ipfs/', '')}`
+    const urlUpdated = `${ipfsPinataGatewayUrl}/${url.replaceAll('ipfs://', '').replaceAll('ipfs/', '')}`
     return addTokenIdToIPFS(urlUpdated, tokenId)
   } else {
     return addTokenIdToIPFS(url, tokenId)
