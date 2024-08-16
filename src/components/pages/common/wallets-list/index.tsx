@@ -115,14 +115,7 @@ const defineOptionsList = (
   enableZerion?: boolean
 ) => {
 
-  const system = defineSystem()
-  const ensOption = !isManual && enableENS ? {
-    title: 'ENS or address',
-    onClick: () => setStep('set_address'),
-    icon: <WalletIcon src={ENSIcon} />
-  } : undefined
 
-  const walletconnect = connectors.find(connector => connector.id === "walletConnect")
   const walletConnectOption = {
     title: 'WalletConnect',
     onClick: () => {
@@ -133,25 +126,6 @@ const defineOptionsList = (
     recommended: wallet === 'walletconnect'
   }
 
-  const crossmintOption = {
-    title: 'Sign in with email',
-    onClick: () => {
-      setStep('crossmint_connection')
-    },
-    icon: <WalletIcon src={CrossmintIcon} />,
-    recommended: wallet === 'crossmint'
-  }
-
-  const injected = connectors.find(connector => connector.id === "injected")
-  const injectedOption = getInjectedWalletOption(
-    wallet,
-    system,
-    () => setStep('download_await'),
-    connect,
-    <WalletIcon src={BrowserWalletIcon} />,
-    injected
-  )
-
   const ledgerOption = {
     title: 'LedgerLive',
     onClick: async () => {
@@ -161,109 +135,8 @@ const defineOptionsList = (
     recommended: wallet === 'ledger'
   }
 
-  if (system === 'desktop') {
-    const coinbaseConnector = connectors.find(connector => connector.id === "coinbaseWallet")
-    const coinbaseOption = {
-      title: 'Coinbase Wallet',
-      onClick: () => {
-        if (!coinbaseConnector) {
-          return alert('Cannot connect to Coinbase connector')
-        }
-        connect({ connector: coinbaseConnector })
-      },
-      icon: <WalletIcon src={CoinabseWalletIcon} />,
-      recommended: wallet === 'coinbase_wallet'
-    }
-
-    const wallets = [
-      isOptionVisible(injectedOption, wallet, 'metamask', availableWallets),
-      isOptionVisible(crossmintOption, wallet, 'crossmint', availableWallets, type !== 'ERC20' && !isManual),
-      isOptionVisible(coinbaseOption, wallet, 'coinbase_wallet', availableWallets),
-      isOptionVisible(walletConnectOption, wallet, 'walletconnect', availableWallets),
-      isOptionVisible(ledgerOption, wallet, 'ledger', availableWallets),
-      isOptionVisible(ensOption, wallet, 'manual_address', availableWallets)
-    ]
-
-    return sortWallets(wallets) 
-  }
-
-  const injectedOptionIsBrave = injected && injected.name === 'Brave Wallet'
-
-  const metamaskOption = (injectedOption && !injectedOptionIsBrave) ? undefined : getWalletOption(
-    'metamask',
-    'Metamask',
-    system,
-    window.location.href, 
-    chainId,
-    <WalletIcon src={MetamaskIcon} />,
-    deeplinkRedirect,
-    wallet
-  )
-
-  const trustOption = (injectedOption && !injectedOptionIsBrave) ? undefined : getWalletOption(
-    'trust',
-    'Trust Wallet',
-    system,
-    window.location.href, 
-    chainId,
-    <WalletIcon src={TrustWalletIcon} />,
-    deeplinkRedirect,
-    wallet
-  )
-
-  const coinbaseOption = (injectedOption && !injectedOptionIsBrave) ? undefined : getWalletOption(
-    'coinbase_wallet',
-    'Coinbase Wallet',
-    system,
-    window.location.href, 
-    chainId,
-    <WalletIcon src={CoinabseWalletIcon} />,
-    deeplinkRedirect,
-    wallet
-  )
-
-  const zerionOption = ((injectedOption && !injectedOptionIsBrave) || isManual || !enableZerion) ? undefined : {
-    title: 'Zerion',
-    onClick: async () => {
-      setStep('zerion_connection')
-    },
-    icon: <WalletIcon src={ZerionWalletIcon} />,
-    recommended: wallet === 'zerion'
-  }
-
-  const rainbowOption = (injectedOption && !injectedOptionIsBrave) ? undefined : getWalletOption(
-    'rainbow',
-    'Rainbow',
-    system,
-    window.location.href, 
-    chainId,
-    <WalletIcon src={RainbowWalletIcon} />,
-    deeplinkRedirect,
-    wallet
-  )
-
-  const imtokenOption = (injectedOption && !injectedOptionIsBrave) ? undefined : getWalletOption(
-    'imtoken',
-    'ImToken',
-    system,
-    window.location.href, 
-    chainId,
-    <WalletIcon src={ImtokenWalletIcon} />,
-    deeplinkRedirect,
-    wallet
-  )
-
   const wallets = [
-    isOptionVisible(injectedOption, wallet, 'metamask', availableWallets),
-    isOptionVisible(metamaskOption, wallet, 'metamask', availableWallets),
-    isOptionVisible(coinbaseOption, wallet, 'coinbase_wallet', availableWallets),
-    isOptionVisible(zerionOption, wallet, 'zerion', availableWallets),
     isOptionVisible(walletConnectOption, wallet, 'walletconnect', availableWallets),
-    isOptionVisible(crossmintOption, wallet, 'crossmint', availableWallets, type !== 'ERC20' && !isManual),
-    isOptionVisible(ensOption, wallet, 'manual_address', availableWallets),
-    isOptionVisible(imtokenOption, wallet, 'imtoken', availableWallets),
-    isOptionVisible(trustOption, wallet, 'trust', availableWallets),
-    isOptionVisible(rainbowOption, wallet, 'rainbow', availableWallets),
     isOptionVisible(ledgerOption, wallet, 'ledger', availableWallets)
   ]
 
