@@ -136,8 +136,8 @@ const defineOptionsList = (
   }
 
   const wallets = [
-    isOptionVisible(walletConnectOption, wallet, 'walletconnect', availableWallets),
-    isOptionVisible(ledgerOption, wallet, 'ledger', availableWallets)
+    isOptionVisible(ledgerOption, wallet, 'ledger', availableWallets),
+    isOptionVisible(walletConnectOption, wallet, 'walletconnect', availableWallets)
   ]
 
   return sortWallets(wallets)
