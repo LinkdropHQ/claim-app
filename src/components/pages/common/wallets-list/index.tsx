@@ -11,30 +11,20 @@ import {
 import { RootState, IAppDispatch } from 'data/store'
 import { connect } from 'react-redux'
 import { useWeb3Modal } from "@web3modal/react"
-import MetamaskIcon from 'images/metamask-wallet.png'
-import TrustWalletIcon from 'images/trust-wallet.png'
-import CoinabseWalletIcon from 'images/coinbase-wallet.png'
-import ZerionWalletIcon from 'images/zerion-wallet.png'
 import LedgerLiveWalletIcon from 'images/ledgerlive-wallet.png'
-import RainbowWalletIcon from 'images/rainbow-wallet.png'
-import ImtokenWalletIcon from 'images/imtoken-wallet.png'
 import WalletConnectIcon from 'images/walletconnect-wallet.png'
-import CrossmintIcon from 'images/crossmint-wallet.png'
-import ENSIcon from 'images/ens-logo.png'
 import { useConnect, Connector } from 'wagmi'
-import { TDropStep, TMultiscanStep, TWalletName, TWalletOption, TDropType } from 'types'
+import { TDropStep, TMultiscanStep, TWalletName, TDropType } from 'types'
 import { OverlayScreen } from 'linkdrop-ui'
 import * as dropAsyncActions from 'data/store/reducers/drop/async-actions'
 import { Dispatch } from 'redux'
 import { DropActions } from 'data/store/reducers/drop/types'
 import { PopupWalletListContents, PopupWhatIsWalletContents } from 'components/pages/common'
-import { defineSystem, sortWallets, getWalletOption, defineApplicationConfig, getInjectedWalletOption } from 'helpers'
+import { defineSystem, sortWallets, defineApplicationConfig } from 'helpers'
 import { plausibleApi } from 'data/api'
 import LinkdropLogo from 'images/linkdrop.png'
 import LinkdropLogoLight from 'images/linkdrop-light.png'
-import BrowserWalletIcon from 'images/browser-wallet.png'
 import TProps from './types'
-const { REACT_APP_WC_PROJECT_ID } = process.env
 
 const mapStateToProps = ({
   token: {
@@ -78,25 +68,6 @@ const mapDispatcherToProps = (dispatch: IAppDispatch & Dispatch<DropActions>) =>
 
 type ReduxType = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatcherToProps> & TProps
 
-const isOptionVisible = (
-  option: TWalletOption | undefined,
-  preferredWallet: string | null,
-  currentOption: string,
-  availableWallets: string[],
-  additionalCondition?: boolean
-) => {
-  if (additionalCondition !== undefined && !additionalCondition) {
-    return undefined
-  }
-  if (!option) { return undefined }
-  if (!availableWallets || availableWallets.length === 0 || currentOption === preferredWallet) {
-    return option
-  }
-  if (availableWallets && availableWallets.includes(currentOption)) {
-    return option
-  }
-}
-
 const defineOptionsList = (
   type: TDropType | null,
   setStep: (step: TDropStep & TMultiscanStep) => void,
@@ -136,8 +107,8 @@ const defineOptionsList = (
   }
 
   const wallets = [
-    isOptionVisible(ledgerOption, wallet, 'ledger', availableWallets),
-    isOptionVisible(walletConnectOption, wallet, 'walletconnect', availableWallets)
+    ledgerOption,
+    walletConnectOption
   ]
 
   return sortWallets(wallets)
