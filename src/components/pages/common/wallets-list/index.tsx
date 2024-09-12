@@ -34,8 +34,7 @@ import { DropActions } from 'data/store/reducers/drop/types'
 import {
   defineSystem,
   getWalletOption,
-  getInjectedWalletOption,
-  defineDefaultWalletApp
+  getInjectedWalletOption
 } from 'helpers'
 import BrowserWalletIcon from 'images/browser-wallet.png'
 import TProps from './types'
@@ -177,30 +176,7 @@ const defineOptionsList = (
     }
   }
 
-  const system = defineSystem()
-
   if (!preferredWalletOn) {
-    const defaultWalletApp = defineDefaultWalletApp(chainId)
-    if (defaultWalletApp === 'okx_wallet') {
-      const okxWallet = getWalletOption(
-        'okx_wallet',
-        'OKX Wallet',
-        system,
-        window.location.href, 
-        chainId,
-        <WalletIcon src={OKXWalletIcon} />,
-        deeplinkRedirect,
-        claimCode,
-        wallet
-      )
-
-      // if no preferred wallet chosen
-      return [
-        okxWallet,
-        allWalletsOption
-      ]
-    }
-
     // @ts-ignore
     const coinbaseConnector = connectors.find(connector => connector.id === "coinbaseWalletSDK")
     const coinbaseOption = {
@@ -219,9 +195,9 @@ const defineOptionsList = (
       coinbaseOption,
       allWalletsOption
     ]
-
-    
   }
+
+  const system = defineSystem()
 
 // @ts-ignore
   const injected = connectors.find(connector => connector.id === "injected")

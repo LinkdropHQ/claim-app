@@ -1,5 +1,3 @@
-import { TWalletName } from "types"
-
 const { REACT_APP_INFURA_ID } = process.env
 
 type TChains = {
@@ -8,7 +6,6 @@ type TChains = {
     displayName: string
     testnet: boolean
     alchemySupport: boolean
-    defaultWalletApp: TWalletName
     nativeCurrency: {
       name: string
       symbol: string
@@ -23,7 +20,6 @@ const chains: TChains = {
   137: {
     chainName: 'Polygon',
     displayName: 'Polygon',
-    defaultWalletApp: 'coinbase_smart_wallet',
     testnet: false,
     alchemySupport: true,
     nativeCurrency: {
@@ -41,7 +37,6 @@ const chains: TChains = {
   1: {
     chainName: 'Ethereum Mainnet',
     displayName: 'Mainnet',
-    defaultWalletApp: 'coinbase_smart_wallet',
     testnet: false,
     alchemySupport: true,
     nativeCurrency: {
@@ -59,7 +54,6 @@ const chains: TChains = {
   13371: {
     chainName: 'Immutable zkEVM',
     displayName: 'Immutable zkEVM',
-    defaultWalletApp: 'coinbase_smart_wallet',
     testnet: false,
     alchemySupport: false,
     nativeCurrency: {
@@ -76,7 +70,6 @@ const chains: TChains = {
   },
   8453: {
     chainName: 'Base',
-    defaultWalletApp: 'coinbase_smart_wallet',
     displayName: 'Base',
     testnet: false,
     alchemySupport: false,
@@ -94,7 +87,6 @@ const chains: TChains = {
   },
   196: {
     chainName: 'X Layer',
-    defaultWalletApp: 'okx_wallet',
     displayName: 'X Layer',
     testnet: false,
     alchemySupport: false,

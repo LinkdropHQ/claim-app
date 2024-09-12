@@ -14,7 +14,7 @@ import resolveENS from './resolve-ens'
 import defineNativeTokenSymbol from './define-native-token-symbol'
 import metadataUrlResolve from './metadata-url-resolve'
 import defineNetworkIcon from './define-network-icon'
-import defineDefaultWalletApp from './define-default-wallet-app'
+
 import throttling from './throttling'
 import handleClaimResponseError from './handle-claim-response-error'
 import defineRealNetworkName from './define-real-network-name'
@@ -52,7 +52,6 @@ export {
   defineRealNetworkName,
   throttling,
   capitalize,
-  defineDefaultWalletApp,
   parseRecipientsData,
   defineJSONRpcUrl,
   getHashVariables,
