@@ -179,26 +179,47 @@ const defineOptionsList = (
   const system = defineSystem()
   // @ts-ignore
   const injected = connectors.find(connector => connector.id === "injected")
-
+  
   if (!preferredWalletOn) {
     if (defaultWalletApp === 'okx_wallet') {
-      const okxWallet = getInjectedWalletOption(
-        wallet,
-        system,
-        () => {
-          setStep('download_await')
-        },
-        connect,
-        <WalletIcon src={OKXWalletIcon} />,
-        injected,
-        'OKX Wallet'
-      )
-
-      // if no preferred wallet chosen
-      return [
-        okxWallet,
-        allWalletsOption
-      ]
+      if (system === 'desktop') {
+        const okxWallet = getInjectedWalletOption(
+          wallet,
+          system,
+          () => {
+            setStep('download_await')
+          },
+          connect,
+          <WalletIcon src={OKXWalletIcon} />,
+          injected,
+          'OKX Wallet'
+        )
+  
+        // if no preferred wallet chosen
+        return [
+          okxWallet,
+          allWalletsOption
+        ]
+      } else {
+        const okxWallet = getWalletOption(
+          'okx_wallet',
+          'OKX Wallet',
+          system,
+          window.location.href, 
+          chainId,
+          <WalletIcon src={OKXWalletIcon} />,
+          deeplinkRedirect,
+          claimCode,
+          wallet
+        )
+  
+        // if no preferred wallet chosen
+        return [
+          okxWallet,
+          allWalletsOption
+        ]
+      }
+      
     }
 
     // @ts-ignore
@@ -220,6 +241,7 @@ const defineOptionsList = (
       allWalletsOption
     ]
   }
+
   let injectedOption
   if (defaultWalletApp === 'okx_wallet') {
     injectedOption = getInjectedWalletOption(
