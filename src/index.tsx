@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState,useEffect  } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './components/application'
@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals'
 import { Auth0Provider } from '@auth0/auth0-react'
 import { datadogRum } from '@datadog/browser-rum'
 import { datadogLogs } from '@datadog/browser-logs'
+import { Loader } from 'components/common'
 
 const {
   REACT_APP_AUTH0_DOMAIN,
@@ -19,18 +20,26 @@ const {
 const container = document.getElementById('root') as HTMLElement
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 
-root.render(<React.StrictMode>
-  <Auth0Provider
-    domain={REACT_APP_AUTH0_DOMAIN as string}
-    clientId={REACT_APP_AUTH0_CLIENT_ID as string}
-    authorizationParams={{
-      redirect_uri: window.location.origin
-    }}
-  >
-    <App />
-  </Auth0Provider>
+if (window.location.href.includes('/#/')) {
+  window.location.href = window.location.href.replace('/#/', '/')
+}
+
+const AppInit = () => {
+
+  return <React.StrictMode>
+    <Auth0Provider
+      domain={REACT_APP_AUTH0_DOMAIN as string}
+      clientId={REACT_APP_AUTH0_CLIENT_ID as string}
+      authorizationParams={{
+        redirect_uri: window.location.origin
+      }}
+    >
+      <App />
+    </Auth0Provider>
   </React.StrictMode>
-);
+}
+
+root.render(AppInit())
 
 
 // If you want to start measuring performance in your app, pass a function
