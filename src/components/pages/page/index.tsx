@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import {
   Page,
   MainContent,
@@ -30,10 +30,8 @@ type ReduxType = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispa
 
 const PageComponent: FC<PageProps & ReduxType> = ({
   children,
-  chainId,
-  address,
-  logout
 }) => {
+
   const currentTheme = themes.light
   return <ThemeProvider theme={currentTheme}>
     <Page>
