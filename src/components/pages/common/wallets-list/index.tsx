@@ -288,6 +288,7 @@ const defineOptionsList = (
     },
     icon: <WalletIcon src={CoinabseWalletIcon} />
   }
+  
 
   const coinbaseWalletOption = getWalletOption(
     'coinbase_wallet',
