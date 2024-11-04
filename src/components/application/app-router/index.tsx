@@ -1,5 +1,10 @@
 import { FC } from 'react'
-import { Route, Switch, HashRouter } from 'react-router-dom'
+import {
+  Route,
+  Switch,
+  HashRouter,
+  BrowserRouter
+} from 'react-router-dom'
 import {
   NotFound,
   ClaimPage,
@@ -10,7 +15,7 @@ import {
 } from 'components/pages'
 
 const AppRouter: FC = () => {
-  return <HashRouter>
+  return <BrowserRouter>
     <Switch>
       <Route path='/redeem/:claimCode'><ClaimPage /></Route>
       <Route path='/qr/:qrId'><QR /></Route>
@@ -19,7 +24,7 @@ const AppRouter: FC = () => {
       <Route exact path='/'><HomePage /></Route>
       <Route path='*'><NotFound /></Route>
     </Switch>
-  </HashRouter>
+  </BrowserRouter>
 }
 
 export default AppRouter
