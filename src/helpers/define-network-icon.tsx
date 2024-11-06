@@ -13,6 +13,8 @@ const defineNetworkIcon = (chainId: number) => {
       return BaseNetworkIcon
     case 196:
       return XLayerNetworkIcon
+    case 543210:
+      return MainnetNetworkIcon
     default:
       return MainnetNetworkIcon
   }
