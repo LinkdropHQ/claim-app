@@ -6,7 +6,6 @@ import reportWebVitals from './reportWebVitals'
 import { Auth0Provider } from '@auth0/auth0-react'
 import { datadogRum } from '@datadog/browser-rum'
 import { datadogLogs } from '@datadog/browser-logs'
-import { Loader } from 'components/common'
 
 const {
   REACT_APP_AUTH0_DOMAIN,
@@ -20,12 +19,7 @@ const {
 const container = document.getElementById('root') as HTMLElement
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 
-if (window.location.href.includes('/#/')) {
-  window.location.href = window.location.href.replace('/#/', '/')
-}
-
 const AppInit = () => {
-
   return <React.StrictMode>
     <Auth0Provider
       domain={REACT_APP_AUTH0_DOMAIN as string}

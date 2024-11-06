@@ -42,12 +42,12 @@ const wallets: TWallets = {
         deepLink: (url: string) => `https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(url)}`
       }
     },
-    chains: [1, 137, 8453, 13371]
+    chains: [1, 137, 8453, 13371, 543210]
   },
   metamask: {
     id: 'metamask',
     name: 'MetaMask',
-    chains: [1, 137, 8453, 13371],
+    chains: [1, 137, 8453, 13371, 543210],
     mobile: {
       android: {
         support: true,
@@ -74,7 +74,7 @@ const wallets: TWallets = {
         deepLink: (url: string) => `https://get.status.im/browse/${_withoutProtocol(url)}`
       }
     },
-    chains: [1, 137, 8453, 13371],
+    chains: [1, 137, 8453, 13371, 543210],
   },
   okx_wallet: {
     id: 'okx_wallet',
@@ -108,7 +108,7 @@ const wallets: TWallets = {
         deepLink: (url: string) => `https://link.trustwallet.com/open_url?coin_id=60&url=${encodeURIComponent(url)}`
       }
     },
-    chains: [1, 137, 8453, 13371],
+    chains: [1, 137, 8453, 13371, 543210],
   },
   imtoken: {
     id: 'imtoken',
@@ -127,7 +127,7 @@ const wallets: TWallets = {
           `imtokenv2://navigate/DappView?url=${encodeURIComponent(url)}`
       }
     },
-    chains: [1, 137, 8453, 13371],
+    chains: [1, 137, 8453, 13371, 543210],
   },
   rainbow: {
     id: 'rainbow',
@@ -149,7 +149,7 @@ const wallets: TWallets = {
   walletconnect: {
     id: 'walletconnect',
     name: 'WalletConnect',
-    chains: [1, 137, 8453, 13371],
+    chains: [1, 137, 8453, 13371, 543210],
     mobile: {
       android: {
         support: false
@@ -174,7 +174,7 @@ const wallets: TWallets = {
         deepLink: (url: string) => null
       }
     },
-    chains: [1, 137, 8453, 13371],
+    chains: [1, 137, 8453, 13371, 543210],
   },
   wallet_1inch: {
     id: 'wallet_1inch',
@@ -191,7 +191,7 @@ const wallets: TWallets = {
         deepLink: (url: string) => `https://wallet.1inch.io/app/w3browser?link=${encodeURIComponent(url)}`
       }
     },
-    chains: [1, 137, 8453, 13371],
+    chains: [1, 137, 8453, 13371, 543210],
   },
 }
 

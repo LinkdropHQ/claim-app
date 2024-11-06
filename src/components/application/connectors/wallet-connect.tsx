@@ -7,10 +7,14 @@ import {
   immutableZkEvm,
   xLayer
 } from 'wagmi/chains'
+import {
+  zeroChain
+} from 'configs/chains'
 import { http } from 'wagmi'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 // import { metamaskConfig } from './metamask-connect'
 // import { coinbaseConfig } from './coinbase-connector'
+
 
 import { injected, walletConnect, coinbaseWallet } from 'wagmi/connectors'
 
@@ -35,7 +39,8 @@ const chains = [
   mainnet,
   polygon,
   immutableZkEvm,
-  xLayer
+  xLayer,
+  zeroChain
 ] as const
 
 const config = defaultWagmiConfig({
@@ -56,7 +61,8 @@ const config = defaultWagmiConfig({
     [mainnet.id]: http(),
     [polygon.id]: http(),
     [immutableZkEvm.id]: http(),
-    [xLayer.id]: http()
+    [xLayer.id]: http(),
+    [zeroChain.id]: http()
   },
 })
 

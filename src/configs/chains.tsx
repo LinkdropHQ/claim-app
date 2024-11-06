@@ -1,6 +1,32 @@
 import { TWalletName } from "types"
 
 const { REACT_APP_INFURA_ID } = process.env
+import { type Chain } from 'viem'
+
+export const zeroChain = {
+  id: 543210,
+  name: 'ZERϴ Network',
+  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+  rpcUrls: {
+    default: {
+      http: [
+        'https://rpc.zerion.io/v1/zero'
+      ]
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: 'Zerion Explorer',
+      url: 'https://explorer.zero.network/'
+    },
+  },
+  contracts: {
+    multicall3: {
+      address: '0xca11bde05977b3631167028862be2a173976ca11',
+      blockCreated: 1142990
+    },
+  },
+} as const satisfies Chain
 
 type TChains = {
   [chainId: number]: {
@@ -108,6 +134,24 @@ const chains: TChains = {
     ],
     blockExplorerUrls: [
       'https://www.oklink.com/xlayer'
+    ]
+  },
+  543210: {
+    chainName: 'ZERϴ Network',
+    defaultWalletApp: 'coinbase_smart_wallet',
+    displayName: 'ZERϴ Network',
+    testnet: false,
+    alchemySupport: false,
+    nativeCurrency: {
+      name: 'ETH',
+      symbol: 'ETH',
+      decimals: 18
+    },
+    rpcUrls: [
+      'https://rpc.zerion.io/v1/zero'
+    ],
+    blockExplorerUrls: [
+      'https://explorer.zero.network/'
     ]
   }
 }
