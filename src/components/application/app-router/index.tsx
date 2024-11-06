@@ -15,7 +15,7 @@ import {
 } from 'components/pages'
 
 const AppRouter: FC = () => {
-  return <BrowserRouter>
+  return <HashRouter>
     <Switch>
       <Route path='/redeem/:claimCode'><ClaimPage /></Route>
       <Route path='/qr/:qrId'><QR /></Route>
@@ -24,7 +24,7 @@ const AppRouter: FC = () => {
       <Route exact path='/'><HomePage /></Route>
       <Route path='*'><NotFound /></Route>
     </Switch>
-  </BrowserRouter>
+  </HashRouter>
 }
 
 export default AppRouter
