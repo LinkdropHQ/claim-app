@@ -54,6 +54,17 @@ const HomePage: FC<ReduxType> = ({
   const [ error, setError ] = useState<string | undefined>(undefined)
   const configs = defineApplicationConfig()
 
+  useEffect(() => {
+    if (window.location.href.includes('code.linkdrop.io')) {
+      const url = new URL(window.location.href)
+      const host = url.host
+      const code = host.split('.')[0]
+      if (code) {
+        history.push(`/redeem/${code}?src=d`)
+      }
+    }
+  }, [])
+
   const onClick = async () => {
     const link = await getLink(code, (claimCode) => {
       history.push(`/redeem/${claimCode}`)
