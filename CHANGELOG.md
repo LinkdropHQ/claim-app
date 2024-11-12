@@ -1,5 +1,8 @@
 # Linkdrop Claim app
 
+## 2.2.32
+- zero network support
+
 ## 2.2.31
 - wagmi update, web3modal removed
 
