@@ -8,7 +8,7 @@ import {
 } from './styled-components'
 import { RootState } from 'data/store'
 import { connect } from 'react-redux'
-import { AdditionalNoteComponent, OverlayScreen } from 'linkdrop-ui'
+// import { AdditionalNoteComponent, OverlayScreen } from 'linkdrop-ui'
 import LinkdropLogo from 'images/linkdrop.png'
 import LinkdropLogoLight from 'images/linkdrop-light.png'
 import { PopupContents } from './components'
@@ -51,21 +51,21 @@ const WalletRedirectAwait: FC<ReduxType> = ({
     >
       Open in {wallet?.name}
     </ButtonStyled> : null}
-    <AdditionalNoteComponent
+    {/* <AdditionalNoteComponent
       text='Need help? Read here how to proceed'
       position='bottom'
       onClick={() => {
         setShowPopup(true)
       }}
-    />
-    {showPopup && <OverlayScreen
+    /> */}
+    {/* {showPopup && <OverlayScreen
       headerLogo={configs.footerLogoStyle === 'dark' ? LinkdropLogo : LinkdropLogoLight}
       title='Need Help?'
       onCloseAction={() => { setShowPopup(false) }}
       mainAction={() => { setShowPopup(false) }}
     >
       <PopupContents />
-    </OverlayScreen>}
+    </OverlayScreen>} */}
   </Container>
 }
 

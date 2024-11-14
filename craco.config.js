@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   webpack: {
@@ -9,6 +10,7 @@ module.exports = {
         process: 'process/browser',
       })
     ],
+    
     configure: {
       ignoreWarnings: [{ module: /node_modules\// }]
     }
@@ -28,7 +30,39 @@ module.exports = {
           os: false,
           stream: false,
         }
-      }
+      },
+      optimization: {
+        ...webpackConfig.optimization,
+        concatenateModules: true,
+        minimizer: [
+          new TerserPlugin({
+            terserOptions: {
+              parse: {
+                ecma: 8,
+              },
+              compress: {
+                ecma: 5,
+                warnings: false,
+                inline: 2,
+                unused: true,
+                dead_code: true,
+              },
+              mangle: {
+                safari10: true,
+              },
+              keep_classnames: false,
+              keep_fnames: false,
+              output: {
+                ecma: 5,
+                comments: false,
+                ascii_only: true,
+              },
+            },
+            sourceMap: false,
+          }),
+          webpackConfig.optimization.minimizer[1]
+        ],
+      },
     }
   },
   babel: {

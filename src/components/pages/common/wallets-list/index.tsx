@@ -17,9 +17,8 @@ import RainbowWalletIcon from 'images/rainbow-wallet.png'
 import ImtokenWalletIcon from 'images/imtoken-wallet.png'
 import OKXWalletIcon from 'images/okx-wallet.png'
 import ZerionWallet from 'images/zerion-wallet.png'
-
 import Wallet1inch from 'images/wallet-1inch.png'
-import { Config, useConnect } from 'wagmi'
+import { useConnect } from 'wagmi'
 import {
   TDropStep,
   TMultiscanStep,
@@ -29,7 +28,6 @@ import {
 } from 'types'
 import * as dropAsyncActions from 'data/store/reducers/drop/async-actions'
 import * as dropActions from 'data/store/reducers/drop/actions'
-
 import { Dispatch } from 'redux'
 import { DropActions } from 'data/store/reducers/drop/types'
 import {

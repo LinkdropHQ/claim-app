@@ -1,14 +1,14 @@
 import { FC } from 'react'
-import {
-  OverlayParagraph,
-  OverlaySubtitle,
-  OverlayTitle,
-  OverlayList
-} from 'linkdrop-ui'
+// import {
+//   OverlayParagraph,
+//   OverlaySubtitle,
+//   OverlayTitle,
+//   OverlayList
+// } from 'linkdrop-ui'
 
 const PopupContents: FC = () => {
   return <>
-    <OverlaySubtitle>Why do I need a wallet?</OverlaySubtitle>
+    {/* <OverlaySubtitle>Why do I need a wallet?</OverlaySubtitle>
     <OverlayParagraph>
       A crypto wallet is necessary to connect to a web3 service because it allows you to authenticate your identity and authorize your actions on the Ethereum blockchain.
     </OverlayParagraph>
@@ -31,7 +31,7 @@ const PopupContents: FC = () => {
       <li>Allows easy buying and selling of cryptocurrency.</li>
       <li>Provides access to professional support and customer service.</li>
       <li>Supports a limited range of cryptocurrencies.</li>
-    </OverlayList>
+    </OverlayList> */}
   </>
 }
 

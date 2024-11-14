@@ -6,7 +6,6 @@ type TDropStep = 'loading' |
                  'check_eligibility' |
                  'set_connector' |
                  'no_tokens_left' |
-                 'set_address' |
                  'error' |
                  'already_claimed' |
                  'error_transaction' |
@@ -24,7 +23,6 @@ type TDropStep = 'loading' |
                  'short_code_loading' |
                  'download_await' |
                  'ledger_connection' |
-                 'wallet_redirect_await' |
-                 'crossmint_connection' 
+                 'wallet_redirect_await'
 
 export default TDropStep

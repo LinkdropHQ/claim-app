@@ -7,14 +7,12 @@ import {
   Account,
   Address,
   Logout,
-  Profile,
-  Avatar
+  Profile
 } from './styled-components'
 import { NetworkIndicator } from '..'
 import {
   shortenString
 } from 'helpers'
-import AvatarImage from 'images/avatar.png'
 import TProps from './types'
 import { RootState, IAppDispatch } from 'data/store'
 import { connect } from 'react-redux'

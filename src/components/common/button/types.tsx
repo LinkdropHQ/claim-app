@@ -2,10 +2,10 @@ import { TButtonAppearance } from 'types'
 
 type TButtonTarget = '_blank' | '_self' | '_parent' | '_top'
 
-export type TProps<TLoadingType = boolean> = {
+export type TProps = {
   title?: string
   disabled?: boolean
-  loading?: TLoadingType
+  loading?: boolean
   onClick?: () => void
   appearance?: TButtonAppearance
   className?: string
@@ -14,5 +14,5 @@ export type TProps<TLoadingType = boolean> = {
   to?: string
   target?: TButtonTarget
   type?: string
-  children?: React.ReactNode
+  children?: React.ReactNode | React.ReactNode[]
 }
