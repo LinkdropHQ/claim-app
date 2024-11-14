@@ -1,5 +1,10 @@
 import { FC } from 'react'
-import { ScreenLoaderContainer, LoaderStyled, ScreenTitle, ButtonStyled } from './styled-components'
+import {
+  ScreenLoaderContainer,
+  LoaderStyled,
+  ScreenTitle,
+  ButtonStyled
+} from './styled-components'
 import { TProps } from './types'
 
 const ScreenLoader: FC<TProps> = ({

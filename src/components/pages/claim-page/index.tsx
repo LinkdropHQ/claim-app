@@ -13,7 +13,6 @@ import ErrorNoConnectionPage from './error-no-connection'
 import { useEthersSigner } from 'hooks'
 import {
   WalletsListPage,
-  SetAddress,
   PageHeader,
   LedgerConnection,
   DownloadAwait,
@@ -136,10 +135,6 @@ const defineCurrentScreen: TDefineStep = (step, setStep, setAddressCallback) => 
       return <NoTokensLeft />
     case 'error':
       return <ErrorPage />
-    case 'set_address':
-      return <SetAddress
-        onSubmit={setAddressCallback}
-      />
     case 'error_transaction':
       return <ErrorTransactionPage />
     case 'error_region':
@@ -185,7 +180,6 @@ const defineBackAction = (
   action: (prevoiusStep: TDropStep) => void
 ) => {
   switch (step) {
-    case 'set_address':
     case 'download_await':
     case 'ledger_connection':
       return () => action('wallets_list')

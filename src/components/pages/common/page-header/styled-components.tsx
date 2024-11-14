@@ -51,14 +51,6 @@ export const Account = styled.div`
   }
 `
 
-export const Avatar = styled.img`
-  width: 16px;
-  height: 16px;
-  border-radius: 16px;
-  display: block;
-  margin-left: 8px;
-`
-
 export const Address = styled.div<TAccount>`
   height: 28px;
   border-radius: 28px;

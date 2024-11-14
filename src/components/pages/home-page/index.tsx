@@ -4,10 +4,10 @@ import {
   Container,
   Title,
   Description,
-  InputStyled,
   ButtonStyled,
   LinkdropHeader,
-  LinkdropHeaderLogo
+  LinkdropHeaderLogo,
+  InputStyled
 }  from './styled-components'
 import Page from '../page'
 import { IAppDispatch, RootState } from 'data/store'
