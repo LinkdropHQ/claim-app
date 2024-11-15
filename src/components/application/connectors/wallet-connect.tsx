@@ -64,7 +64,12 @@ createAppKit({
   // @ts-ignore
   networks,
   projectId,
-  metadata
+  metadata,
+  features: {
+    email: true, // default to true
+    socials: ['google'],
+    emailShowWallets: true, // default to true
+  }
 })
 
 
