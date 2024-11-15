@@ -1,5 +1,10 @@
 # Linkdrop Claim app
 
+## 2.2.32
+- dispenser removed
+- bundle size optimization
+- loader added on initial screen
+
 ## 2.2.31
 - wagmi update, web3modal removed
 
