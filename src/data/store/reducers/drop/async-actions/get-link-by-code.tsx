@@ -6,8 +6,8 @@ import { ethers } from 'ethers'
 import * as actionsDrop from '../actions'
 import * as actionsUser from '../../user/actions'
 import { TLinkParams, TDropType, TWalletName } from 'types'
-import LinkdropSDK from 'linkdrop-sdk'
-const { REACT_APP_DASHBOARD_SERVER_URL } = process.env
+import LinkdropSDK from 'linkdrop-batch-sdk'
+const { REACT_APP_DASHBOARD_SERVER_URL, REACT_APP_ZUPLO_API_KEY } = process.env
 
 export default function getLinkByCode(
   linkCode: string,
@@ -19,7 +19,8 @@ export default function getLinkByCode(
     dispatch(actionsDrop.setLoading(true))
     dispatch(actionsDrop.setError(null))
     const sdk = new LinkdropSDK({
-      apiHost: REACT_APP_DASHBOARD_SERVER_URL
+      apiHost: REACT_APP_DASHBOARD_SERVER_URL,
+      apiKey: REACT_APP_ZUPLO_API_KEY
     })
     dispatch(actionsUser.setSDK(sdk)) 
     const linkKey = ethers.utils.id(linkCode)

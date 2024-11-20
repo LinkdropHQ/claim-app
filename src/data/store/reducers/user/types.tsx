@@ -1,6 +1,6 @@
 import { ActionType } from 'typesafe-actions'
 import * as actions from './actions'
-import LinkdropSDK from 'linkdrop-sdk'
+import LinkdropSDK from 'linkdrop-batch-sdk'
 
 export interface UserState {
   address: string
