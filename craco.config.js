@@ -1,16 +1,15 @@
-const path = require('path')
-const rewireBabelLoader = require("craco-babel-loader")
-const fs = require("fs")
-const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
+const webpack = require('webpack')
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
 
 module.exports = {
   webpack: {
-    alias: {
-      react: path.resolve('./node_modules/react')
-    }
+  
   },
   babel: {
-    plugins: ["@babel/plugin-proposal-nullish-coalescing-operator", "@babel/plugin-proposal-optional-chaining"],
+    plugins: [
+      "@babel/plugin-proposal-nullish-coalescing-operator",
+      "@babel/plugin-proposal-optional-chaining",
+      ["@babel/plugin-transform-class-properties", { "loose": true }]
+    ],
   },
 }
