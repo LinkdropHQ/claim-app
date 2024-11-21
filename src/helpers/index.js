@@ -32,8 +32,10 @@ import getInjectedWalletOption from './get-injected-wallet-option'
 import defineApplicationConfig from './define-application-config'
 import defineLedgerClaimDescription from './define-ledger-claim-description'
 import defineLedgerClaimTitle from './define-ledger-claim-title'
+import defineApiHeaders from './define-api-headers'
 
 export {
+  defineApiHeaders,
   copyToClipboard,
   defineLedgerClaimDescription,
   defineApplicationConfig,
