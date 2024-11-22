@@ -1,6 +1,12 @@
 import axios, { AxiosResponse } from 'axios'
 import { TMultiscanCampaign } from 'types'
-const { REACT_APP_DASHBOARD_SERVER_URL } = process.env
+import {
+  defineApiHeaders
+} from 'helpers'
+const {
+  REACT_APP_DASHBOARD_SERVER_URL,
+  REACT_APP_ZUPLO_API_KEY
+} = process.env
 
 type TGetMultiQRCampaignResponse = {
   success: boolean
@@ -18,7 +24,12 @@ export type TGetMultiQRCampaignData = (
 const getMultiQRCampaignData: TGetMultiQRCampaignData = (
   multiscanQRId
 ) => {
-  return axios.get(`${REACT_APP_DASHBOARD_SERVER_URL}/api/v2/dashboard/dispensers/multiscan-qrs/${multiscanQRId}/campaign`)
+  const headers = defineApiHeaders(
+    REACT_APP_ZUPLO_API_KEY as string
+  )
+  return axios.get(`${REACT_APP_DASHBOARD_SERVER_URL}/api/v2/dashboard/dispensers/multiscan-qrs/${multiscanQRId}/campaign`, {
+    headers
+  })
 }
 
 export default getMultiQRCampaignData
