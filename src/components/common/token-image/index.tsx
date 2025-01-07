@@ -1,21 +1,32 @@
 import { FC } from 'react'
 import { TokenImage, TokenVideo, TokenVideoSource } from './styled-components'
+import { TProps } from './types'
 
-type TProps = {
-  src: string,
-  alt: string,
-  className?: string
+const defineSrcUrl = (
+  src: string
+) => {
+  // current solution
+  if (!src.includes('ucarecdn.com')) {
+    return src
+  }
+
+  return `${src}-/preview/368x368/-/format/auto/-/quality/smart/`
 }
 
-const TokenImageComponent: FC<TProps> = ({ src, alt, className }) => {
+const TokenImageComponent: FC<TProps> = ({
+  src,
+  alt,
+  className
+}) => {
+  const finalSrc = defineSrcUrl(src)
   if (src.includes('.mp4') || src.includes('video/mp4')) {
     return <TokenVideo muted autoPlay className={className} loop playsInline>
-      <TokenVideoSource src={src} type="video/mp4"/>
+      <TokenVideoSource src={finalSrc} type="video/mp4"/>
       Your browser does not support the video tag.
     </TokenVideo>
   }
   return <TokenImage
-    src={src}
+    src={finalSrc}
     alt={alt}
     className={className}
   />
