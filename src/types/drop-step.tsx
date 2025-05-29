@@ -10,6 +10,7 @@ type TDropStep = 'loading' |
                  'error' |
                  'already_claimed' |
                  'error_transaction' |
+                 'error_campaign_paused' |
                  'error_no_connection' |
                  'error_server_fail' |
                  'link_expired' |
