@@ -6,8 +6,6 @@ const ErrorComponent: FC = (props) => {
   return <>
     <Image src={ErrorImageBlack} />
     <Title>Campaign is paused</Title>
-    <Subtitle>Please, try again later</Subtitle>
-    <ButtonStyled onClick={() => window.location.reload()}>Retry</ButtonStyled>
   </>
 }
 
