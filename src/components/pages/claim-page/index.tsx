@@ -23,6 +23,7 @@ import ErrorServerFail from './error-server-fail'
 import ErrorRegion from './error-region'
 import ErrorLinkExpired from './error-link-expired'
 import ErrorAlreadyClaimed from './error-already-claimed'
+import ErrorCampaignPaused from './error-campaign-paused'
 import ErrorLinkNotFound from './error-link-not-found'
 import ErrorLinkNoConnection from './error-link-no-connection'
 import ErrorMultipleClaimsForbidden from './error-multiple-claims-forbidden'
@@ -147,6 +148,8 @@ const defineCurrentScreen: TDefineStep = (step, setStep, setAddressCallback) => 
       return <ErrorRegion />
     case 'error_multiple_claims_forbidden':
       return <ErrorMultipleClaimsForbidden /> 
+    case 'error_campaign_paused':
+      return <ErrorCampaignPaused />
     case 'error_no_connection':
       return <ErrorNoConnectionPage />
     case 'error_server_fail':
