@@ -38,6 +38,11 @@ const handleError = (
         if (error.response.data.errors[0] === "MULTIPLE_CLAIMS_FORBIDDEN") {
           dispatch(dropActions.setStep('error_multiple_claims_forbidden'))
           return
+        } else if (
+          error.response.data.errors[0] === "LINKDROP_PROXY_CONTRACT_PAUSED"
+        ) {
+          dispatch(dropActions.setStep('error_campaign_paused'))
+          return
         }
       }
 
