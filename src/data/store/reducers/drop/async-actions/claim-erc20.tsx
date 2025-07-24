@@ -200,13 +200,47 @@ const claimManually = async (
     return alertError('Factory address is not defined')
   }
   try {
+    console.log('CLAIMING START')
     const linkId = new ethers.Wallet(linkKey).address
+    console.log('linkId: ', { linkId, address })
+
     const receiverSignature = await signReceiverAddress(linkKey, address)
+    console.log('receiverSignature: ', { receiverSignature })
     const contract = new ethers.Contract(
       factoryAddress,
       LinkdropFactory.abi,
       signer
     )
+    console.log('contract: ', { contract })
+
+
+    const txData = contract.interface.encodeFunctionData('claim', [
+      weiAmount,
+      tokenAddress,
+      amount,
+      expirationTime,
+      linkId,
+      linkdropMasterAddress,
+      campaignId,
+      linkdropSignerSignature,
+      address,
+      receiverSignature
+    ]);
+
+    console.log("Transaction Data:", txData);
+
+    console.log({
+      weiAmount,
+      tokenAddress,
+      amount,
+      expirationTime,
+      linkId,
+      linkdropMasterAddress,
+      campaignId,
+      linkdropSignerSignature,
+      address,
+      receiverSignature
+    })
 
     const { hash } = await contract.claim(
       weiAmount,
