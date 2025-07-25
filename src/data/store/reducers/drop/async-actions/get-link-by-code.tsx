@@ -68,15 +68,15 @@ export default function getLinkByCode(
         redirect_link
       } : TLinkParams = data
 
-      if (is_redirect && redirect_link) {
-        if (window.location.href === redirect_link) {
-          return 
-        }
+      // if (is_redirect && redirect_link) {
+      //   if (window.location.href === redirect_link) {
+      //     return 
+      //   }
 
-        window.open(redirect_link, '_blank')
-        window.close()
-        return
-      }
+      //   window.open(redirect_link, '_blank')
+      //   window.close()
+      //   return
+      // }
 
 
       dispatch(actionsDrop.setChainId(Number(chain_id)))
