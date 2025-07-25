@@ -74,6 +74,7 @@ export default function getLinkByCode(
         }
 
         window.open(redirect_link, '_blank')
+        window.close()
         return
       }
 
