@@ -73,7 +73,7 @@ export default function getLinkByCode(
           return 
         }
 
-        window.open(redirect_link, '_self')
+        window.open(redirect_link, '_blank')
         return
       }
 
