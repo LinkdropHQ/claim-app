@@ -67,13 +67,13 @@ export default function getLinkByCode(
         is_redirect,
         redirect_link
       } : TLinkParams = data
-      console.log({
-                is_redirect,
-        redirect_link
-      })
-      if (is_redirect && redirect_link) {
-        window.location.href = redirect_link
 
+      if (is_redirect && redirect_link) {
+        if (window.location.href === redirect_link) {
+          return 
+        }
+
+        window.open(redirect_link, '_self')
         return
       }
 
