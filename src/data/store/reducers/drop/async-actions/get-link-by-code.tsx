@@ -63,8 +63,16 @@ export default function getLinkByCode(
         token_image,
         token_name,
         additional_wallets_on,
-        factory_address
+        factory_address,
+        is_redirect,
+        redirect_link
       } : TLinkParams = data
+
+      if (is_redirect && redirect_link) {
+        window.location.href = redirect_link
+
+        return
+      }
 
 
       dispatch(actionsDrop.setChainId(Number(chain_id)))
