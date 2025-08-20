@@ -40,7 +40,6 @@ const networks = [
   zeroChain
 ]
 
-
 // @ts-ignore
 const wagmiAdapter = new WagmiAdapter({
   networks,
@@ -64,7 +63,11 @@ createAppKit({
   // @ts-ignore
   networks,
   projectId,
-  metadata
+  metadata,
+  features: {
+    email: false,
+    socials: []
+  }
 })
 
 
