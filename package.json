@@ -65,17 +65,17 @@
     ]
   },
   "resolutions": {
-    "immer": "^9.0.6",
-    "minimatch": "^3.0.5",
-    "node-forge": "^1.3.0",
-    "nth-check": "^2.0.1",
-    "glob-parent": "^5.1.2",
-    "ansi-html": "^0.0.8",
-    "shell-quote": "^1.7.3",
-    "ejs": "^3.1.7",
-    "browserslist": "^4.16.5",
-    "@types/react": "^18.0.21",
-    "@coinbase/wallet-sdk": "^4.2.1",
+    "immer": "9.0.6",
+    "minimatch": "3.0.5",
+    "node-forge": "1.3.0",
+    "nth-check": "2.0.1",
+    "glob-parent": "5.1.2",
+    "ansi-html": "0.0.8",
+    "shell-quote": "1.7.3",
+    "ejs": "3.1.7",
+    "browserslist": "4.24.2",
+    "@types/react": "18.3.1",
+    "@coinbase/wallet-sdk": "4.2.1",
     "react-error-overlay": "6.0.9"
   },
   "devDependencies": {
