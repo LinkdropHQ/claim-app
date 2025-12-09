@@ -6,10 +6,9 @@ import {
 } from './styled-components'
 import { ThemeProvider } from 'styled-components'
 import themes from 'themes'
-import { RootState, IAppDispatch } from 'data/store'
+import { RootState } from 'data/store'
 import { connect } from 'react-redux'
 import { PageProps } from './types'
-import * as userAsyncActions from 'data/store/reducers/user/async-actions'
 
 const mapStateToProps = ({
   drop: { theme },
@@ -20,13 +19,8 @@ const mapStateToProps = ({
   chainId
 })
 
-const mapDispatcherToProps = (dispatch: IAppDispatch) => {
-  return {
-    logout: () => dispatch(userAsyncActions.logout())
-  }
-}
 
-type ReduxType = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatcherToProps>
+type ReduxType = ReturnType<typeof mapStateToProps>
 
 const PageComponent: FC<PageProps & ReduxType> = ({
   children,
@@ -45,4 +39,4 @@ const PageComponent: FC<PageProps & ReduxType> = ({
 }
 
 
-export default connect(mapStateToProps, mapDispatcherToProps)(PageComponent)
+export default connect(mapStateToProps)(PageComponent)
