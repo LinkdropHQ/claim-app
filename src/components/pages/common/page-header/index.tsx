@@ -21,6 +21,7 @@ import { connect } from 'react-redux'
 import * as userAsyncActions from 'data/store/reducers/user/async-actions'
 
 import { defineApplicationConfig } from 'helpers'
+import { useDisconnect } from 'wagmi'
 const config = defineApplicationConfig()
 
 const mapStateToProps = ({
@@ -57,6 +58,8 @@ const PageHeader: FC<ReduxType> = ({
   loading
 }) => {
 
+  const { disconnect } = useDisconnect()
+
   if (!address || !chainId) {
     return <LinkdropHeader>
       {backAction && <LinkdropHeaderBack onClick={backAction}>
@@ -79,6 +82,7 @@ const PageHeader: FC<ReduxType> = ({
       </Account>}
       {address && <Logout
         onClick={() => {
+          disconnect()
           logout()
         }}
       >
